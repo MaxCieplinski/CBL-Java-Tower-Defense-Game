@@ -8,7 +8,7 @@ import javax.swing.JButton;
 /**
  * Object of type Tower.
  */
-public class Tower extends Building {
+public class Tower extends GridCell {
     double radius = 10;
     int size;
     int row;
@@ -21,6 +21,9 @@ public class Tower extends Building {
      */
     public Tower(Player player, int row, int column, int size, JPanel panel) {
         super(row, column, player, size, panel);
+        super.occupied = true;
+        super.empty = false;
+
         System.out.println("Tower placed at " + row + ", " + column);
     }
 

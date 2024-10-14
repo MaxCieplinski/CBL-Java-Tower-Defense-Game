@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Building {
+public class GridCell {
     enum CELL_VALUE {
         EMPTY
     }
@@ -29,7 +29,7 @@ public class Building {
      * @param x x position.
      * @param y y position.
      */
-    public Building(int x, int y, Player player, int cellSize, JPanel panel) {
+    public GridCell(int x, int y, Player player, int cellSize, JPanel panel) {
         this.x = x;
         this.y = y;
         this.panel = panel;
@@ -37,7 +37,7 @@ public class Building {
         this.cellSize = cellSize;
     }
 
-    public void displayOptions(Building[][] grid) {
+    public void displayOptions(GridCell[][] grid) {
         // Possibly change this to JPanel for greater customization
         // TODO Destroy the JPopupMenu instance after clicking on other cell
         JPopupMenu optionsMenu = new JPopupMenu();
@@ -85,26 +85,25 @@ public class Building {
     }
 
 
-    public void buyTower(Player player, int price, Building[][] grid) {
+    public void buyTower(Player player, int price, GridCell[][] grid) {
         if (player.getGold() >= price) {
             player.subtractGold(price);
             Tower tower = new Tower(player, this.x, this.y, 25, this.panel);
-            //System.out.println(this.x);
+
+            //Compensating for cellsize = 25;
             grid[this.getX() / 25][this.getY() / 25] = tower;
             grid[this.getX() / 25][this.getY() / 25].color = Color.MAGENTA;
-            tower.empty = false;
-            tower.occupied = true;
         }
     }
 
-    public void buyWall(Player player, int price, Building[][] grid) {
+    public void buyWall(Player player, int price, GridCell[][] grid) {
         if (player.getGold() >= price) {
             player.subtractGold(price);
             Wall wall = new Wall(this.x, this.y, player, panel);
+
+            //Compensating for cellsize = 25;
             grid[this.getX() / 25][this.getY() / 25] = wall;
             grid[this.getX() / 25][this.getY() / 25].color = Color.green;
-            wall.empty = false;
-            wall.occupied = true;
         }
     }
 

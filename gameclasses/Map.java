@@ -1,21 +1,29 @@
 package gameclasses;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
+import javax.swing.*;
 
+
+/**
+ * Class that contains an object of type map, which consists of a two-dimensional gridcell array.
+ * Each gridcell has an x,y and cellSize.
+ */
 public class Map {
     int cellSize;
     int y;
     int x;
     JPanel panel;
-    Building[][] grid;
+    GridCell[][] grid;
     Player player;
 
+    /**
+     * Constructs an object of type map.
+     * @param cellSize size of each grid.
+     * @param panel the JPanel object.
+     * @param player the object of type player.
+     */
     public Map(int cellSize, JPanel panel, Player player) {
         this.cellSize = cellSize;
         this.panel = panel;
@@ -29,16 +37,19 @@ public class Map {
         });
     }
 
+    /**
+     * Initializes the gridcells.
+     */
     public void initializeGrid() {
         System.out.println("Initializing grid...");
         y = this.panel.getHeight() / cellSize;
         x = this.panel.getWidth() / cellSize;
-        grid = new Building[x][y];
+        grid = new GridCell[x][y];
 
         for (int col = 0; col < x; col++) {
             for (int row = 0; row < y; row++) {
                 // Create a new GridCell at each position (row, col) based on cell size
-                grid[col][row] = new Building(col * cellSize, row * cellSize, 
+                grid[col][row] = new GridCell(col * cellSize, row * cellSize, 
                             this.player, cellSize, panel);
             }
         }
@@ -51,7 +62,7 @@ public class Map {
         // Iterate through each cell in the grid and draw it
         for (int col = 0; col < x; col++) {
             for (int row = 0; row < y; row++) {
-                Building cell = grid[col][row];
+                GridCell cell = grid[col][row];
                 g.setColor(cell.color);
                 g.fillRect(cell.getX(), cell.getY(),
                             cellSize, cellSize);
@@ -78,7 +89,7 @@ public class Map {
     }
 
 
-    public Building[][] getMap() {
+    public GridCell[][] getMap() {
         return this.grid;
     }
 }
