@@ -10,10 +10,10 @@ public class Collider {
         this.currEntity = e;
     }
 
-    public boolean checkForCollision(Building[][] buildings) {
-        Building[][] buildings2 = Arrays.copyOf(buildings, buildings.length);
-        for (Building[] bArray : buildings2) {
-            for (Building b : bArray) {
+    public boolean checkForCollision(GridCell[][] buildings) {
+        GridCell[][] buildings2 = Arrays.copyOf(buildings, buildings.length);
+        for (GridCell[] bArray : buildings2) {
+            for (GridCell b : bArray) {
                 if (this.collidesWith(b) && !b.isEmpty()) {
                     return true;
                 }
@@ -23,7 +23,7 @@ public class Collider {
         return false;
     }
 
-    private boolean collidesWith(Building b) {
+    private boolean collidesWith(GridCell b) {
         //Offset so player doesn't enter inside the wall during animation.
         double offset = 0.05;
         return currEntity.getXPosition() - offset < b.getX() + b.getSize()
