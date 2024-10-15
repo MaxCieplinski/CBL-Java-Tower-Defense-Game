@@ -1,6 +1,7 @@
 import gameclasses.GamePanel;
 import gameclasses.MenuPanel;
 import java.awt.BorderLayout;
+import java.lang.classfile.instruction.ThrowInstruction;
 import javax.swing.*;
 
 /**
