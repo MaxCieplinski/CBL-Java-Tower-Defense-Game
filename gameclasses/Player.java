@@ -32,7 +32,7 @@ public class Player extends Entity {
                 ArrayList<Entity> entities, double width, double height) {
 
         super(x, y, entities, width, height);
-
+                
         this.panel = panel;
         this.speed = speed;
         this.health = 100;
@@ -47,6 +47,7 @@ public class Player extends Entity {
                 }
 
                 if (key == KeyEvent.VK_DOWN) {
+                    System.out.println("DOWN");
                     down = true;
                 }
 
