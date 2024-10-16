@@ -10,7 +10,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     ArrayList<Entity> entities = new ArrayList<>();
 
-    Player player = new Player(0, 0, 4, this, entities, 20, 20);
+    public Player player = new Player(0, 0, 4, this, entities, 20, 20);
 
     Map map = new Map(25, this, player);
 

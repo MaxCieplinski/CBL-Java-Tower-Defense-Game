@@ -116,6 +116,9 @@ public class Player extends Entity {
         //System.out.println("Y: " + super.getYPosition());
     }
 
+    /**
+     * Resets the player position to one movement before.
+     */
     public void resetPlayerPosition() {
         super.setPosition(super.getOldX(), super.getOldY());
 

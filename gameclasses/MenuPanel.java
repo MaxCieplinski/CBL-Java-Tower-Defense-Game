@@ -1,8 +1,10 @@
 package gameclasses;
+
 import java.awt.*;
 import javax.swing.JPanel;
 
 public class MenuPanel extends JPanel {
+
     public MenuPanel() {
         this.setFocusable(true);
         this.setPreferredSize(new Dimension(1400, 200));
@@ -22,6 +24,7 @@ public class MenuPanel extends JPanel {
         // Draw more text with a different font or color if needed
         g.setFont(new Font("Arial", Font.PLAIN, 20));
         g.drawString("WAVE: ", 50, 140);
-        g.drawString("GOLD: ", 50, 170);  
+        g.drawString("GOLD: ", 50, 170);
     }
+    
 }
