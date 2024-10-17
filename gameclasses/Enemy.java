@@ -82,6 +82,10 @@ public class Enemy extends Entity {
         return false;
     }
 
+    public void findPathToTownHall() {
+        
+    }
+
     public int moveX(double middleOfPanelX, double middleOfPanelY, int size) {
         double distanceX = (middleOfPanelX - size) - this.getXPosition();
 

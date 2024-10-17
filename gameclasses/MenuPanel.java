@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 public class MenuPanel extends JPanel {
 
     int gold = 1000;
+    String waveStatus;
 
     /**
      * Constructor for a menu panel object.
@@ -31,12 +32,15 @@ public class MenuPanel extends JPanel {
 
         // Draw more text with a different font or color if needed
         g.setFont(new Font("Arial", Font.PLAIN, 20));
-        g.drawString("WAVE: ", 50, 140);
+        g.drawString("WAVE: " + waveStatus, 50, 140);
         g.drawString("GOLD: " + gold, 50, 170);
     }
 
     public void setGold(int gold) {
         this.gold = gold;
     }
-    
+
+    public void setWave(String waveStatus) {
+        this.waveStatus = waveStatus;
+    }
 }

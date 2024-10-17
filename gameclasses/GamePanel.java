@@ -2,6 +2,7 @@ package gameclasses;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Optional;
 import javax.swing.*;
 
 /**
@@ -21,13 +22,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     Map map = new Map(25, this, player);
 
-    Wave wave = new Wave(50, player);
+    Wave wave = new Wave(this, 10, 1.2, player);
 
     /**
      * Constructs a gamepanel object.
      */
     public GamePanel(MenuPanel menuPanel) {
-        
         this.menuPanel = menuPanel;
 
         this.setFocusable(true);
@@ -48,6 +48,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
         SwingUtilities.invokeLater(() -> {
             map.initializeGrid();
+            wave.startWaveThread();
+            //wave.run();
         });
 
         double drawInterval = 1000000000 / fps;
@@ -99,7 +101,7 @@ public class GamePanel extends JPanel implements Runnable {
         map.drawGrid(g);
         player.paintPlayer(g);
         wave.paintEnemies(g);
-        updateMenu(menuPanel);
+        updateMenu(Optional.empty());
         townHall.paintTownHall(g);
     }
 
@@ -107,8 +109,15 @@ public class GamePanel extends JPanel implements Runnable {
      * Updates menu panel.
      * @param menuPanel the panel that contains labels like gold, wave.
      */
-    public void updateMenu(MenuPanel menuPanel) {
-        menuPanel.setGold(player.getGold());
-        menuPanel.repaint();
+    public void updateMenu(Optional<String> waveStatus) {
+        SwingUtilities.invokeLater(() -> {
+            menuPanel.setGold(player.getGold());
+    
+            // Only update wave status if present
+            waveStatus.ifPresent(menuPanel::setWave);
+    
+            // Repaint the menu panel to reflect updates
+            menuPanel.repaint();
+        });
     }
 }

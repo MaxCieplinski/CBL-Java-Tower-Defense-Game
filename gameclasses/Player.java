@@ -47,7 +47,6 @@ public class Player extends Entity {
                 }
 
                 if (key == KeyEvent.VK_S) {
-                    System.out.println("DOWN");
                     down = true;
                 }
 
