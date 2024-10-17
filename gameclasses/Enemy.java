@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class Enemy extends Entity {
     // Parameters initialization.
     Player player;
+    TownHall townHall;
+    Map map;
     int health;
     int damage;
     double speed;
@@ -24,13 +26,15 @@ public class Enemy extends Entity {
      * @param xPosition the x coordinate of Enemy position.
      * @param yPosition the y coordinate of Enemy position.
      */
-    public Enemy(Player player, int health, int damage, double speed, int gold,
+    public Enemy(Player player, TownHall townHall, Map map, int health, int damage, double speed, int gold,
                  double xPosition, double yPosition, ArrayList<Entity> entities, 
                  double width, double height) {
                     
         super(xPosition, yPosition, entities, width, height);
 
         this.player = player;
+        this.townHall = townHall;
+        this.map = map;
         this.health = health;
         this.damage = damage;
         this.speed = speed;
@@ -83,7 +87,7 @@ public class Enemy extends Entity {
     }
 
     public void findPathToTownHall() {
-        
+        //GOAL this.townHall
     }
 
     public int moveX(double middleOfPanelX, double middleOfPanelY, int size) {

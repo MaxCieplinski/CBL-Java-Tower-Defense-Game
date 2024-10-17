@@ -7,23 +7,25 @@ import java.util.Optional;
 
 public class Wave implements Runnable {
     private Thread waveThread;
-    public GamePanel gamePanel;
+    Player player;
+    private GamePanel gamePanel;
+    private TownHall townHall;
+    private Map map;
     private int numbOfEnemies;
     private double enemyIncrementPercentage;
     private Enemy[] enemies;
     private ArrayList<Entity> entities = new ArrayList<>();
     public String waveStatus;
     public int waveNumber = 0;
+    public Boolean active = false;
 
-    public Wave(GamePanel gamePanel, int amountEnemies, double enemyIncrementPercentage, Player player) {
+    public Wave(Player player, GamePanel gamePanel, TownHall townHall, Map map, int amountEnemies, double enemyIncrementPercentage) {
+        this.player = player;
         this.gamePanel = gamePanel;
+        this.townHall = townHall;
+        this.map = map;
         this.numbOfEnemies = amountEnemies;
         this.enemyIncrementPercentage = enemyIncrementPercentage;
-        enemies = new Enemy[amountEnemies];
-
-        for (int i = 0; i < numbOfEnemies; i++) {
-            enemies[i] = new Enemy(player, 100, 10, 2, 50, 0, 0, entities, 30, 30);
-        }
     }
 
     public void startWaveThread() {
@@ -58,9 +60,22 @@ public class Wave implements Runnable {
     public void startWave() {
         System.out.print("Wave started");
 
+        this.enemies = new Enemy[this.numbOfEnemies];
+        for (int i = 0; i < this.numbOfEnemies; i++) {
+            enemies[i] = new Enemy(this.player, this.townHall, this.map, 100, 10, 2, 50, 0, 0, entities, 30, 30);
+        }
+        
+        this.active = true;
+        /*
+        enemies = new Enemy[this.numbOfEnemies];
+
+        for (int i = 0; i < this.numbOfEnemies; i++) {
+            enemies[i] = new Enemy(this.player, this.townHall, this.map, 100, 10, 2, 50, 0, 0, entities, 30, 30);
+        }
+
         //START THE WAVE, AFTER ALL ENEMIES ARE DEAD CALL run()
         moveEnemies();
-
+         */
 
         /*
         try {
@@ -77,18 +92,18 @@ public class Wave implements Runnable {
     }
 
     public void moveEnemies() {
-        for (Enemy enemy : enemies) {
+        //for (Enemy enemy : enemies) {
             // enemy.FindPath()
 
             /*
             e.setPosition(e.getXPosition() + e.moveX(700, 400, 30),
                          e.getYPosition() + e.moveY(700, 400, 30));
              */
-        }    
+        //}    
     }
 
     public void paintEnemies(Graphics g) {
-        moveEnemies();
+        //moveEnemies();
         for (Enemy e: enemies) {
             e.paintEnemy(g);
         }

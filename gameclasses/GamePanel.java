@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     Map map = new Map(25, this, player);
 
-    Wave wave = new Wave(this, 10, 1.2, player);
+    Wave wave = new Wave(player, this, townHall, map, 10, 1.2);
 
     /**
      * Constructs a gamepanel object.
@@ -100,7 +100,11 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         map.drawGrid(g);
         player.paintPlayer(g);
-        wave.paintEnemies(g);
+        
+        if (wave.active) {
+            wave.paintEnemies(g);
+        }
+
         updateMenu(Optional.empty());
         townHall.paintTownHall(g);
     }
