@@ -3,8 +3,16 @@ package gameclasses;
 import java.awt.*;
 import javax.swing.JPanel;
 
+/**
+ * Menu panel class, which is on the top of the screen and holds labels to keep track of the game.
+ */
 public class MenuPanel extends JPanel {
 
+    int gold = 1000;
+
+    /**
+     * Constructor for a menu panel object.
+     */
     public MenuPanel() {
         this.setFocusable(true);
         this.setPreferredSize(new Dimension(1400, 200));
@@ -13,7 +21,7 @@ public class MenuPanel extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         // Draw the first text
@@ -24,7 +32,11 @@ public class MenuPanel extends JPanel {
         // Draw more text with a different font or color if needed
         g.setFont(new Font("Arial", Font.PLAIN, 20));
         g.drawString("WAVE: ", 50, 140);
-        g.drawString("GOLD: ", 50, 170);
+        g.drawString("GOLD: " + gold, 50, 170);
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
     
 }

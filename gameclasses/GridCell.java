@@ -1,14 +1,14 @@
 package gameclasses;
 
-import gameclasses.Map;
-import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import javax.swing.*;
 
+
+/**
+ * Class that contains code for a single gridcell. 
+ * The playing field is made from a lot of these gridcells.
+ */
 public class GridCell {
-    enum CELL_VALUE {
-        EMPTY
-    }
     
     Player player;
     int x;
@@ -37,6 +37,10 @@ public class GridCell {
         this.cellSize = cellSize;
     }
 
+    /**
+     * Displays buy options when a grid is pressed.
+     * @param grid the playing field, a two-dimensional gridcell array.
+     */
     public void displayOptions(GridCell[][] grid) {
         // Possibly change this to JPanel for greater customization
         // TODO Destroy the JPopupMenu instance after clicking on other cell
@@ -85,6 +89,12 @@ public class GridCell {
     }
 
 
+    /**
+     * Code that handles buying a tower.
+     * @param player the player of the game.
+     * @param price the price of the tower.
+     * @param grid the playing field, a two-dimensional array of gridcell.
+     */
     public void buyTower(Player player, int price, GridCell[][] grid) {
         if (player.getGold() >= price) {
             player.subtractGold(price);
@@ -96,6 +106,12 @@ public class GridCell {
         }
     }
 
+    /**
+     * Code that handles buying a wall.
+     * @param player the player of the game.
+     * @param price the price of the wall.
+     * @param grid the playing field, a two-dimensional array of gridcell.
+     */
     public void buyWall(Player player, int price, GridCell[][] grid) {
         if (player.getGold() >= price) {
             player.subtractGold(price);
