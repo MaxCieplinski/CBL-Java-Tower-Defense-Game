@@ -4,20 +4,32 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
+/**
+ * The panel that the game is run on.
+ */
 public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     final int fps = 60;
 
+    MenuPanel menuPanel;
+
     ArrayList<Entity> entities = new ArrayList<>();
 
-    public Player player = new Player(0, 0, 4, this, entities, 20, 20);
+    TownHall townHall = new TownHall(5000, 700, 400, 75);
+
+    Player player = new Player(0, 0, 4, this, entities, 20, 20);
 
     Map map = new Map(25, this, player);
+
+    Wave wave = new Wave(50, player);
 
     /**
      * Constructs a gamepanel object.
      */
-    public GamePanel() {
+    public GamePanel(MenuPanel menuPanel) {
+        
+        this.menuPanel = menuPanel;
+
         this.setFocusable(true);
         this.setPreferredSize(new Dimension(1400, 800));
         this.setBackground(Color.white);
@@ -66,6 +78,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Update method, which is called every time after a set interval.
+     */
     public void update() {
         if (map.getMap() != null) {
             if (!player.getCollider().checkForCollision(map.getMap())) {
@@ -76,9 +91,24 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Paints the gamepanel. So it draws the playing field and player.
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         map.drawGrid(g);
         player.paintPlayer(g);
+        wave.paintEnemies(g);
+        updateMenu(menuPanel);
+        townHall.paintTownHall(g);
+    }
+
+    /**
+     * Updates menu panel.
+     * @param menuPanel the panel that contains labels like gold, wave.
+     */
+    public void updateMenu(MenuPanel menuPanel) {
+        menuPanel.setGold(player.getGold());
+        menuPanel.repaint();
     }
 }

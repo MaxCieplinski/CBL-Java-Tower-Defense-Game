@@ -1,6 +1,8 @@
 package gameclasses;
 
+import java.awt.*;
 import java.util.ArrayList;
+
 
 /**
  * Object of type Enemy.
@@ -78,5 +80,39 @@ public class Enemy extends Entity {
         }
 
         return false;
+    }
+
+    public int moveX(double middleOfPanelX, double middleOfPanelY, int size) {
+        double distanceX = (middleOfPanelX - size) - this.getXPosition();
+
+        if (distanceX > 0) {
+            return 2;
+        }
+
+        if (distanceX < 0) {
+            return -2;
+        }
+
+        return 0;
+    }
+
+    public int moveY(double middleOfPanelX, double middleOfPanelY, int size) {
+        double distanceY = (middleOfPanelY - size) - this.getYPosition();
+
+        if (distanceY > 0) {
+            return 2;
+        }
+
+        if (distanceY < 0) {
+            return -2;
+        }
+
+        return 0;
+    }
+
+    public void paintEnemy(Graphics g) {
+        g.setColor(Color.red);
+        g.fillRect((int) super.getXPosition(), (int) super.getYPosition(),
+                    (int) super.getWidth(), (int) super.getHeight());
     }
 }

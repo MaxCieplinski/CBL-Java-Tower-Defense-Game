@@ -1,9 +1,6 @@
 package gameclasses;
 
-import java.awt.*;
-import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.JButton;
 
 /**
  * Object of type Tower.
