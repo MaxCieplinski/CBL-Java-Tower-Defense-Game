@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
+import java.util.ArrayList;
 
 
 /**
@@ -17,6 +18,7 @@ public class Map {
     JPanel panel;
     GridCell[][] grid;
     Player player;
+    ArrayList<Tower> towers = new ArrayList<>();
 
     /**
      * Constructs an object of type map.
@@ -91,5 +93,16 @@ public class Map {
 
     public GridCell[][] getMap() {
         return this.grid;
+    }
+
+    public void handleTowers() {
+        for (Tower t: towers) {
+            t.handleEnemy(null);
+        }
+        //TODO
+    }
+
+    public void addToTowers(Tower t) {
+        towers.add(t);
     }
 }
