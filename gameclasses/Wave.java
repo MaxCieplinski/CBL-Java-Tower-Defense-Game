@@ -61,45 +61,21 @@ public class Wave implements Runnable {
         System.out.print("Wave started");
 
         this.enemies = new Enemy[this.numbOfEnemies];
+
         for (int i = 0; i < this.numbOfEnemies; i++) {
-            enemies[i] = new Enemy(this.player, this.townHall, this.map, 100, 10, 2, 50, 0, 0, entities, 30, 30);
+            enemies[i] = new Enemy(this.player, this.townHall, this.map, 100,
+             10, 2, 50, 100, 100, entities, 30, 30);
         }
         
         this.active = true;
-        /*
-        enemies = new Enemy[this.numbOfEnemies];
-
-        for (int i = 0; i < this.numbOfEnemies; i++) {
-            enemies[i] = new Enemy(this.player, this.townHall, this.map, 100, 10, 2, 50, 0, 0, entities, 30, 30);
-        }
-
-        //START THE WAVE, AFTER ALL ENEMIES ARE DEAD CALL run()
-        moveEnemies();
-         */
-
-        /*
-        try {
-            // to sleep 10 seconds
-            waveThread.sleep(5000);
-            run();
-        } catch (InterruptedException e) {
-            // recommended because catching InterruptedException clears interrupt flag
-            waveThread.interrupt();
-            // you probably want to quit if the thread is interrupted
-            return;
-        }
-            */
     }
 
     public void moveEnemies() {
-        //for (Enemy enemy : enemies) {
-            // enemy.FindPath()
-
-            /*
+        for (Enemy e : enemies) {
             e.setPosition(e.getXPosition() + e.moveX(700, 400, 30),
                          e.getYPosition() + e.moveY(700, 400, 30));
-             */
-        //}    
+             
+        }    
     }
 
     public void paintEnemies(Graphics g) {

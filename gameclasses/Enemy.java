@@ -2,6 +2,7 @@ package gameclasses;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 /**
@@ -26,9 +27,9 @@ public class Enemy extends Entity {
      * @param xPosition the x coordinate of Enemy position.
      * @param yPosition the y coordinate of Enemy position.
      */
-    public Enemy(Player player, TownHall townHall, Map map, int health, int damage, double speed, int gold,
-                 double xPosition, double yPosition, ArrayList<Entity> entities, 
-                 double width, double height) {
+    public Enemy(Player player, TownHall townHall, Map map, int health, int damage, 
+                double speed, int gold, double xPosition, double yPosition, 
+                ArrayList<Entity> entities, double width, double height) {
                     
         super(xPosition, yPosition, entities, width, height);
 
@@ -117,6 +118,7 @@ public class Enemy extends Entity {
 
         return 0;
     }
+
 
     public void paintEnemy(Graphics g) {
         g.setColor(Color.red);
