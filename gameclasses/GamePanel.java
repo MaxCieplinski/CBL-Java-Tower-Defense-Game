@@ -2,7 +2,6 @@ package gameclasses;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Optional;
 import javax.swing.*;
 
@@ -26,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     Map map = new Map(25, this, player);
 
-    Wave wave = new Wave(player, this, townHall, map, 1);
+    Wave wave = new Wave(player, this, townHall, map, 10);
 
     /**
      * Constructs a gamepanel object.
@@ -98,6 +97,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (wave.active) {
             wave.updateWaveState();  // Check wave progress and end if necessary
+            wave.moveEnemies();
     
             for (Tower t : map.towers) {
                 for (Enemy e : wave.enemies) {
@@ -108,10 +108,6 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (!wave.active && !wave.waveInProgress) {
             wave.startWaveThread();
-        }
-
-=======
-            wave.moveEnemies();
         }
     }
 

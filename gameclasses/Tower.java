@@ -1,6 +1,5 @@
 package gameclasses;
 
-import java.util.ArrayList;
 import javax.swing.*;
 
 
@@ -34,7 +33,8 @@ public class Tower extends GridCell {
      */
 
     public void handleEnemy(Enemy enemy) {
-        if (enemyInRange(enemy)) {         
+        if (enemyInRange(enemy)) {        
+            System.out.println("Attacking enemies in range");
             enemy.takeDamage(damage); 
         }
     }

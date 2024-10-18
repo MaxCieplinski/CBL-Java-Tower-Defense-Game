@@ -3,8 +3,8 @@ package gameclasses;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
 
 /**
@@ -95,19 +95,4 @@ public class Map {
     public GridCell[][] getMap() {
         return this.grid;
     }
-
-    /*
-    public void handleTowers(ArrayList<Enemy> enemies) {
-        for (Tower t: towers) {
-
-            for (Enemy e: enemies) {
-                t.handleEnemy(e);
-                if (e.checkForDeath()) {
-                    enemies.remove(e);
-                }
-                System.out.println(e.getHealth());
-            }
-        }
-    }
-         */
 }

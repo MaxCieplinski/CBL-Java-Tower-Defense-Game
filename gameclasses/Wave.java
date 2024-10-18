@@ -95,8 +95,8 @@ public class Wave implements Runnable {
                     break;
             }
 
-           enemies.add(new Enemy(this.gamePanel, this.player, this.townHall, this.map, 100,
-             10, 1, 50, xPos, yPos, entities, 30, 30));
+            enemies.add(new Enemy(this.gamePanel, this.player, this.townHall, this.map, 100,
+                 10, 1, 50, xPos, yPos, entities, 30, 30));
         }
 
         active = true;
