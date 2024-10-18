@@ -3,6 +3,7 @@ package gameclasses;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Random;
 
 
 public class Wave implements Runnable {
@@ -63,8 +64,36 @@ public class Wave implements Runnable {
         this.enemies = new Enemy[this.numbOfEnemies];
 
         for (int i = 0; i < this.numbOfEnemies; i++) {
+            Random rand = new Random();
+            int side = rand.nextInt(4);
+            int xPos = 0;
+            int yPos = 0;
+
+            switch (side) {
+                case 0:
+                    //UP
+                    xPos = rand.nextInt(this.gamePanel.getWidth());
+                    yPos = 0;
+                    break;
+                case 1:
+                    //DOWN
+                    xPos = rand.nextInt(this.gamePanel.getWidth());
+                    yPos = this.gamePanel.getHeight();
+                    break;
+                case 2:
+                    //LEFT
+                    xPos = 0;
+                    yPos = rand.nextInt(this.gamePanel.getHeight());
+                    break;
+                case 3:
+                    //RIGHT
+                    xPos = this.gamePanel.getWidth();
+                    yPos = rand.nextInt(this.gamePanel.getHeight());
+                    break;
+            }
+
             enemies[i] = new Enemy(this.gamePanel, this.player, this.townHall, this.map, 100,
-             10, 2, 50, 100, 100, entities, 30, 30);
+             10, 1, 50, xPos, yPos, entities, 30, 30);
         }
         
         this.active = true;
@@ -75,7 +104,7 @@ public class Wave implements Runnable {
             e.setPosition(e.getXPosition() + e.moveX(700, 400, 30),
                          e.getYPosition() + e.moveY(700, 400, 30));
 
-            e.healthBar.setLocation((int) e.getXPosition(), (int) e.getYPosition()); 
+            e.healthBar.setHealthBarPosition((int) e.getXPosition() + (e.healthBarXOffset / 2), (int) e.getYPosition() - e.healthBarYOffset);
         }    
     }
 

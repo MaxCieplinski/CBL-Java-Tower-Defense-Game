@@ -2,7 +2,6 @@ package gameclasses;
 
 import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.JLabel;
 
 
 /**
@@ -10,12 +9,15 @@ import javax.swing.JLabel;
  */
 public class Enemy extends Entity {
     // Parameters initialization.
-    JLabel healthBar;
+    HealthBar healthBar;
+    int healthBarYOffset = 8;
+    int healthBarXOffset = 8;
     GamePanel gamePanel;
     Player player;
     TownHall townHall;
     Map map;
     int health;
+    int maxHealth;
     int damage;
     double speed;
     int gold;
@@ -44,13 +46,9 @@ public class Enemy extends Entity {
         this.speed = speed;
         this.gold = gold;
 
-        //Create a healthBar for the enemy instance.
-        this.healthBar = new JLabel();
-        this.healthBar.setOpaque(true);
-        this.healthBar.setBackground(Color.green);
-        this.healthBar.setBounds((int) this.getXPosition(), (int) this.getYPosition() - 40, 25, 6);
-
-        this.gamePanel.add(this.healthBar);
+        this.healthBar = new HealthBar(this.gamePanel, this.health, this.maxHealth);
+        this.healthBar.setHealthBarSize((int) width - this.healthBarXOffset, 5);
+        this.healthBar.setHealthBarPosition((int) this.getXPosition() + (this.healthBarXOffset / 2) , (int) this.getYPosition() - this.healthBarYOffset);
     }
 
     /**
@@ -102,29 +100,29 @@ public class Enemy extends Entity {
         //GOAL this.townHall
     }
 
-    public int moveX(double middleOfPanelX, double middleOfPanelY, int size) {
+    public double moveX(double middleOfPanelX, double middleOfPanelY, int size) {
         double distanceX = (middleOfPanelX - size) - this.getXPosition();
 
         if (distanceX > 0) {
-            return 2;
+            return this.speed;
         }
 
         if (distanceX < 0) {
-            return -2;
+            return -1 * this.speed;
         }
 
         return 0;
     }
 
-    public int moveY(double middleOfPanelX, double middleOfPanelY, int size) {
+    public double  moveY(double middleOfPanelX, double middleOfPanelY, int size) {
         double distanceY = (middleOfPanelY - size) - this.getYPosition();
 
         if (distanceY > 0) {
-            return 2;
+            return this.speed;
         }
 
         if (distanceY < 0) {
-            return -2;
+            return -1 * this.speed;
         }
 
         return 0;
