@@ -110,6 +110,9 @@ public class GamePanel extends JPanel implements Runnable {
             wave.startWaveThread();
         }
 
+=======
+            wave.moveEnemies();
+        }
     }
 
     /**
@@ -122,7 +125,6 @@ public class GamePanel extends JPanel implements Runnable {
         
         if (wave.active) {
             wave.paintEnemies(g);
-            wave.moveEnemies();   
         }
 
         updateMenu(Optional.empty());
