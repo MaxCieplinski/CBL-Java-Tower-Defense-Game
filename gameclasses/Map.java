@@ -87,6 +87,7 @@ public class Map {
         int column = mouseX / this.cellSize; // Calculate column based on x coordinate
         int row = mouseY / this.cellSize;    // Calculate row based on y coordinate
 
+        this.grid[column][row].getTowers(towers);
         this.grid[column][row].displayOptions(this.grid);
     }
 
@@ -95,14 +96,18 @@ public class Map {
         return this.grid;
     }
 
-    public void handleTowers() {
+    /*
+    public void handleTowers(ArrayList<Enemy> enemies) {
         for (Tower t: towers) {
-            t.handleEnemy(null);
-        }
-        //TODO
-    }
 
-    public void addToTowers(Tower t) {
-        towers.add(t);
+            for (Enemy e: enemies) {
+                t.handleEnemy(e);
+                if (e.checkForDeath()) {
+                    enemies.remove(e);
+                }
+                System.out.println(e.getHealth());
+            }
+        }
     }
+         */
 }

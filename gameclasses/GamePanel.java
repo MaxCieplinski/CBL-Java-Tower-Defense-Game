@@ -2,6 +2,7 @@ package gameclasses;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 import javax.swing.*;
 
@@ -11,6 +12,9 @@ import javax.swing.*;
 public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     final int fps = 60;
+
+    private long waveCooldown = 10000; // 5 seconds cooldown between waves
+    private long lastWaveEndTime = 0;
 
     MenuPanel menuPanel;
 
@@ -22,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     Map map = new Map(25, this, player);
 
-    Wave wave = new Wave(player, this, townHall, map, 10, 1.2);
+    Wave wave = new Wave(player, this, townHall, map, 1);
 
     /**
      * Constructs a gamepanel object.
@@ -93,6 +97,20 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         if (wave.active) {
+            wave.updateWaveState();  // Check wave progress and end if necessary
+    
+            for (Tower t : map.towers) {
+                for (Enemy e : wave.enemies) {
+                    t.handleEnemy(e);
+                }
+            }
+        }
+
+        if (!wave.active && !wave.waveInProgress) {
+            wave.startWaveThread();
+        }
+
+=======
             wave.moveEnemies();
         }
     }
@@ -113,10 +131,7 @@ public class GamePanel extends JPanel implements Runnable {
         townHall.paintTownHall(g);
     }
 
-    /**
-     * Updates menu panel.
-     * @param menuPanel the panel that contains labels like gold, wave.
-     */
+
     public void updateMenu(Optional<String> waveStatus) {
         SwingUtilities.invokeLater(() -> {
             menuPanel.setGold(player.getGold());
