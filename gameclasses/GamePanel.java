@@ -12,9 +12,6 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     final int fps = 60;
 
-    private long waveCooldown = 10000; // 5 seconds cooldown between waves
-    private long lastWaveEndTime = 0;
-
     MenuPanel menuPanel;
 
     ArrayList<Entity> entities = new ArrayList<>();
@@ -55,7 +52,6 @@ public class GamePanel extends JPanel implements Runnable {
             map.initializeGrid();
             wave.startWaveThread();
             towerAttack.startTowerThread();
-            //wave.run();
         });
 
         double drawInterval = 1000000000 / fps;
@@ -106,7 +102,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         if (!wave.active && !wave.waveInProgress) {
-            wave.startWaveThread();
+            wave.startWaveThread(); 
         }
     }
 
@@ -120,6 +116,7 @@ public class GamePanel extends JPanel implements Runnable {
         
         if (wave.active) {
             wave.paintEnemies(g);
+            towerAttack.showTowerRanges(g);
         }
 
         updateMenu(Optional.empty());

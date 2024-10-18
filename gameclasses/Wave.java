@@ -93,6 +93,8 @@ public class Wave implements Runnable {
                     xPos = this.gamePanel.getWidth();
                     yPos = rand.nextInt(this.gamePanel.getHeight());
                     break;
+                default:
+                    break;
             }
 
             enemies.add(new Enemy(this.gamePanel, this.player, this.townHall, this.map, 100,
@@ -108,7 +110,8 @@ public class Wave implements Runnable {
             e.setPosition(e.getXPosition() + e.moveX(700, 400, 30),
                          e.getYPosition() + e.moveY(700, 400, 30));
 
-            e.healthBar.setHealthBarPosition((int) e.getXPosition() + (e.healthBarXOffset / 2), (int) e.getYPosition() - e.healthBarYOffset);
+            e.healthBar.setHealthBarPosition((int) e.getXPosition() + (e.healthBarXOffset / 2),
+                                             (int) e.getYPosition() - e.healthBarYOffset);
         }    
     }
 

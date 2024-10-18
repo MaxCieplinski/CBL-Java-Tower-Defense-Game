@@ -1,15 +1,14 @@
 package gameclasses;
 
+import java.awt.*;
 import javax.swing.*;
 
 
 /**
  * Object of type Tower.
  */
-public class Tower extends GridCell implements Runnable {
-    private Thread towerThread;
-    double radius = 5;
-    int size;
+public class Tower extends GridCell {
+    double radius = 200;
     int row;
     int column;
     int damage = 35;
@@ -19,33 +18,12 @@ public class Tower extends GridCell implements Runnable {
      * Creates a new object of type Tower.
      */
     public Tower(Player player, int row, int column, int size, JPanel panel) {
-
         super(row, column, player, size, panel);
         super.occupied = true;
         super.empty = false;
 
         System.out.println("Tower placed at " + row + ", " + column);
     }
-
-    public void startTowerThread() {
-        towerThread = new Thread(this);
-        towerThread.start();
-    }
-
-    @Override
-    public void run() {
-        try {
-            // to sleep 10 seconds
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            // recommended because catching InterruptedException clears interrupt flag
-            towerThread.interrupt();
-            // you probably want to quit if the thread is interrupted
-            return;
-        }
-    }
-
-    
 
     /**
      * Hits enemy.
@@ -67,8 +45,9 @@ public class Tower extends GridCell implements Runnable {
      */
 
     public boolean enemyInRange(Enemy enemy) {
-        double distance = Math.pow(Math.pow(super.getX() - enemy.getXPosition(), 2) 
-                        + Math.pow(super.getY() - enemy.getYPosition(), 2), 1 / 2);
+        double deltaXSquared = Math.pow(super.getX() - enemy.getXPosition(), 2);
+        double deltaYSquared = Math.pow(super.getY() - enemy.getYPosition(), 2);
+        double distance = Math.sqrt(deltaXSquared + deltaYSquared);
 
         if (distance <= radius) {
             return true;
@@ -76,5 +55,38 @@ public class Tower extends GridCell implements Runnable {
 
         return false;
     }
+
+    public void showRange(boolean on, Graphics g) {
+        if (on) {
+            Graphics2D g2d = (Graphics2D) g;
+
+            // Set transparency: 0.5f means 50% transparency
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+
+            g2d.setColor(Color.lightGray);
+
+            // Calculate the center of the tower
+            int centerX = super.getX() + super.getSize() / 2;
+            int centerY = super.getY() + super.getSize() / 2;
+
+            System.out.println(super.getSize());
+
+            System.out.println("Centre X: " + centerX);
+            System.out.println("Centre Y: " + centerY);
+
+            // Calculate the top-left corner of the oval
+            int topLeftX = (int) (centerX - radius);
+            int topLeftY = (int) (centerY - radius);
+
+            // Draw the semi-transparent oval, centered on the tower
+            g2d.fillOval(topLeftX, topLeftY, (int) (2 * radius), (int) (2 * radius));
+
+            // Reset the composite to fully opaque after drawing the oval (for future drawing operations)
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+        } else {
+            //Call repaint for example
+        }
+    }
+
 
 }

@@ -97,12 +97,12 @@ public class GridCell {
     public void buyTower(Player player, int price, GridCell[][] grid) {
         if (player.getGold() >= price) {
             player.subtractGold(price);
-            Tower tower = new Tower(player, this.x, this.y, 25, this.panel);
+            Tower tower = new Tower(player, this.x, this.y, cellSize, this.panel);
             towers.add(tower);
 
             //Compensating for cellsize = 25;
-            grid[this.getX() / 25][this.getY() / 25] = tower;
-            grid[this.getX() / 25][this.getY() / 25].color = Color.MAGENTA;
+            grid[this.getX() / cellSize][this.getY() / cellSize] = tower;
+            grid[this.getX() / cellSize][this.getY() / cellSize].color = Color.MAGENTA;
         }
     }
 
@@ -118,8 +118,8 @@ public class GridCell {
             Wall wall = new Wall(this.x, this.y, player, panel);
 
             //Compensating for cellsize = 25;
-            grid[this.getX() / 25][this.getY() / 25] = wall;
-            grid[this.getX() / 25][this.getY() / 25].color = Color.green;
+            grid[this.getX() / cellSize][this.getY() / cellSize] = wall;
+            grid[this.getX() / cellSize][this.getY() / cellSize].color = Color.green;
         }
     }
 

@@ -1,6 +1,7 @@
 package gameclasses;
 
 import java.util.ArrayList;
+import java.awt.*;
 
 public class TowerAttack implements Runnable {
     private Thread towerAttackThread;
@@ -46,5 +47,11 @@ public class TowerAttack implements Runnable {
     public void updateLists(ArrayList<Tower> towers, ArrayList<Enemy> enemies) {
         this.towers = towers;
         this.enemies = enemies;
+    }
+
+    public void showTowerRanges(Graphics g) {
+        for (Tower t : towers) {
+            t.showRange(true, g);
+        }
     }
 }
