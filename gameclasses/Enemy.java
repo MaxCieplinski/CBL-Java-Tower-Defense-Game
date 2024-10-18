@@ -2,7 +2,7 @@ package gameclasses;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
+import javax.swing.JLabel;
 
 
 /**
@@ -10,6 +10,8 @@ import java.util.Random;
  */
 public class Enemy extends Entity {
     // Parameters initialization.
+    JLabel healthBar;
+    GamePanel gamePanel;
     Player player;
     TownHall townHall;
     Map map;
@@ -27,12 +29,13 @@ public class Enemy extends Entity {
      * @param xPosition the x coordinate of Enemy position.
      * @param yPosition the y coordinate of Enemy position.
      */
-    public Enemy(Player player, TownHall townHall, Map map, int health, int damage, 
+    public Enemy(GamePanel gamePanel, Player player, TownHall townHall, Map map, int health, int damage, 
                 double speed, int gold, double xPosition, double yPosition, 
                 ArrayList<Entity> entities, double width, double height) {
                     
         super(xPosition, yPosition, entities, width, height);
 
+        this.gamePanel = gamePanel;
         this.player = player;
         this.townHall = townHall;
         this.map = map;
@@ -40,6 +43,14 @@ public class Enemy extends Entity {
         this.damage = damage;
         this.speed = speed;
         this.gold = gold;
+
+        //Create a healthBar for the enemy instance.
+        this.healthBar = new JLabel();
+        this.healthBar.setOpaque(true);
+        this.healthBar.setBackground(Color.green);
+        this.healthBar.setBounds((int) this.getXPosition(), (int) this.getYPosition() - 40, 25, 6);
+
+        this.gamePanel.add(this.healthBar);
     }
 
     /**

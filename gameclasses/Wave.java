@@ -63,7 +63,7 @@ public class Wave implements Runnable {
         this.enemies = new Enemy[this.numbOfEnemies];
 
         for (int i = 0; i < this.numbOfEnemies; i++) {
-            enemies[i] = new Enemy(this.player, this.townHall, this.map, 100,
+            enemies[i] = new Enemy(this.gamePanel, this.player, this.townHall, this.map, 100,
              10, 2, 50, 100, 100, entities, 30, 30);
         }
         
@@ -74,7 +74,8 @@ public class Wave implements Runnable {
         for (Enemy e : enemies) {
             e.setPosition(e.getXPosition() + e.moveX(700, 400, 30),
                          e.getYPosition() + e.moveY(700, 400, 30));
-             
+
+            e.healthBar.setLocation((int) e.getXPosition(), (int) e.getYPosition()); 
         }    
     }
 
