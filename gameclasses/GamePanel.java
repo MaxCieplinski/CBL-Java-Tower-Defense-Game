@@ -22,10 +22,12 @@ public class GamePanel extends JPanel implements Runnable {
     TownHall townHall = new TownHall(5000, 700, 400, 75);
 
     Player player = new Player(0, 0, 4, this, entities, 20, 20);
-
+        
     Map map = new Map(25, this, player);
 
     Wave wave = new Wave(player, this, townHall, map, 10);
+
+    TowerAttack towerAttack = new TowerAttack(map.towers, wave.getEnemies());
 
     /**
      * Constructs a gamepanel object.
@@ -52,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
         SwingUtilities.invokeLater(() -> {
             map.initializeGrid();
             wave.startWaveThread();
+            towerAttack.startTowerThread();
             //wave.run();
         });
 
@@ -98,12 +101,8 @@ public class GamePanel extends JPanel implements Runnable {
         if (wave.active) {
             wave.updateWaveState();  // Check wave progress and end if necessary
             wave.moveEnemies();
-    
-            for (Tower t : map.towers) {
-                for (Enemy e : wave.enemies) {
-                    t.handleEnemy(e);
-                }
-            }
+
+            towerAttack.updateLists(map.towers, wave.getEnemies());
         }
 
         if (!wave.active && !wave.waveInProgress) {

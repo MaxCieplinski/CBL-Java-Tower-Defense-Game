@@ -6,13 +6,13 @@ import javax.swing.*;
 /**
  * Object of type Tower.
  */
-public class Tower extends GridCell {
+public class Tower extends GridCell implements Runnable {
     private Thread towerThread;
     double radius = 5;
     int size;
     int row;
     int column;
-    int damage = 5;
+    int damage = 35;
 
     
     /**
@@ -26,6 +26,26 @@ public class Tower extends GridCell {
 
         System.out.println("Tower placed at " + row + ", " + column);
     }
+
+    public void startTowerThread() {
+        towerThread = new Thread(this);
+        towerThread.start();
+    }
+
+    @Override
+    public void run() {
+        try {
+            // to sleep 10 seconds
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            // recommended because catching InterruptedException clears interrupt flag
+            towerThread.interrupt();
+            // you probably want to quit if the thread is interrupted
+            return;
+        }
+    }
+
+    
 
     /**
      * Hits enemy.
