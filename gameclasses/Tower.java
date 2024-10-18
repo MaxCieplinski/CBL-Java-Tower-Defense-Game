@@ -69,10 +69,10 @@ public class Tower extends GridCell {
             int centerX = super.getX() + super.getSize() / 2;
             int centerY = super.getY() + super.getSize() / 2;
 
-            System.out.println(super.getSize());
+            //System.out.println(super.getSize());
 
-            System.out.println("Centre X: " + centerX);
-            System.out.println("Centre Y: " + centerY);
+            //System.out.println("Centre X: " + centerX);
+            //System.out.println("Centre Y: " + centerY);
 
             // Calculate the top-left corner of the oval
             int topLeftX = (int) (centerX - radius);

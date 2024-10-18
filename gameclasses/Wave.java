@@ -133,6 +133,11 @@ public class Wave implements Runnable {
     }
 
     public void updateWaveState() {
+        for (Enemy e : enemies) {
+            if (e.checkForDeath()) {
+                //Remove the health bar
+            }
+        }
         enemies.removeIf(Enemy::checkForDeath);
 
         if (enemies.isEmpty()) {

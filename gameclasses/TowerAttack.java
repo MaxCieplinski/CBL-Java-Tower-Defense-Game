@@ -1,7 +1,7 @@
 package gameclasses;
 
-import java.util.ArrayList;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class TowerAttack implements Runnable {
     private Thread towerAttackThread;
@@ -26,7 +26,7 @@ public class TowerAttack implements Runnable {
             for (Tower tower : towers) {
                 for (Enemy enemy : enemies) {
                     tower.handleEnemy(enemy);
-                    System.out.println(" Hit enemy");
+                    //System.out.println(" Hit enemy");
                 }
             }
         }

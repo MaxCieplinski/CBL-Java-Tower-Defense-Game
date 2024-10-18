@@ -42,12 +42,12 @@ public class Enemy extends Entity {
         this.townHall = townHall;
         this.map = map;
         this.health = health;
+        this.maxHealth = health;
         this.damage = damage;
         this.speed = speed;
         this.gold = gold;
 
-        this.healthBar = new HealthBar(this.gamePanel, this.health, this.maxHealth);
-        this.healthBar.setHealthBarSize((int) width - this.healthBarXOffset, 5);
+        this.healthBar = new HealthBar(this.gamePanel, this.health, this.maxHealth, (int) width - this.healthBarXOffset, 5);
         this.healthBar.setHealthBarPosition((int) this.getXPosition() + (this.healthBarXOffset / 2) , (int) this.getYPosition() - this.healthBarYOffset);
     }
 
@@ -81,6 +81,7 @@ public class Enemy extends Entity {
      */
     void takeDamage(int damage) {
         this.health -= damage;
+        this.healthBar.updateHealthBar(this.health);
         checkForDeath();
     }
 
