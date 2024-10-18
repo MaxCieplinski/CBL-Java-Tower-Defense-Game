@@ -2,6 +2,7 @@ package gameclasses;
 
 import java.awt.*;
 import javax.swing.*;
+import java.util.ArrayList;
 
 
 /**
@@ -16,6 +17,8 @@ public class GridCell {
     JPanel panel;
     int price;
     int cellSize;
+
+    ArrayList<Tower> towers;
 
     boolean occupied = false;
     boolean empty = true; // Example: Whether the cell is occupied by an object
@@ -84,10 +87,6 @@ public class GridCell {
         return this.y;
     }
 
-    public void buy(Player player) {
-        player.subtractGold(price);
-    }
-
 
     /**
      * Code that handles buying a tower.
@@ -99,6 +98,7 @@ public class GridCell {
         if (player.getGold() >= price) {
             player.subtractGold(price);
             Tower tower = new Tower(player, this.x, this.y, 25, this.panel);
+            towers.add(tower);
 
             //Compensating for cellsize = 25;
             grid[this.getX() / 25][this.getY() / 25] = tower;
@@ -130,6 +130,12 @@ public class GridCell {
     public boolean isEmpty() {
         return empty;
     }
+
+    public void getTowers(ArrayList<Tower> towers) {
+        this.towers = towers;
+    }
+
+
 
 
 }

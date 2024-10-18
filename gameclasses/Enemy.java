@@ -83,7 +83,7 @@ public class Enemy extends Entity {
             giveGold(player);
             return true;
         }
-
+        
         return false;
     }
 
@@ -125,4 +125,5 @@ public class Enemy extends Entity {
         g.fillRect((int) super.getXPosition(), (int) super.getYPosition(),
                     (int) super.getWidth(), (int) super.getHeight());
     }
+
 }
