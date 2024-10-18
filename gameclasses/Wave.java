@@ -20,7 +20,8 @@ public class Wave implements Runnable {
     public int waveNumber = 0;
     public Boolean active = false;
 
-    public Wave(Player player, GamePanel gamePanel, TownHall townHall, Map map, int amountEnemies, double enemyIncrementPercentage) {
+    public Wave(Player player, GamePanel gamePanel, TownHall townHall,
+             Map map, int amountEnemies, double enemyIncrementPercentage) {
         this.player = player;
         this.gamePanel = gamePanel;
         this.townHall = townHall;
