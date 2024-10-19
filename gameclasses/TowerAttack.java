@@ -28,7 +28,7 @@ public class TowerAttack implements Runnable {
                         synchronized (enemies) {
                             for (Enemy enemy : enemies) {
                                 tower.handleEnemy(enemy);
-                                    }   
+                            }   
                         }
                     }   
                 }    
