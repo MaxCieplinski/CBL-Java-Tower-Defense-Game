@@ -37,35 +37,19 @@ public class HealthBar {
     }
 
     public void updateHealthBar(int health) {
-        try {
-            double percentage = (double) health / this.maxHealth;
-            int newWidth = (int) (this.width * percentage);
+        double percentage = (double) health / this.maxHealth;
+        int newWidth = (int) (this.width * percentage);
 
-            //System.out.println(this.width);
-            //System.out.println(newWidth);
-
-            this.healthBarBackground.setSize(newWidth, this.height);
-            
-        } catch (Exception e) {
-        
-        }
+        this.healthBarBackground.setSize(newWidth, this.height);
     }
 
     public void setHealthBarSize(int width, int height) {
-        try {
-            this.healthBarBackground.setSize(width, height);
-            this.healthBarForeground.setSize(width, height);    
-        } catch (Exception e) {
-        
-        }
+        this.healthBarBackground.setSize(width, height);
+        this.healthBarForeground.setSize(width, height); 
     }
 
     public void setHealthBarPosition(int x, int y) {
-        try {
-            this.healthBarBackground.setLocation(x, y);
-            this.healthBarForeground.setLocation(x, y);    
-        } catch (Exception e) {
-        
-        }
+        this.healthBarBackground.setLocation(x, y);
+        this.healthBarForeground.setLocation(x, y);    
     }
 }

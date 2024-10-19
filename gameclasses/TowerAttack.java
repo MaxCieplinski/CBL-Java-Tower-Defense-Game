@@ -23,7 +23,6 @@ public class TowerAttack implements Runnable {
 
         if ((this.towers != null) && (this.enemies != null)) {    
             try {
-                //Synchronized to be able to iterate dynamically on the list to prevent game crashing
                 synchronized (towers) {
                     for (Tower tower : towers) {
                         synchronized (enemies) {
@@ -39,8 +38,8 @@ public class TowerAttack implements Runnable {
         }
 
         try {
-            // to sleep 10 seconds
-            Thread.sleep(1000);
+            // to sleep 0.75 second
+            Thread.sleep(750);
         } catch (InterruptedException e) {
             // recommended because catching InterruptedException clears interrupt flag
             towerAttackThread.interrupt();

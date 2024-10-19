@@ -59,8 +59,8 @@ public class Tower extends GridCell {
         if (on) {
             Graphics2D g2d = (Graphics2D) g;
 
-            // Set transparency: 0.5f means 50% transparency
-            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+            // Set transparency: 0.1f means 10% transparency
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f));
 
             g2d.setColor(Color.lightGray);
 
@@ -74,6 +74,9 @@ public class Tower extends GridCell {
 
             // Draw the semi-transparent oval, centered on the tower
             g2d.fillOval(topLeftX, topLeftY, (int) (2 * radius), (int) (2 * radius));
+
+            //Reset transparency for future drawing purposes.
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         } else {
             //Call repaint for example
         }
