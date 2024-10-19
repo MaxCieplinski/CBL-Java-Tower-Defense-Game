@@ -96,17 +96,6 @@ public class Enemy extends Entity {
             giveGold(player);
             this.healthBar.healthBarBackground.setVisible(false);
             this.healthBar.healthBarForeground.setVisible(false);
-            try {
-                if (this.healthBar != null) {
-                    this.healthBar.healthBarBackground.setVisible(false);
-                    this.healthBar.healthBarForeground.setVisible(false);
-                    this.healthBar.healthBarBackground = null;
-                    this.healthBar.healthBarForeground = null;
-                    this.healthBar = null;
-                }  
-            } catch (Exception e) {
-            
-            }
             
             return true;
         }
