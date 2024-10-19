@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -37,6 +39,30 @@ public class Player extends Entity {
         this.speed = speed;
         this.health = 100;
         this.gold = 1000;
+        
+        this.panel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                shootBullet(e);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+            
+        });
 
         this.panel.addKeyListener(new KeyListener() {
             @Override
@@ -84,6 +110,16 @@ public class Player extends Entity {
             public void keyTyped(KeyEvent e) {
             }
         });
+    }
+
+    private void shootBullet(MouseEvent mouseEvent) {
+        int mouseX = mouseEvent.getX();
+        int mouseY = mouseEvent.getY();
+                
+        double angleRadians = Math.atan2(mouseY - super.getYPosition(), mouseX - super.getXPosition());
+        double angleDegrees = Math.toDegrees(angleRadians);
+        //RIGHT 0, UP -90, LEFT 180, DOWN 90
+        System.out.println("Angle in degrees: " + angleDegrees);
     }
 
     /**
