@@ -110,9 +110,6 @@ public class Player extends Entity {
 
         //Update entity position for later purposes.
         super.setPosition(posX, posY);
-
-        //System.out.println("X: " + super.getXPosition());
-        //System.out.println("Y: " + super.getYPosition());
     }
 
     /**

@@ -32,7 +32,6 @@ public class Tower extends GridCell {
 
     public void handleEnemy(Enemy enemy) {
         if (enemyInRange(enemy)) {        
-            System.out.println("Attacking enemies in range");
             enemy.takeDamage(damage); 
         }
     }
@@ -69,20 +68,12 @@ public class Tower extends GridCell {
             int centerX = super.getX() + super.getSize() / 2;
             int centerY = super.getY() + super.getSize() / 2;
 
-            //System.out.println(super.getSize());
-
-            //System.out.println("Centre X: " + centerX);
-            //System.out.println("Centre Y: " + centerY);
-
             // Calculate the top-left corner of the oval
             int topLeftX = (int) (centerX - radius);
             int topLeftY = (int) (centerY - radius);
 
             // Draw the semi-transparent oval, centered on the tower
             g2d.fillOval(topLeftX, topLeftY, (int) (2 * radius), (int) (2 * radius));
-
-            // Reset the composite to fully opaque after drawing the oval (for future drawing operations)
-            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         } else {
             //Call repaint for example
         }

@@ -94,13 +94,8 @@ public class Enemy extends Entity {
     public boolean checkForDeath() {
         if (this.health <= 0) {
             giveGold(player);
-            if (this.healthBar != null) {
-                this.healthBar.healthBarBackground.setVisible(false);
-                this.healthBar.healthBarForeground.setVisible(false);
-                this.healthBar.healthBarBackground = null;
-                this.healthBar.healthBarForeground = null;
-                this.healthBar = null;
-            }
+            this.healthBar.healthBarBackground.setVisible(false);
+            this.healthBar.healthBarForeground.setVisible(false);
             
             return true;
         }
