@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements Runnable {
         
     Map map = new Map(25, this, player);
 
-    Wave wave = new Wave(player, this, townHall, map, 10);
+    Wave wave = new Wave(player, this, townHall, map, 20);
 
     TowerAttack towerAttack = new TowerAttack(map.towers, wave.getEnemies());
 
@@ -75,7 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             if (timer > 1000000000) {
-                System.out.println("FPS: " + fps);
+                System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
             }

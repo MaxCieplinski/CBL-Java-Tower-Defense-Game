@@ -23,6 +23,7 @@ public class TowerAttack implements Runnable {
 
         if ((this.towers != null) && (this.enemies != null)) {    
             try {
+                //Synchronized to be able to iterate dynamically on the list to prevent game crashing
                 synchronized (towers) {
                     for (Tower tower : towers) {
                         synchronized (enemies) {
