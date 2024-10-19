@@ -24,9 +24,13 @@ public class TowerAttack implements Runnable {
         //else
         if ((this.towers != null) && (this.enemies != null)) {    
             for (Tower tower : towers) {
-                for (Enemy enemy : enemies) {
-                    tower.handleEnemy(enemy);
-                    //System.out.println(" Hit enemy");
+                try {
+                    for (Enemy enemy : enemies) {
+                        tower.handleEnemy(enemy);
+                        //System.out.println(" Hit enemy");
+                    }
+                } catch (Exception e) {
+
                 }
             }
         }

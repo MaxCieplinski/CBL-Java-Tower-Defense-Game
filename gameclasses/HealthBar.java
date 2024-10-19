@@ -43,7 +43,7 @@ public class HealthBar {
         System.out.println(this.width);
         System.out.println(newWidth);
 
-        this.healthBarForeground.setSize(newWidth, this.height);
+        this.healthBarBackground.setSize(newWidth, this.height);
     }
 
     public void setHealthBarSize(int width, int height) {
