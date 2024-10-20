@@ -14,14 +14,16 @@ public class Wave implements Runnable {
     private Map map;
     private int numbOfEnemies;
     public ArrayList<Enemy> enemies;
-    private ArrayList<Entity> entities = new ArrayList<>();
+    private ArrayList<Entity> entities;
     public String waveStatus;
     public int waveNumber = 0;
     public boolean active = false;
     public boolean waveInProgress = true;
 
     public Wave(Player player, GamePanel gamePanel, TownHall townHall,
-             Map map, int amountEnemies) {
+             Map map, int amountEnemies, ArrayList<Entity> entities) {
+                
+        this.entities = entities;
         this.player = player;
         this.gamePanel = gamePanel;
         this.townHall = townHall;
@@ -63,6 +65,9 @@ public class Wave implements Runnable {
 
     public void startWave() {
         System.out.println("Wave started");
+
+        //So that the player can start shooting
+        player.waveStarted = true;
 
         this.enemies = new ArrayList<>();
 
@@ -130,6 +135,9 @@ public class Wave implements Runnable {
         active = false;
         waveInProgress = false;
         System.out.println("Wave ended!");
+
+        //So that the player can build towers and walls instead of shooting.
+        player.waveStarted = false;
     }
 
     public void updateWaveState() {

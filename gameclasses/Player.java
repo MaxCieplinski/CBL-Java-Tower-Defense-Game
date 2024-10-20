@@ -2,12 +2,19 @@ package gameclasses;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 /**
  * Player class.
@@ -28,11 +35,14 @@ public class Player extends Entity {
     ArrayList<Bullet> bullets;
     ArrayList<Entity> entities;
 
+    public boolean waveStarted = false;
+
     /**
      * Initialize player with basic starting values.
      */
     public Player(double x, double y, int speed, JPanel panel, 
-                ArrayList<Entity> entities, double width, double height, ArrayList<Bullet> bullets) {
+                ArrayList<Entity> entities, double width, 
+                double height, ArrayList<Bullet> bullets) {
 
         super(x, y, entities, width, height);
                 
@@ -42,11 +52,17 @@ public class Player extends Entity {
         this.gold = 1000;
         this.bullets = bullets;
         this.entities = entities;
+
+        this.panel.setFocusable(true);
+        this.panel.requestFocusInWindow();
         
         this.panel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                shootBullet(e);
+                if (waveStarted) {
+                    shootBullet(e);
+                    panel.requestFocusInWindow();
+                }
             }
 
             @Override
@@ -67,50 +83,79 @@ public class Player extends Entity {
             
         });
 
-        this.panel.addKeyListener(new KeyListener() {
+        setupKeyBindings();
+    }
+
+        private void setupKeyBindings() {
+        // Define input maps for the panel
+        InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = panel.getActionMap();
+
+        // Up movement (W key)
+        inputMap.put(KeyStroke.getKeyStroke("W"), "moveUp");
+        actionMap.put("moveUp", new AbstractAction() {
             @Override
-            public void keyPressed(KeyEvent e) {
-                int key = e.getKeyCode();
-                if (key == KeyEvent.VK_W) {
-                    up = true;
-                }
-
-                if (key == KeyEvent.VK_S) {
-                    down = true;
-                }
-
-                if (key == KeyEvent.VK_A) {
-                    left = true;
-                }
-
-                if (key == KeyEvent.VK_D) {
-                    right = true;
-                }
+            public void actionPerformed(ActionEvent e) {
+                up = true;
             }
+        });
 
+        inputMap.put(KeyStroke.getKeyStroke("released W"), "stopUp");
+        actionMap.put("stopUp", new AbstractAction() {
             @Override
-            public void keyReleased(KeyEvent e) {
-                int key = e.getKeyCode();
-
-                if (key == KeyEvent.VK_W) {
-                    up = false;
-                }
-
-                if (key == KeyEvent.VK_S) {
-                    down = false;
-                }
-
-                if (key == KeyEvent.VK_A) {
-                    left = false;
-                }
-
-                if (key == KeyEvent.VK_D) {
-                    right = false;
-                }
+            public void actionPerformed(ActionEvent e) {
+                up = false;
             }
+        });
 
+        // Down movement (S key)
+        inputMap.put(KeyStroke.getKeyStroke("S"), "moveDown");
+        actionMap.put("moveDown", new AbstractAction() {
             @Override
-            public void keyTyped(KeyEvent e) {
+            public void actionPerformed(ActionEvent e) {
+                down = true;
+            }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke("released S"), "stopDown");
+        actionMap.put("stopDown", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                down = false;
+            }
+        });
+
+        // Left movement (A key)
+        inputMap.put(KeyStroke.getKeyStroke("A"), "moveLeft");
+        actionMap.put("moveLeft", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                left = true;
+            }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke("released A"), "stopLeft");
+        actionMap.put("stopLeft", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                left = false;
+            }
+        });
+
+        // Right movement (D key)
+        inputMap.put(KeyStroke.getKeyStroke("D"), "moveRight");
+        actionMap.put("moveRight", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                right = true;
+            }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke("released D"), "stopRight");
+        actionMap.put("stopRight", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                right = false;
             }
         });
     }
@@ -119,11 +164,15 @@ public class Player extends Entity {
         int mouseX = mouseEvent.getX();
         int mouseY = mouseEvent.getY();
                     
-        double angleRadians = Math.atan2(mouseY - super.getYPosition(), mouseX - super.getXPosition());
+        double angleRadians = Math.atan2(mouseY - super.getYPosition(), 
+                                        mouseX - super.getXPosition());
         double directionX = Math.cos(angleRadians);
         double directionY = Math.sin(angleRadians);
 
-        Bullet bullet = new Bullet(this.panel, (int) super.getXPosition(), (int) super.getYPosition(), 8, 10, directionX, directionY, bullets, entities);
+        Bullet bullet = new Bullet(this.panel, (int) super.getXPosition(), 
+                                (int) super.getYPosition(), 8, 10, 
+                                directionX, directionY, bullets, entities, 30);
+
         bullets.add(bullet);
     }
 

@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements Runnable {
         
     Map map = new Map(25, this, player);
 
-    Wave wave = new Wave(player, this, townHall, map, 20);
+    Wave wave = new Wave(player, this, townHall, map, 20, entities);
 
     TowerAttack towerAttack = new TowerAttack(map.towers, wave.getEnemies());
 
@@ -113,7 +113,11 @@ public class GamePanel extends JPanel implements Runnable {
     
                 while (iterator.hasNext()) {
                     Bullet bullet = iterator.next();
-                    bullet.updatePosition();
+                    if (!bullet.getCollider().checkForCollision(wave.getEnemies(), player)) {
+                        bullet.updatePosition();
+                    } else {
+                        System.out.println("Hit enemy!");
+                    }
                 }
             }   
         } catch (Exception e) {

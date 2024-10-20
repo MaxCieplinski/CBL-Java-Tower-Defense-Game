@@ -49,26 +49,29 @@ public class GridCell {
         // TODO Destroy the JPopupMenu instance after clicking on other cell
         JPopupMenu optionsMenu = new JPopupMenu();
 
-        if (!this.occupied) {
-            if (this.empty) {
-                // Add tower or wall
-                JMenuItem towerOption = new JMenuItem("Tower - " + towerPrice);
-                towerOption.addActionListener(e -> {
-                    buyTower(player, towerPrice, grid);
-                });
-                optionsMenu.add(towerOption);
+        //So that the player cannot build when the wave is started.
+        if (!player.waveStarted) {
+            if (!this.occupied) {
+                if (this.empty) {
+                    // Add tower or wall
+                    JMenuItem towerOption = new JMenuItem("Tower - " + towerPrice);
+                    towerOption.addActionListener(e -> {
+                        buyTower(player, towerPrice, grid);
+                    });
+                    optionsMenu.add(towerOption);
 
-                JMenuItem wallOption = new JMenuItem("Wall - " + 100);
-                wallOption.addActionListener(e -> {
-                    buyWall(player, wallPrice, grid);
-                });
-                optionsMenu.add(wallOption);
+                    JMenuItem wallOption = new JMenuItem("Wall - " + 100);
+                    wallOption.addActionListener(e -> {
+                        buyWall(player, wallPrice, grid);
+                    });
+                    optionsMenu.add(wallOption);
+                } else {
+                    // Upgrade options
+                }
             } else {
-                // Upgrade options
+                JMenuItem destroyOption = new JMenuItem("Destroy - free");
+                optionsMenu.add(destroyOption);
             }
-        } else {
-            JMenuItem destroyOption = new JMenuItem("Destroy - free");
-            optionsMenu.add(destroyOption);
         }
 
         // Calculate the position where the menu should appear (above the clicked cell)

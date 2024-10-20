@@ -1,5 +1,6 @@
 package gameclasses;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -19,11 +20,26 @@ public class Collider {
      */
     public boolean checkForCollision(GridCell[][] cells) {
         GridCell[][] cells2 = Arrays.copyOf(cells, cells.length);
+
         for (GridCell[] bArray : cells2) {
             for (GridCell b : bArray) {
                 if (this.collidesWith(b) && !b.isEmpty()) {
                     return true;
                 }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean checkForCollision(ArrayList<Enemy> enemies, Player player) {
+        ArrayList<Enemy> enemies2 = new ArrayList<>(enemies);
+
+        for (Enemy e : enemies2) {
+            if ((this.collidesWith(e)) && (this != player.getCollider())) {
+                ((Bullet) currEntity).handleHit(e);
+                ((Bullet) currEntity).destroy();
+                return true;
             }
         }
 
@@ -43,6 +59,15 @@ public class Collider {
             && currEntity.getYPosition() - offset < b.getY() + b.getSize()
             && currEntity.getYPosition() + currEntity.getHeight() + offset > b.getY();
 
+    }
+
+    private boolean collidesWith(Enemy e) {
+        //Offset for bullets.
+
+        return currEntity.getXPosition() < e.getXPosition() + e.getWidth()
+            && currEntity.getXPosition() + currEntity.getWidth() > e.getXPosition()
+            && currEntity.getYPosition() < e.getYPosition() + e.getHeight()
+            && currEntity.getYPosition() + currEntity.getHeight() > e.getYPosition();     
     }
 
 
