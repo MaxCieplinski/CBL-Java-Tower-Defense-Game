@@ -5,23 +5,26 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Bullet {
+public class Bullet extends Entity {
     int x;
     int y;
     double directionX;
     double directionY;
     int speed;
-    int size = 10;
+    int size;
 
     JLabel bulletLabel;
     JPanel gamePanel;
     ArrayList<Bullet> bullets;
 
-    public Bullet(JPanel gamePanel, int startX, int startY, int speed, double directionX, double directionY, ArrayList<Bullet> bullets) {
+    public Bullet(JPanel gamePanel, int startX, int startY, int speed, int size, double directionX, double directionY, ArrayList<Bullet> bullets, ArrayList<Entity> entities) {
+        super(startX, startY, entities, size, size);
+
         this.gamePanel = gamePanel;
         this.x = startX;
         this.y = startY;
         this.speed = speed;
+        this.size = size;
         this.directionX = directionX;
         this.directionY = directionY;
         this.bullets = bullets;

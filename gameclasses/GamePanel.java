@@ -108,7 +108,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         try {
-            System.out.println(playerBullets.size());
             synchronized (playerBullets) {
                 Iterator<Bullet> iterator = playerBullets.iterator();
     

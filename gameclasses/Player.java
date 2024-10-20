@@ -26,7 +26,7 @@ public class Player extends Entity {
     boolean right;
 
     ArrayList<Bullet> bullets;
-
+    ArrayList<Entity> entities;
 
     /**
      * Initialize player with basic starting values.
@@ -41,6 +41,7 @@ public class Player extends Entity {
         this.health = 100;
         this.gold = 1000;
         this.bullets = bullets;
+        this.entities = entities;
         
         this.panel.addMouseListener(new MouseListener() {
             @Override
@@ -122,7 +123,7 @@ public class Player extends Entity {
         double directionX = Math.cos(angleRadians);
         double directionY = Math.sin(angleRadians);
 
-        Bullet bullet = new Bullet(this.panel, (int) super.getXPosition(), (int) super.getYPosition(), 10, directionX, directionY, bullets);
+        Bullet bullet = new Bullet(this.panel, (int) super.getXPosition(), (int) super.getYPosition(), 8, 10, directionX, directionY, bullets, entities);
         bullets.add(bullet);
     }
 
