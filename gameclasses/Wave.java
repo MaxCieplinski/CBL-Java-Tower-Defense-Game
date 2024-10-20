@@ -10,7 +10,6 @@ public class Wave implements Runnable {
     private Thread waveThread;
     Player player;
     private GamePanel gamePanel;
-    private TownHall townHall;
     private Map map;
     private int numbOfEnemies;
     public ArrayList<Enemy> enemies;
@@ -20,13 +19,12 @@ public class Wave implements Runnable {
     public boolean active = false;
     public boolean waveInProgress = true;
 
-    public Wave(Player player, GamePanel gamePanel, TownHall townHall,
+    public Wave(Player player, GamePanel gamePanel,
              Map map, int amountEnemies, ArrayList<Entity> entities) {
                 
         this.entities = entities;
         this.player = player;
         this.gamePanel = gamePanel;
-        this.townHall = townHall;
         this.map = map;
         this.numbOfEnemies = amountEnemies;
 
@@ -102,8 +100,8 @@ public class Wave implements Runnable {
                     break;
             }
 
-            enemies.add(new Enemy(this.gamePanel, this.player, this.townHall, this.map, 100,
-                 10, 1, 50, xPos, yPos, entities, 30, 30));
+            enemies.add(new Enemy(this.gamePanel, this.player, this.map, 100,
+                 50, 1, 50, xPos, yPos, entities, 30, 30));
         }
 
         active = true;

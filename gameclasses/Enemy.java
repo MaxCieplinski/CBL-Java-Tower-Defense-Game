@@ -14,7 +14,6 @@ public class Enemy extends Entity {
     int healthBarXOffset = 8;
     GamePanel gamePanel;
     Player player;
-    TownHall townHall;
     Map map;
     int health;
     int maxHealth;
@@ -31,7 +30,7 @@ public class Enemy extends Entity {
      * @param xPosition the x coordinate of Enemy position.
      * @param yPosition the y coordinate of Enemy position.
      */
-    public Enemy(GamePanel gamePanel, Player player, TownHall townHall, Map map,
+    public Enemy(GamePanel gamePanel, Player player, Map map,
                 int health, int damage, double speed, int gold, double xPosition, double yPosition, 
                 ArrayList<Entity> entities, double width, double height) {
                     
@@ -39,7 +38,6 @@ public class Enemy extends Entity {
 
         this.gamePanel = gamePanel;
         this.player = player;
-        this.townHall = townHall;
         this.map = map;
         this.health = health;
         this.maxHealth = health;

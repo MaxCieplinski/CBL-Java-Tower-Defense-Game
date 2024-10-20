@@ -18,15 +18,15 @@ public class GamePanel extends JPanel implements Runnable {
     ArrayList<Entity> entities = new ArrayList<>();
     ArrayList<Bullet> playerBullets = new ArrayList<>();
 
-    TownHall townHall = new TownHall(this, 5000, 700, 400, 75);
-
     Player player = new Player(0, 0, 4, this, entities, 20, 20, playerBullets);
         
     Map map = new Map(25, this, player);
 
-    Wave wave = new Wave(player, this, townHall, map, 20, entities);
+    Wave wave = new Wave(player, this, map, 20, entities);
 
     TowerAttack towerAttack = new TowerAttack(map.towers, wave.getEnemies());
+
+    TownHall townHall = new TownHall(this, 5000, 700, 400, 75, wave);
 
     /**
      * Constructs a gamepanel object.
