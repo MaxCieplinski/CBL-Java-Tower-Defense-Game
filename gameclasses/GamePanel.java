@@ -2,6 +2,7 @@ package gameclasses;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 import javax.swing.*;
 
@@ -15,10 +16,11 @@ public class GamePanel extends JPanel implements Runnable {
     MenuPanel menuPanel;
 
     ArrayList<Entity> entities = new ArrayList<>();
+    ArrayList<Bullet> playerBullets = new ArrayList<>();
 
     TownHall townHall = new TownHall(5000, 700, 400, 75);
 
-    Player player = new Player(0, 0, 4, this, entities, 20, 20);
+    Player player = new Player(0, 0, 4, this, entities, 20, 20, playerBullets);
         
     Map map = new Map(25, this, player);
 
@@ -103,6 +105,19 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (!wave.active && !wave.waveInProgress) {
             wave.startWaveThread(); 
+        }
+
+        try {
+            System.out.println(playerBullets.size());
+            synchronized (playerBullets) {
+                Iterator<Bullet> iterator = playerBullets.iterator();
+    
+                while (iterator.hasNext()) {
+                    Bullet bullet = iterator.next();
+                    bullet.updatePosition();
+                }
+            }   
+        } catch (Exception e) {
         }
     }
 

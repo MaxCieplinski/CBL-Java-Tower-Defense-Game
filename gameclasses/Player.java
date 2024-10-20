@@ -25,13 +25,14 @@ public class Player extends Entity {
     boolean left;
     boolean right;
 
+    ArrayList<Bullet> bullets;
 
 
     /**
      * Initialize player with basic starting values.
      */
     public Player(double x, double y, int speed, JPanel panel, 
-                ArrayList<Entity> entities, double width, double height) {
+                ArrayList<Entity> entities, double width, double height, ArrayList<Bullet> bullets) {
 
         super(x, y, entities, width, height);
                 
@@ -39,6 +40,7 @@ public class Player extends Entity {
         this.speed = speed;
         this.health = 100;
         this.gold = 1000;
+        this.bullets = bullets;
         
         this.panel.addMouseListener(new MouseListener() {
             @Override
@@ -115,11 +117,13 @@ public class Player extends Entity {
     private void shootBullet(MouseEvent mouseEvent) {
         int mouseX = mouseEvent.getX();
         int mouseY = mouseEvent.getY();
-                
+                    
         double angleRadians = Math.atan2(mouseY - super.getYPosition(), mouseX - super.getXPosition());
-        double angleDegrees = Math.toDegrees(angleRadians);
-        //RIGHT 0, UP -90, LEFT 180, DOWN 90
-        System.out.println("Angle in degrees: " + angleDegrees);
+        double directionX = Math.cos(angleRadians);
+        double directionY = Math.sin(angleRadians);
+
+        Bullet bullet = new Bullet(this.panel, (int) super.getXPosition(), (int) super.getYPosition(), 10, directionX, directionY, bullets);
+        bullets.add(bullet);
     }
 
     /**
