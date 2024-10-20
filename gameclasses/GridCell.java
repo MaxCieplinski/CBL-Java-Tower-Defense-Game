@@ -1,8 +1,8 @@
 package gameclasses;
 
 import java.awt.*;
-import javax.swing.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
 
 /**
@@ -10,7 +10,8 @@ import java.util.ArrayList;
  * The playing field is made from a lot of these gridcells.
  */
 public class GridCell {
-    
+    Object cellObject;
+
     Player player;
     int x;
     int y;
@@ -58,18 +59,24 @@ public class GridCell {
                     towerOption.addActionListener(e -> {
                         buyTower(player, towerPrice, grid);
                     });
+
                     optionsMenu.add(towerOption);
 
                     JMenuItem wallOption = new JMenuItem("Wall - " + 100);
                     wallOption.addActionListener(e -> {
                         buyWall(player, wallPrice, grid);
                     });
+
                     optionsMenu.add(wallOption);
                 } else {
                     // Upgrade options
                 }
             } else {
                 JMenuItem destroyOption = new JMenuItem("Destroy - free");
+                destroyOption.addActionListener(e -> {
+                    destroyObject(player, grid);
+                });
+
                 optionsMenu.add(destroyOption);
             }
         }
@@ -106,7 +113,21 @@ public class GridCell {
             //Compensating for cellsize = 25;
             grid[this.getX() / cellSize][this.getY() / cellSize] = tower;
             grid[this.getX() / cellSize][this.getY() / cellSize].color = Color.MAGENTA;
+
+            grid[this.getX() / cellSize][this.getY() / cellSize].cellObject = tower;
         }
+    }
+
+    public void destroyObject(Player player, GridCell[][] grid) {
+        Object object = grid[this.getX() / cellSize][this.getY() / cellSize].cellObject;
+
+        if (object instanceof Tower) {
+            towers.remove(object);
+        } else if (object instanceof Wall) {
+            
+        }
+
+        grid[this.getX() / cellSize][this.getY() / cellSize] = new GridCell(this.getX(), this.getY(), player, this.cellSize, this.panel);
     }
 
     /**
@@ -123,6 +144,8 @@ public class GridCell {
             //Compensating for cellsize = 25;
             grid[this.getX() / cellSize][this.getY() / cellSize] = wall;
             grid[this.getX() / cellSize][this.getY() / cellSize].color = Color.green;
+
+            grid[this.getX() / cellSize][this.getY() / cellSize].cellObject = wall;
         }
     }
 
@@ -137,8 +160,4 @@ public class GridCell {
     public void getTowers(ArrayList<Tower> towers) {
         this.towers = towers;
     }
-
-
-
-
 }

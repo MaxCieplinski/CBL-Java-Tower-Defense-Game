@@ -34,6 +34,14 @@ public class MenuPanel extends JPanel {
         g.setFont(new Font("Arial", Font.PLAIN, 20));
         g.drawString("WAVE: " + waveStatus, 50, 140);
         g.drawString("GOLD: " + gold, 50, 170);
+
+        g.setFont(new Font("Arial", Font.BOLD, 35));
+        g.drawString("Game Rules:", 500, 70);
+        g.setFont(new Font("Arial", Font.BOLD, 15));
+        g.drawString("- Upon wave taking place you cannot modify towers/walls", 500, 100);
+        g.drawString("- You can only shoot while in wave", 500, 130);
+        g.drawString("- Each killed enemy rewards you gold!", 500, 160);
+        g.drawString("- If the town hall gets destroyed you loose!", 500, 190);
     }
 
     public void setGold(int gold) {
