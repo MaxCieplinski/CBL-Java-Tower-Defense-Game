@@ -18,7 +18,7 @@ public class GamePanel extends JPanel implements Runnable {
     ArrayList<Entity> entities = new ArrayList<>();
     ArrayList<Bullet> playerBullets = new ArrayList<>();
 
-    TownHall townHall = new TownHall(5000, 700, 400, 75);
+    TownHall townHall = new TownHall(this, 5000, 700, 400, 75);
 
     Player player = new Player(0, 0, 4, this, entities, 20, 20, playerBullets);
         
