@@ -46,9 +46,12 @@ public class Bullet extends Entity {
         this.bulletLabel.setLocation(x, y);
 
         if (x < 0 || x > gamePanel.getWidth() || y < 0 || y > gamePanel.getHeight()) {
-            bullets.remove(this);
-            gamePanel.remove(this.bulletLabel); // Remove the bullet from the panel
-            // gamePanel.repaint();
+            destroy();
         }
+    }
+
+    public void destroy() {
+        bullets.remove(this);
+        gamePanel.remove(this.bulletLabel); 
     }
 }
