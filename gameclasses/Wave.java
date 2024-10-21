@@ -110,11 +110,17 @@ public class Wave implements Runnable {
 
     public void moveEnemies() {
         for (Enemy e : enemies) {
-            e.setPosition(e.getXPosition() + e.moveX(700, 400, 30),
-                         e.getYPosition() + e.moveY(700, 400, 30));
+            if (!e.getCollider().checkForCollision(map.getMap())) {
+                e.setPosition(e.getXPosition() + e.moveX(700, 400, 30),
+                            e.getYPosition() + e.moveY(700, 400, 30));
 
-            e.healthBar.setHealthBarPosition((int) e.getXPosition() + (e.healthBarXOffset / 2),
-                                             (int) e.getYPosition() - e.healthBarYOffset);
+                e.healthBar.setHealthBarPosition((int) e.getXPosition() + (e.healthBarXOffset / 2),
+                                                (int) e.getYPosition() - e.healthBarYOffset);
+            } else {
+                //If they get stuck the position might need to be reset, not sure if this is
+                //necessary though if they do get stuck use this code:
+                e.resetEnemyPosition();
+            }
         }    
     }
 
@@ -149,5 +155,10 @@ public class Wave implements Runnable {
         if (enemies.isEmpty()) {
             endWave();
         }
+    }
+
+    public void stopWaveThread() {
+        this.active = false;
+        this.waveInProgress = false;
     }
 }

@@ -142,4 +142,12 @@ public class Enemy extends Entity {
                     (int) super.getWidth(), (int) super.getHeight());
     }
 
+    /**
+     * Resets the enemy position to one movement before.
+     */
+    public void resetEnemyPosition() {
+        super.setPosition(super.getOldX(), super.getOldY());
+
+    }
+
 }

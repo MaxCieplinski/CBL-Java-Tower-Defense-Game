@@ -60,4 +60,9 @@ public class TowerAttack implements Runnable {
             t.showRange(true, g);
         }
     }
+
+    public void stopTowerThread() {
+        this.towers = null;
+        this.enemies = null;
+    }
 }

@@ -62,6 +62,7 @@ public class TownHall implements Runnable {
 
         if (health == 0) {
             //GAME OVER
+            gamePanel.endGame();
         }
     }
 

@@ -153,4 +153,18 @@ public class GamePanel extends JPanel implements Runnable {
             menuPanel.repaint();
         });
     }
+
+    public void endGame() {
+        // Stop the game loop
+        gameThread = null;
+        
+        // Stop wave and tower attack threads
+        wave.stopWaveThread();    // Make sure wave has a method to stop its thread
+        towerAttack.stopTowerThread();  // Same for towerAttack
+    
+        // Optional: display an end game message or screen
+        JOptionPane.showMessageDialog(this, "Game Over! Thanks for playing!");
+        System.exit(0);
+
+    }
 }
