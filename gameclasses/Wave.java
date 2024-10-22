@@ -5,20 +5,33 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 
-
+/**
+ * Wave class that contains all the code for a wave.
+ * When a wave starts enemies start spawning from all directions.
+ */
 public class Wave implements Runnable {
+
     private Thread waveThread;
-    Player player;
+    private Player player;
     private GamePanel gamePanel;
-    private Map map;
-    private int numbOfEnemies;
-    public ArrayList<Enemy> enemies;
+    private Map map;    
     private ArrayList<Entity> entities;
-    public String waveStatus;
+    private int numbOfEnemies;
+
+    public ArrayList<Enemy> enemies;
     public int waveNumber = 0;
+    public String waveStatus;
     public boolean active = false;
     public boolean waveInProgress = true;
 
+    /**
+     * Constructs a wave object.
+     * @param player the player of the game.
+     * @param gamePanel the panel on which the game is run.
+     * @param map the map of the game.
+     * @param amountEnemies amount of enemies in the wave.
+     * @param entities arraylist containing all the entities in the game.
+     */
     public Wave(Player player, GamePanel gamePanel,
              Map map, int amountEnemies, ArrayList<Entity> entities) {
                 
@@ -30,6 +43,9 @@ public class Wave implements Runnable {
 
     }
 
+    /**
+     * Starts wave thread.
+     */
     public void startWaveThread() {
         waveThread = new Thread(this);
         waveThread.start();
@@ -60,9 +76,10 @@ public class Wave implements Runnable {
         this.startWave();
     }
 
-
+    /**
+     * Starts the wave.
+     */
     public void startWave() {
-        System.out.println("Wave started");
 
         //So that the player can start shooting
         player.waveStarted = true;
@@ -100,30 +117,37 @@ public class Wave implements Runnable {
                     break;
             }
 
-            enemies.add(new Enemy(this.gamePanel, this.player, this.map, 100,
+            enemies.add(new Enemy(this.gamePanel, this.player, 100,
                  50, 1, 50, xPos, yPos, entities, 30, 30));
         }
 
         active = true;
-        System.out.println("Enemies spawned");
     }
 
+    /**
+     * Moves all enemies.
+     */
     public void moveEnemies() {
+
         for (Enemy e : enemies) {
+
             if (!e.getCollider().checkForCollision(map.getMap())) {
-                e.setPosition(e.getXPosition() + e.moveX(700, 400, 30),
-                            e.getYPosition() + e.moveY(700, 400, 30));
+                e.setPosition(e.getXPosition() + e.moveX(700, 30),
+                            e.getYPosition() + e.moveY(400, 30));
 
                 e.healthBar.setHealthBarPosition((int) e.getXPosition() + (e.healthBarXOffset / 2),
                                                 (int) e.getYPosition() - e.healthBarYOffset);
             } else {
-                //If they get stuck the position might need to be reset, not sure if this is
-                //necessary though if they do get stuck use this code:
                 e.resetEnemyPosition();
             }
+
         }    
     }
 
+    /**
+     * Paints all enemies.
+     * @param g the graphics.
+     */
     public void paintEnemies(Graphics g) {
         //moveEnemies();
         for (Enemy e: enemies) {
@@ -131,25 +155,29 @@ public class Wave implements Runnable {
         }
     }
 
+    /**
+     * Gets all enemies.
+     * @return arraylist containing all the enemies.
+     */
     public ArrayList<Enemy> getEnemies() {
         return this.enemies;
     }
 
+    /**
+     * Ends the wave.
+     */
     public void endWave() {
         active = false;
         waveInProgress = false;
-        System.out.println("Wave ended!");
 
         //So that the player can build towers and walls instead of shooting.
         player.waveStarted = false;
     }
 
+    /**
+     * Updates wave state.
+     */
     public void updateWaveState() {
-        for (Enemy e : enemies) {
-            if (e.checkForDeath()) {
-                //Remove the health bar
-            }
-        }
         enemies.removeIf(Enemy::checkForDeath);
 
         if (enemies.isEmpty()) {
@@ -157,6 +185,9 @@ public class Wave implements Runnable {
         }
     }
 
+    /**
+     * Stops the wave thread when the game has ended.
+     */
     public void stopWaveThread() {
         this.active = false;
         this.waveInProgress = false;

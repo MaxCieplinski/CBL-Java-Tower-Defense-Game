@@ -10,30 +10,35 @@ import javax.swing.*;
  * The panel that the game is run on.
  */
 public class GamePanel extends JPanel implements Runnable {
-    Thread gameThread;
-    final int fps = 60;
 
-    MenuPanel menuPanel;
+    private final int fps = 60;
 
-    ArrayList<Entity> entities = new ArrayList<>();
-    ArrayList<Bullet> playerBullets = new ArrayList<>();
+    private Thread gameThread;
+    private MenuPanel menuPanel;
 
-    Player player = new Player(0, 0, 4, this, entities, 20, 20, playerBullets);
-        
-    Map map = new Map(25, this, player);
+    //Initializing arraylists.
+    private ArrayList<Entity> entities = new ArrayList<>();
+    private ArrayList<Bullet> playerBullets = new ArrayList<>();
 
-    Wave wave = new Wave(player, this, map, 20, entities);
+    //Initializing game classes.
+    private Player player = new Player(0, 0, 4, this, entities, 20, 20, playerBullets);
 
-    TowerAttack towerAttack = new TowerAttack(map.towers, wave.getEnemies());
+    private Map map = new Map(25, this, player);
 
-    TownHall townHall = new TownHall(this, 5000, 700, 400, 75, wave);
+    private Wave wave = new Wave(player, this, map, 20, entities);
+
+    private TowerAttack towerAttack = new TowerAttack(map.towers, wave.getEnemies());
+
+    private TownHall townHall = new TownHall(this, 5000, 700, 400, 75, wave);
 
     /**
      * Constructs a gamepanel object.
      */
     public GamePanel(MenuPanel menuPanel) {
+
         this.menuPanel = menuPanel;
 
+        //Set panel settings.
         this.setFocusable(true);
         this.setPreferredSize(new Dimension(1400, 800));
         this.setBackground(Color.white);
@@ -109,10 +114,13 @@ public class GamePanel extends JPanel implements Runnable {
 
         try {
             synchronized (playerBullets) {
+
                 Iterator<Bullet> iterator = playerBullets.iterator();
     
                 while (iterator.hasNext()) {
+
                     Bullet bullet = iterator.next();
+
                     if (!bullet.getCollider().checkForCollision(wave.getEnemies(), player)) {
                         bullet.updatePosition();
                     } else {
@@ -121,6 +129,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }   
         } catch (Exception e) {
+            //Exception?
         }
     }
 
@@ -142,6 +151,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
 
+    /**
+     * Updates the menu.
+     * @param waveStatus status of the wave.
+     */
     public void updateMenu(Optional<String> waveStatus) {
         SwingUtilities.invokeLater(() -> {
             menuPanel.setGold(player.getGold());
@@ -154,15 +167,18 @@ public class GamePanel extends JPanel implements Runnable {
         });
     }
 
+    /**
+     * Ends the game.
+     */
     public void endGame() {
-        // Stop the game loop
+        //Stop the game loop
         gameThread = null;
         
-        // Stop wave and tower attack threads
-        wave.stopWaveThread();    // Make sure wave has a method to stop its thread
-        towerAttack.stopTowerThread();  // Same for towerAttack
+        //Stop wave and tower attack threads
+        wave.stopWaveThread();
+        towerAttack.stopTowerThread();
     
-        // Optional: display an end game message or screen
+        //Display an end game message.
         JOptionPane.showMessageDialog(this, "Game Over! Thanks for playing!");
         System.exit(0);
 

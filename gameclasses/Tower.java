@@ -8,10 +8,9 @@ import javax.swing.*;
  * Object of type Tower.
  */
 public class Tower extends GridCell {
-    double radius = 200;
-    int row;
-    int column;
-    int damage = 35;
+
+    private double radius = 200;
+    private int damage = 35;
 
     
     /**
@@ -21,15 +20,12 @@ public class Tower extends GridCell {
         super(row, column, player, size, panel);
         super.occupied = true;
         super.empty = false;
-
-        System.out.println("Tower placed at " + row + ", " + column);
     }
 
     /**
      * Hits enemy.
      * @param enemy enemy that is hit.
      */
-
     public void handleEnemy(Enemy enemy) {
         if (enemyInRange(enemy)) {        
             enemy.takeDamage(damage); 
@@ -42,10 +38,11 @@ public class Tower extends GridCell {
      * @param enemy enemy for which it is calculated if it is in range.
      * @return true if enemy is in range, false if enemy is not in range.
      */
-
     public boolean enemyInRange(Enemy enemy) {
+
         double deltaXSquared = Math.pow(super.getX() - enemy.getXPosition(), 2);
         double deltaYSquared = Math.pow(super.getY() - enemy.getYPosition(), 2);
+
         double distance = Math.sqrt(deltaXSquared + deltaYSquared);
 
         if (distance <= radius) {
@@ -55,31 +52,33 @@ public class Tower extends GridCell {
         return false;
     }
 
-    public void showRange(boolean on, Graphics g) {
-        if (on) {
-            Graphics2D g2d = (Graphics2D) g;
+    /**
+     * Creates a circle that shows the range.
+     * @param g the graphics of the game.
+     */
+    public void showRange(Graphics g) {
+        
+        //Cast Graphics to Graphics2D to be able to use setComposite.
+        Graphics2D g2d = (Graphics2D) g;
 
-            // Set transparency: 0.1f means 10% transparency
-            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f));
+        // Set transparency: 0.1f means 10% transparency
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f));
 
-            g2d.setColor(Color.lightGray);
+        g2d.setColor(Color.lightGray);
 
-            // Calculate the center of the tower
-            int centerX = super.getX() + super.getSize() / 2;
-            int centerY = super.getY() + super.getSize() / 2;
+        // Calculate the center of the tower
+        int centerX = super.getX() + super.getSize() / 2;
+        int centerY = super.getY() + super.getSize() / 2;
 
-            // Calculate the top-left corner of the oval
-            int topLeftX = (int) (centerX - radius);
-            int topLeftY = (int) (centerY - radius);
+        // Calculate the top-left corner of the oval
+        int topLeftX = (int) (centerX - radius);
+        int topLeftY = (int) (centerY - radius);
 
-            // Draw the semi-transparent oval, centered on the tower
-            g2d.fillOval(topLeftX, topLeftY, (int) (2 * radius), (int) (2 * radius));
+        // Draw the semi-transparent oval, centered on the tower
+        g2d.fillOval(topLeftX, topLeftY, (int) (2 * radius), (int) (2 * radius));
 
-            //Reset transparency for future drawing purposes.
-            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
-        } else {
-            //Call repaint for example
-        }
+        //Reset transparency for future drawing purposes.
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
     }
 
 

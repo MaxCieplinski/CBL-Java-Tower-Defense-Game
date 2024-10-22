@@ -12,13 +12,18 @@ import javax.swing.*;
  * Each gridcell has an x,y and cellSize.
  */
 public class Map {
-    int cellSize;
-    int y;
-    int x;
-    JPanel panel;
-    GridCell[][] grid;
-    Player player;
-    ArrayList<Tower> towers = new ArrayList<>();
+
+    private int cellSize;
+    private int y;
+    private int x;
+
+    private JPanel panel;
+
+    private GridCell[][] grid;
+    
+    private Player player;
+
+    public ArrayList<Tower> towers = new ArrayList<>();
 
     /**
      * Constructs an object of type map.

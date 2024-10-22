@@ -9,18 +9,16 @@ import java.util.ArrayList;
  */
 
 public class Entity {
-    double x;
-    double y;
+    
+    public double x;
+    public double y;
 
-    Collider collider;
+    private Collider collider;
 
-    int size;
-
-    double oldX;
-    double oldY;
-
-    double width;
-    double height;
+    private double oldX;
+    private double oldY;
+    private double width;
+    private double height;
 
     /**
      * Creates an entity.
@@ -83,11 +81,6 @@ public class Entity {
     public Collider getCollider() {
         return this.collider;
     }
-
-    public double getSize() {
-        return size;
-    }
-
 
     public double getOldX() {
         return oldX;

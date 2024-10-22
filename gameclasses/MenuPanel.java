@@ -8,8 +8,8 @@ import javax.swing.JPanel;
  */
 public class MenuPanel extends JPanel {
 
-    int gold = 1000;
-    String waveStatus;
+    private int gold = 1000;
+    private String waveStatus;
 
     /**
      * Constructor for a menu panel object.

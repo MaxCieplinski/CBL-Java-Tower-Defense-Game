@@ -4,17 +4,19 @@ import java.awt.Color;
 import javax.swing.JLabel;
 
 public class HealthBar {
-    JLabel healthBarBackground;
-    JLabel healthBarForeground;
-    int health;
-    int maxHealth;
-    int width;
-    int height;
-    GamePanel gamePanel;
 
-    public HealthBar(GamePanel gamePanel, int health, int maxHealth, int width, int height) {
+    public JLabel healthBarBackground;
+    public JLabel healthBarForeground;
+
+    private int maxHealth;
+    private int width;
+    private int height;
+
+    private GamePanel gamePanel;
+
+    public HealthBar(GamePanel gamePanel, int maxHealth, int width, int height) {
+        
         this.gamePanel = gamePanel;
-        this.health = health;
         this.maxHealth = maxHealth;
         this.width = width;
         this.height = height;

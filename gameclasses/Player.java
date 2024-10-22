@@ -3,12 +3,9 @@ package gameclasses;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -20,20 +17,18 @@ import javax.swing.KeyStroke;
  * Player class.
  */
 public class Player extends Entity {
-    JPanel panel;
+    private JPanel panel;
 
-    int health;
-    int gold;
+    private int gold;
+    private int speed;
 
-    int speed;
+    private boolean up;
+    private boolean down;
+    private boolean left;
+    private boolean right;
 
-    boolean up;
-    boolean down;
-    boolean left;
-    boolean right;
-
-    ArrayList<Bullet> bullets;
-    ArrayList<Entity> entities;
+    private ArrayList<Bullet> bullets;
+    private ArrayList<Entity> entities;
 
     public boolean waveStarted = false;
 
@@ -48,7 +43,6 @@ public class Player extends Entity {
                 
         this.panel = panel;
         this.speed = speed;
-        this.health = 100;
         this.gold = 1000;
         this.bullets = bullets;
         this.entities = entities;
@@ -57,6 +51,7 @@ public class Player extends Entity {
         this.panel.requestFocusInWindow();
         
         this.panel.addMouseListener(new MouseListener() {
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (waveStarted) {
@@ -86,7 +81,12 @@ public class Player extends Entity {
         setupKeyBindings();
     }
 
-        private void setupKeyBindings() {
+
+    /**
+    * Sets up the key bindings.
+    */
+    private void setupKeyBindings() {
+
         // Define input maps for the panel
         InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = panel.getActionMap();
@@ -161,6 +161,7 @@ public class Player extends Entity {
     }
 
     private void shootBullet(MouseEvent mouseEvent) {
+
         int mouseX = mouseEvent.getX();
         int mouseY = mouseEvent.getY();
                     
@@ -180,8 +181,10 @@ public class Player extends Entity {
      * Updates player position based on boolean values of: up, down, left, right.
      */
     public void updatePlayerPosition() {
+
         double posY = super.getYPosition();
         double posX = super.getXPosition();
+
         if (up) {
             posY = Math.max(posY -= speed, 0);
         }
@@ -207,7 +210,6 @@ public class Player extends Entity {
      */
     public void resetPlayerPosition() {
         super.setPosition(super.getOldX(), super.getOldY());
-
     }
 
     /**
@@ -215,25 +217,11 @@ public class Player extends Entity {
      * @param g graphics of the player.
      */
     public void paintPlayer(Graphics g) {
+
         g.setColor(Color.blue);
         g.fillRect((int) super.getXPosition(), (int) super.getYPosition(),
                     (int) super.getWidth(), (int) super.getHeight());
 
-    }
-
-    /**
-     * Method to get the current player health.
-     * @return current player health value.
-     */
-    public int getHealth() {
-        return health;
-    }
-
-    /**
-     * Method to set the player health.
-     */
-    public void setHealth(int health) {
-        this.health = health;
     }
 
     /**
@@ -242,14 +230,6 @@ public class Player extends Entity {
      */
     public int getGold() {
         return gold;
-    }
-
-    /**
-     * Method to set the player gold.
-     * @param gold the amount of gold.
-     */
-    public void setGold(int gold) {
-        this.gold = gold;
     }
 
     /**

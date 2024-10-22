@@ -10,23 +10,26 @@ import javax.swing.*;
  * The playing field is made from a lot of these gridcells.
  */
 public class GridCell {
-    Object cellObject;
-
-    Player player;
-    int x;
-    int y;
-    JPanel panel;
-    int price;
-    int cellSize;
-
-    ArrayList<Tower> towers;
-
-    boolean occupied = false;
-    boolean empty = true; // Example: Whether the cell is occupied by an object
-    Color color = Color.GRAY;
 
     final int towerPrice = 300;
     final int wallPrice = 100;
+
+    private Object cellObject;
+
+    private Player player;
+    
+    private JPanel panel;
+
+    private ArrayList<Tower> towers;
+
+    private int x;
+    private int y;
+    private int cellSize;
+
+    public boolean occupied = false;
+    public boolean empty = true; // Example: Whether the cell is occupied by an object
+
+    public Color color = Color.GRAY;
 
     /**
      * Creates a grid cell object.
@@ -127,7 +130,8 @@ public class GridCell {
             
         }
 
-        grid[this.getX() / cellSize][this.getY() / cellSize] = new GridCell(this.getX(), this.getY(), player, this.cellSize, this.panel);
+        grid[this.getX() / cellSize][this.getY() / cellSize] = 
+            new GridCell(this.getX(), this.getY(), player, this.cellSize, this.panel);
     }
 
     /**
@@ -151,10 +155,6 @@ public class GridCell {
 
     public int getSize() {
         return this.cellSize;
-    }
-
-    public boolean isEmpty() {
-        return empty;
     }
 
     public void getTowers(ArrayList<Tower> towers) {

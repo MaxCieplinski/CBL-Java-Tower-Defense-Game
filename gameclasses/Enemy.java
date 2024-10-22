@@ -9,17 +9,18 @@ import java.util.ArrayList;
  */
 public class Enemy extends Entity {
     // Parameters initialization.
-    HealthBar healthBar;
-    int healthBarYOffset = 8;
-    int healthBarXOffset = 8;
-    GamePanel gamePanel;
-    Player player;
-    Map map;
-    int health;
-    int maxHealth;
-    int damage;
-    double speed;
-    int gold;
+    public final int healthBarYOffset = 8;
+    public final int healthBarXOffset = 8;
+
+    public HealthBar healthBar;
+    public int damage;
+
+    private GamePanel gamePanel;
+    private Player player;
+    private int health;
+    private int maxHealth;
+    private double speed;
+    private int gold;
 
     /**
      * Creates a new object of type Enemy.
@@ -30,22 +31,21 @@ public class Enemy extends Entity {
      * @param xPosition the x coordinate of Enemy position.
      * @param yPosition the y coordinate of Enemy position.
      */
-    public Enemy(GamePanel gamePanel, Player player, Map map,
-                int health, int damage, double speed, int gold, double xPosition, double yPosition, 
-                ArrayList<Entity> entities, double width, double height) {
+    public Enemy(GamePanel gamePanel, Player player, int health, int damage, double speed,
+                 int gold, double xPosition, double yPosition, ArrayList<Entity> entities,
+                 double width, double height) {
                     
         super(xPosition, yPosition, entities, width, height);
 
         this.gamePanel = gamePanel;
         this.player = player;
-        this.map = map;
         this.health = health;
         this.maxHealth = health;
         this.damage = damage;
         this.speed = speed;
         this.gold = gold;
 
-        this.healthBar = new HealthBar(this.gamePanel, this.health, this.maxHealth,
+        this.healthBar = new HealthBar(this.gamePanel, this.maxHealth,
                                      (int) width - this.healthBarXOffset, 5);
         this.healthBar.setHealthBarPosition((int) this.getXPosition() + (this.healthBarXOffset / 2),
                                             (int) this.getYPosition() - this.healthBarYOffset);
@@ -55,7 +55,7 @@ public class Enemy extends Entity {
      * Method to award player gold.
      * @param player the player of type Player.
      */
-    void giveGold(Player player) {
+    public void giveGold(Player player) {
         player.addGold(this.gold);
     }
 
@@ -68,18 +68,10 @@ public class Enemy extends Entity {
     }
 
     /**
-     * Method to set the health of the Enemy.
-     * @param health the new health value of Enemy.
-     */
-    void setHealth(int health) {
-        this.health = health;
-    }
-
-    /**
      * Method to make Enemy take damage.
      * @param damage the amount of damage Enemy should take.
      */
-    void takeDamage(int damage) {
+    public void takeDamage(int damage) {
         this.health -= damage;
         if (this.healthBar != null) {
             this.healthBar.updateHealthBar(this.health);
@@ -92,22 +84,28 @@ public class Enemy extends Entity {
      * Method to check if the enemy health is below or 0.
      */
     public boolean checkForDeath() {
+
         if (this.health <= 0) {
+
             giveGold(player);
+
             this.healthBar.healthBarBackground.setVisible(false);
             this.healthBar.healthBarForeground.setVisible(false);
-            
+
             return true;
         }
         
         return false;
     }
 
-    public void findPathToTownHall() {
-        //GOAL this.townHall
-    }
-
-    public double moveX(double middleOfPanelX, double middleOfPanelY, int size) {
+    /**
+     * Calculates delta-x.
+     * @param middleOfPanelX x-coordinate of the middle of the panel.
+     * @param size size of the town hall.
+     * @return double containing the direction in which the enemy should move, horizontally,
+     *          to reach the town hall.
+     */
+    public double moveX(double middleOfPanelX, int size) {
         double distanceX = (middleOfPanelX - size) - this.getXPosition();
 
         if (distanceX > 0) {
@@ -121,7 +119,15 @@ public class Enemy extends Entity {
         return 0;
     }
 
-    public double  moveY(double middleOfPanelX, double middleOfPanelY, int size) {
+    /**
+     * Calculates delta-y.
+     * @param middleOfPanelY y-coordinate of the middle of the panel.
+     * @param size size of the town hall.
+     * @return double containing the direction in which the enemy should move, vertically,
+     *          to reach the town hall.
+     */
+    public double moveY(double middleOfPanelY, int size) {
+
         double distanceY = (middleOfPanelY - size) - this.getYPosition();
 
         if (distanceY > 0) {
@@ -136,7 +142,12 @@ public class Enemy extends Entity {
     }
 
 
+    /**
+     * Draws the enemy.
+     * @param g the graphics of the game.
+     */
     public void paintEnemy(Graphics g) {
+
         g.setColor(Color.red);
         g.fillRect((int) super.getXPosition(), (int) super.getYPosition(),
                     (int) super.getWidth(), (int) super.getHeight());
@@ -146,8 +157,8 @@ public class Enemy extends Entity {
      * Resets the enemy position to one movement before.
      */
     public void resetEnemyPosition() {
-        super.setPosition(super.getOldX(), super.getOldY());
 
+        super.setPosition(super.getOldX(), super.getOldY());
     }
 
 }
