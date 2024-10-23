@@ -179,8 +179,8 @@ public class GamePanel extends JPanel implements Runnable {
         towerAttack.stopTowerThread();
     
         //Display an end game message.
-        JOptionPane.showMessageDialog(this, "Game Over! Thanks for playing!");
+        System.out.println(wave.waveNumber);
+        JOptionPane.showMessageDialog(this, "Game Over! Thanks for playing!\n                   Stats:\nWaves survived: " + wave.waveNumber + "\nEnemies destroyed: " + wave.enemiesDestroyedStat);
         System.exit(0);
-
     }
 }

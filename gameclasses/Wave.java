@@ -10,13 +10,13 @@ import java.util.Random;
  * When a wave starts enemies start spawning from all directions.
  */
 public class Wave implements Runnable {
-
     private Thread waveThread;
     private Player player;
     private GamePanel gamePanel;
     private Map map;    
     private ArrayList<Entity> entities;
     private int numbOfEnemies;
+    public int enemiesDestroyedStat = 0;
 
     public ArrayList<Enemy> enemies;
     public int waveNumber = 0;
@@ -128,7 +128,6 @@ public class Wave implements Runnable {
      * Moves all enemies.
      */
     public void moveEnemies() {
-
         for (Enemy e : enemies) {
 
             if (!e.getCollider().checkForCollision(map.getMap())) {
@@ -178,7 +177,14 @@ public class Wave implements Runnable {
      * Updates wave state.
      */
     public void updateWaveState() {
-        enemies.removeIf(Enemy::checkForDeath);
+        enemies.removeIf(enemy -> {
+            if (enemy.checkForDeath()) {
+                this.enemiesDestroyedStat += 1;
+                return true;
+            }
+
+            return false;
+        });
 
         if (enemies.isEmpty()) {
             endWave();
