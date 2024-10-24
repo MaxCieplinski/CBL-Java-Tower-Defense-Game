@@ -180,7 +180,9 @@ public class GamePanel extends JPanel implements Runnable {
     
         //Display an end game message.
         System.out.println(wave.waveNumber);
-        JOptionPane.showMessageDialog(this, "Game Over! Thanks for playing!\n                   Stats:\nWaves survived: " + wave.waveNumber + "\nEnemies destroyed: " + wave.enemiesDestroyedStat);
+        JOptionPane.showMessageDialog(this, "Game Over! Thanks for playing!\n"
+                                    + "Waves survived: " + wave.waveNumber 
+                                    + "\nEnemies destroyed: " + wave.enemiesDestroyedStat);
         System.exit(0);
     }
 }

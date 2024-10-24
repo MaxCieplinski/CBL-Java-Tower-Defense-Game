@@ -42,6 +42,7 @@ public class Map {
                 cellPressed(e);
             }
         });
+
     }
 
     /**
@@ -62,6 +63,10 @@ public class Map {
         }
     }
 
+    /**
+     * Draws the map, meaning a two dimensional array of gridcells.
+     * @param g the graphics of the game.
+     */
     public void drawGrid(Graphics g) {
         // Set grid color (optional)
         g.setColor(Color.LIGHT_GRAY);
@@ -95,7 +100,6 @@ public class Map {
         this.grid[column][row].getTowers(towers);
         this.grid[column][row].displayOptions(this.grid);
     }
-
 
     public GridCell[][] getMap() {
         return this.grid;

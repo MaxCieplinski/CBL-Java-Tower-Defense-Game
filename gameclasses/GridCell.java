@@ -49,8 +49,8 @@ public class GridCell {
      * @param grid the playing field, a two-dimensional gridcell array.
      */
     public void displayOptions(GridCell[][] grid) {
+        
         // Possibly change this to JPanel for greater customization
-        // TODO Destroy the JPopupMenu instance after clicking on other cell
         JPopupMenu optionsMenu = new JPopupMenu();
 
         //So that the player cannot build when the wave is started.
@@ -121,6 +121,11 @@ public class GridCell {
         }
     }
 
+    /**
+     * Destroys wall or tower.
+     * @param player the player of the game.
+     * @param grid the map, consisting of gridcells.
+     */
     public void destroyObject(Player player, GridCell[][] grid) {
         Object object = grid[this.getX() / cellSize][this.getY() / cellSize].cellObject;
 
