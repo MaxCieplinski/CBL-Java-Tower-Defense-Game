@@ -15,7 +15,7 @@ public class Bullet extends Entity {
     private double directionY;
 
     private int speed;
-    private int damage;
+    private int damage = GameSettings.PLAYER_DAMAGE;
 
     private JLabel bulletLabel;
     
@@ -37,8 +37,7 @@ public class Bullet extends Entity {
      * @param damage the damage of the bullet.
      */
     public Bullet(JPanel gamePanel, int startX, int startY, int speed, int size, double directionX, 
-                double directionY, ArrayList<Bullet> bullets, ArrayList<Entity> entities, 
-                int damage) {
+                double directionY, ArrayList<Bullet> bullets, ArrayList<Entity> entities) {
 
         super(startX, startY, entities, size, size);
 
@@ -47,7 +46,6 @@ public class Bullet extends Entity {
         this.directionX = directionX;
         this.directionY = directionY;
         this.bullets = bullets;
-        this.damage = damage;
 
         this.bulletLabel = new JLabel();
         this.bulletLabel.setOpaque(true);

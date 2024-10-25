@@ -13,7 +13,7 @@ public class TownHall implements Runnable {
     private GamePanel gamePanel;
     private Wave wave;
 
-    private int health;
+    private int health = GameSettings.TOWN_HALL_HEALTH;
     private int posX;
     private int posY;
     private int size;
@@ -28,9 +28,8 @@ public class TownHall implements Runnable {
      * @param size the size of the town hall.
      * @param wave the wave object that handles waves.
      */
-    public TownHall(GamePanel gamePanel, int health, int x, int y, int size, Wave wave) {
+    public TownHall(GamePanel gamePanel, int x, int y, int size, Wave wave) {
         this.gamePanel = gamePanel;
-        this.health = health;
         this.posX = x;
         this.posY = y;
         this.size = size;

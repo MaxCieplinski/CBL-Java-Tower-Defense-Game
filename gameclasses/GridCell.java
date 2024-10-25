@@ -10,9 +10,8 @@ import javax.swing.*;
  * The playing field is made from a lot of these gridcells.
  */
 public class GridCell {
-
-    final int towerPrice = 300;
-    final int wallPrice = 100;
+    final int towerPrice = GameSettings.TOWER_PRICE;
+    final int wallPrice = GameSettings.WALL_PRICE;
 
     private Object cellObject;
 

@@ -54,7 +54,14 @@ public class Wave implements Runnable {
     @Override
     public void run() {
         waveInProgress = true;
-        for (int i = 10; i > 0; i--) {
+        int wave_cooldown;
+        if (waveNumber == 0) {
+            wave_cooldown = GameSettings.TIME_BEFORE_WAVE_START;
+        } else {
+            wave_cooldown = GameSettings.BREAK_TIME_BETWEEN_WAVES;
+        }
+
+        for (int i = wave_cooldown; i > 0; i--) {
             waveStatus = "Starting in " + Integer.toString(i);
             this.gamePanel.updateMenu(Optional.of(waveStatus));
 
@@ -85,6 +92,10 @@ public class Wave implements Runnable {
         player.waveStarted = true;
 
         this.enemies = new ArrayList<>();
+
+        if (waveNumber != 1) {
+            this.numbOfEnemies = GameSettings.getEnemyCount(waveNumber);
+        }
 
         for (int i = 0; i < this.numbOfEnemies; i++) {
             Random rand = new Random();
@@ -118,7 +129,7 @@ public class Wave implements Runnable {
             }
 
             enemies.add(new Enemy(this.gamePanel, this.player, 100,
-                 50, 1, 50, xPos, yPos, entities, 30, 30));
+                1, xPos, yPos, entities, 30, 30));
         }
 
         active = true;
@@ -180,6 +191,7 @@ public class Wave implements Runnable {
         enemies.removeIf(enemy -> {
             if (enemy.checkForDeath()) {
                 this.enemiesDestroyedStat += 1;
+                enemy = null;
                 return true;
             }
 

@@ -13,26 +13,25 @@ public class Enemy extends Entity {
     public final int healthBarXOffset = 8;
 
     public HealthBar healthBar;
-    public int damage;
+    public int damage = GameSettings.ENEMY_DAMAGE;
 
     private GamePanel gamePanel;
     private Player player;
     private int health;
     private int maxHealth;
     private double speed;
-    private int gold;
+    private int gold = GameSettings.ENEMY_REWARD;
 
     /**
      * Creates a new object of type Enemy.
      * @param player the main Player.
      * @param health the health of the Enemy class.
-     * @param damage the damage Enemy class does.
      * @param gold the amount of gold Enemy class gives upon dying.
      * @param xPosition the x coordinate of Enemy position.
      * @param yPosition the y coordinate of Enemy position.
      */
-    public Enemy(GamePanel gamePanel, Player player, int health, int damage, double speed,
-                 int gold, double xPosition, double yPosition, ArrayList<Entity> entities,
+    public Enemy(GamePanel gamePanel, Player player, int health, double speed,
+                 double xPosition, double yPosition, ArrayList<Entity> entities,
                  double width, double height) {
                     
         super(xPosition, yPosition, entities, width, height);
@@ -41,9 +40,7 @@ public class Enemy extends Entity {
         this.player = player;
         this.health = health;
         this.maxHealth = health;
-        this.damage = damage;
         this.speed = speed;
-        this.gold = gold;
 
         this.healthBar = new HealthBar(this.gamePanel, this.maxHealth,
                                      (int) width - this.healthBarXOffset, 5);
@@ -76,17 +73,13 @@ public class Enemy extends Entity {
         if (this.healthBar != null) {
             this.healthBar.updateHealthBar(this.health);
         }
-
-        checkForDeath();
     }
 
     /**
      * Method to check if the enemy health is below or 0.
      */
     public boolean checkForDeath() {
-
-        if (this.health <= 0) {
-
+        if (this != null && this.health <= 0) {
             giveGold(player);
 
             this.healthBar.healthBarBackground.setVisible(false);

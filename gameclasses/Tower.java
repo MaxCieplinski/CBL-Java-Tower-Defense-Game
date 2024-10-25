@@ -10,7 +10,7 @@ import javax.swing.*;
 public class Tower extends GridCell {
 
     private double radius = 200;
-    private int damage = 35;
+    private int damage = GameSettings.TOWER_DAMAGE;
 
     
     /**

@@ -12,16 +12,13 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-
 /**
  * Player class.
  */
 public class Player extends Entity {
     private JPanel panel;
-
-    private int gold;
     private int speed;
-
+    private int gold = GameSettings.INITIAL_GOLD;
     private boolean up;
     private boolean down;
     private boolean left;
@@ -43,7 +40,6 @@ public class Player extends Entity {
                 
         this.panel = panel;
         this.speed = speed;
-        this.gold = 1000;
         this.bullets = bullets;
         this.entities = entities;
 
@@ -172,7 +168,7 @@ public class Player extends Entity {
 
         Bullet bullet = new Bullet(this.panel, (int) super.getXPosition(), 
                                 (int) super.getYPosition(), 8, 10, 
-                                directionX, directionY, bullets, entities, 30);
+                                directionX, directionY, bullets, entities);
 
         bullets.add(bullet);
     }
