@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class EnemyBoss extends Enemy {
-
     private int health = GameSettings.ENEMY_BOSS_HEALTH;
     private int maxHealth = GameSettings.ENEMY_BOSS_HEALTH;
     private double speed = GameSettings.ENEMY_BOSS_SPEED;

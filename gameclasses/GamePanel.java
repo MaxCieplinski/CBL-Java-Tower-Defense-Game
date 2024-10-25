@@ -143,9 +143,9 @@ public class GamePanel extends JPanel implements Runnable {
         
         if (wave.active) {
             wave.paintEnemies(g);
-            towerAttack.showTowerRanges(g);
+            // towerAttack.showTowerRanges(g);
         }
-
+        towerAttack.showTowerRanges(g);
         updateMenu(Optional.empty());
         townHall.paintTownHall(g);
     }

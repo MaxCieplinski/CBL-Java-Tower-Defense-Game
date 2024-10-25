@@ -130,7 +130,7 @@ public class Wave implements Runnable {
 
             if (i == this.numbOfEnemies) {
                 //Adding boss if good
-                if (waveNumber % 1 == 0) {
+                if (waveNumber % 5 == 0) {
                     enemies.add(new EnemyBoss(this.gamePanel, this.player, xPos, yPos, 
                                 entities, GameSettings.ENEMY_BOSS_WIDTH, 
                                 GameSettings.ENEMY_BOSS_HEIGHT));
