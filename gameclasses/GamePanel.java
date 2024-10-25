@@ -82,7 +82,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             if (timer > 1000000000) {
-                System.out.println("FPS: " + drawCount);
+                //System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
             }
@@ -124,7 +124,7 @@ public class GamePanel extends JPanel implements Runnable {
                     if (!bullet.getCollider().checkForCollision(wave.getEnemies(), player)) {
                         bullet.updatePosition();
                     } else {
-                        System.out.println("Hit enemy!");
+                        //System.out.println("Hit enemy!");
                     }
                 }
             }   
@@ -179,7 +179,6 @@ public class GamePanel extends JPanel implements Runnable {
         towerAttack.stopTowerThread();
     
         //Display an end game message.
-        System.out.println(wave.waveNumber);
         JOptionPane.showMessageDialog(this, "Game Over! Thanks for playing!\n"
                                     + "Waves survived: " + wave.waveNumber 
                                     + "\nEnemies destroyed: " + wave.enemiesDestroyedStat);

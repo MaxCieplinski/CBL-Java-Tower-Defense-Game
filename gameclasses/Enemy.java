@@ -17,20 +17,19 @@ public class Enemy extends Entity {
 
     private GamePanel gamePanel;
     private Player player;
-    private int health;
-    private int maxHealth;
-    private double speed;
-    private int gold = GameSettings.ENEMY_REWARD;
+    private int health = GameSettings.ENEMY_HEALTH;
+    private int maxHealth = GameSettings.ENEMY_HEALTH;
+    private double speed = GameSettings.ENEMY_SPEED;
+    private int reward = GameSettings.ENEMY_REWARD;
+    Color color = GameSettings.ENEMY_COLOR;
 
     /**
      * Creates a new object of type Enemy.
      * @param player the main Player.
-     * @param health the health of the Enemy class.
-     * @param gold the amount of gold Enemy class gives upon dying.
      * @param xPosition the x coordinate of Enemy position.
      * @param yPosition the y coordinate of Enemy position.
      */
-    public Enemy(GamePanel gamePanel, Player player, int health, double speed,
+    public Enemy(GamePanel gamePanel, Player player,
                  double xPosition, double yPosition, ArrayList<Entity> entities,
                  double width, double height) {
                     
@@ -38,14 +37,23 @@ public class Enemy extends Entity {
 
         this.gamePanel = gamePanel;
         this.player = player;
-        this.health = health;
-        this.maxHealth = health;
-        this.speed = speed;
 
-        this.healthBar = new HealthBar(this.gamePanel, this.maxHealth,
+        this.healthBar = new HealthBar(this.gamePanel,
                                      (int) width - this.healthBarXOffset, 5);
         this.healthBar.setHealthBarPosition((int) this.getXPosition() + (this.healthBarXOffset / 2),
                                             (int) this.getYPosition() - this.healthBarYOffset);
+    }
+
+    public double getSpeed() {
+        return this.speed;
+    }
+
+    public Color getColor() {
+        return this.color;
+    }
+
+    public int getReward() {
+        return this.reward;
     }
 
     /**
@@ -53,7 +61,7 @@ public class Enemy extends Entity {
      * @param player the player of type Player.
      */
     public void giveGold(Player player) {
-        player.addGold(this.gold);
+        player.addGold(getReward());
     }
 
     /**
@@ -64,14 +72,22 @@ public class Enemy extends Entity {
         return this.health;
     }
 
+    public int getMaxHealth() {
+        return this.maxHealth;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     /**
      * Method to make Enemy take damage.
      * @param damage the amount of damage Enemy should take.
      */
     public void takeDamage(int damage) {
-        this.health -= damage;
+        setHealth(getHealth() - damage);
         if (this.healthBar != null) {
-            this.healthBar.updateHealthBar(this.health);
+            this.healthBar.updateHealthBar(getHealth(), getMaxHealth());
         }
     }
 
@@ -79,7 +95,7 @@ public class Enemy extends Entity {
      * Method to check if the enemy health is below or 0.
      */
     public boolean checkForDeath() {
-        if (this != null && this.health <= 0) {
+        if (this != null && getHealth() <= 0) {
             giveGold(player);
 
             this.healthBar.healthBarBackground.setVisible(false);
@@ -102,11 +118,11 @@ public class Enemy extends Entity {
         double distanceX = (middleOfPanelX - size) - this.getXPosition();
 
         if (distanceX > 0) {
-            return this.speed;
+            return getSpeed();
         }
 
         if (distanceX < 0) {
-            return -1 * this.speed;
+            return -1 * getSpeed();
         }
 
         return 0;
@@ -120,15 +136,14 @@ public class Enemy extends Entity {
      *          to reach the town hall.
      */
     public double moveY(double middleOfPanelY, int size) {
-
         double distanceY = (middleOfPanelY - size) - this.getYPosition();
 
         if (distanceY > 0) {
-            return this.speed;
+            return getSpeed();
         }
 
         if (distanceY < 0) {
-            return -1 * this.speed;
+            return -1 * getSpeed();
         }
 
         return 0;
@@ -141,7 +156,7 @@ public class Enemy extends Entity {
      */
     public void paintEnemy(Graphics g) {
 
-        g.setColor(Color.red);
+        g.setColor(getColor());
         g.fillRect((int) super.getXPosition(), (int) super.getYPosition(),
                     (int) super.getWidth(), (int) super.getHeight());
     }
@@ -150,8 +165,6 @@ public class Enemy extends Entity {
      * Resets the enemy position to one movement before.
      */
     public void resetEnemyPosition() {
-
         super.setPosition(super.getOldX(), super.getOldY());
     }
-
 }

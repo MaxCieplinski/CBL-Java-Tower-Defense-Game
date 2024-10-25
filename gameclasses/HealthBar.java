@@ -7,11 +7,9 @@ import javax.swing.JLabel;
  * Healthbar class that contains all the code for health bars in the game.
  */
 public class HealthBar {
-
     public JLabel healthBarBackground;
     public JLabel healthBarForeground;
 
-    private int maxHealth;
     private int width;
     private int height;
 
@@ -20,14 +18,11 @@ public class HealthBar {
     /**
      * Creates a healthbar.
      * @param gamePanel the panel the game is run on.
-     * @param maxHealth the maximum health of the entity/building the healthbar is used for.
      * @param width the width of the healthbar.
      * @param height the height of the healthbar.
      */
-    public HealthBar(GamePanel gamePanel, int maxHealth, int width, int height) {
-        
+    public HealthBar(GamePanel gamePanel, int width, int height) {
         this.gamePanel = gamePanel;
-        this.maxHealth = maxHealth;
         this.width = width;
         this.height = height;
 
@@ -52,8 +47,8 @@ public class HealthBar {
      * Updates the healthbar.
      * @param health the health that needs to be displayed.
      */
-    public void updateHealthBar(int health) {
-        double percentage = (double) health / this.maxHealth;
+    public void updateHealthBar(int health, int maxHealth) {
+        double percentage = (double) health / maxHealth;
         int newWidth = (int) (this.width * percentage);
 
         this.healthBarBackground.setSize(newWidth, this.height);

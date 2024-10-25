@@ -14,6 +14,7 @@ public class TownHall implements Runnable {
     private Wave wave;
 
     private int health = GameSettings.TOWN_HALL_HEALTH;
+    private int maxHealth = GameSettings.TOWN_HALL_HEALTH;
     private int posX;
     private int posY;
     private int size;
@@ -35,7 +36,7 @@ public class TownHall implements Runnable {
         this.size = size;
         this.wave = wave;
 
-        this.healthBar = new HealthBar(gamePanel, this.health, size, 5);
+        this.healthBar = new HealthBar(gamePanel, size, 5);
         this.healthBar.setHealthBarPosition(x - size, y - size - 10);
 
         townHallThread = new Thread(this);
@@ -78,7 +79,7 @@ public class TownHall implements Runnable {
      */
     public void takeDamage(int damage) {
         health = Math.max(0, health - damage);
-        this.healthBar.updateHealthBar(health);
+        this.healthBar.updateHealthBar(health, maxHealth);
 
         if (health == 0) {
             //GAME OVER

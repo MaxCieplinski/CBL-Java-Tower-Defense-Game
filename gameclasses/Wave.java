@@ -97,7 +97,7 @@ public class Wave implements Runnable {
             this.numbOfEnemies = GameSettings.getEnemyCount(waveNumber);
         }
 
-        for (int i = 0; i < this.numbOfEnemies; i++) {
+        for (int i = 0; i < this.numbOfEnemies + 1; i++) {
             Random rand = new Random();
             int side = rand.nextInt(4);
             int xPos = 0;
@@ -128,8 +128,19 @@ public class Wave implements Runnable {
                     break;
             }
 
-            enemies.add(new Enemy(this.gamePanel, this.player, 100,
-                1, xPos, yPos, entities, 30, 30));
+            if (i == this.numbOfEnemies) {
+                //Adding boss if good
+                if (waveNumber % 1 == 0) {
+                    enemies.add(new EnemyBoss(this.gamePanel, this.player, xPos, yPos, 
+                                entities, GameSettings.ENEMY_BOSS_WIDTH, 
+                                GameSettings.ENEMY_BOSS_HEIGHT));
+                } else {
+                    continue;
+                }
+            }
+
+            enemies.add(new Enemy(this.gamePanel, this.player,
+                xPos, yPos, entities, GameSettings.ENEMY_WIDTH, GameSettings.ENEMY_HEIGHT));
         }
 
         active = true;
