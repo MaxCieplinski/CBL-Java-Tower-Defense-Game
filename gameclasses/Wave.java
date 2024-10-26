@@ -200,15 +200,14 @@ public class Wave implements Runnable {
      * Updates wave state.
      */
     public void updateWaveState() {
-        enemies.removeIf(enemy -> {
-            if (enemy.checkForDeath()) {
-                this.enemiesDestroyedStat += 1;
-                enemy = null;
-                return true;
-            }
 
-            return false;
-        });
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+
+            if (enemies.get(i).checkForDeath()) {
+                enemies.remove(i);
+                this.enemiesDestroyedStat += 1;
+            }
+        }
 
         if (enemies.isEmpty()) {
             endWave();

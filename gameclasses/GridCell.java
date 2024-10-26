@@ -130,10 +130,12 @@ public class GridCell {
     public void destroyObject(Player player, GridCell[][] grid) {
         Object object = grid[this.getX() / cellSize][this.getY() / cellSize].cellObject;
 
-        if (object instanceof Tower) {
-            towers.remove(object);
-        } else if (object instanceof Wall) {
-            
+        try {
+            if (object instanceof Tower) {
+                towers.remove(object);
+            }
+        } catch (NullPointerException e) {
+            return;
         }
 
         grid[this.getX() / cellSize][this.getY() / cellSize] = 
@@ -173,11 +175,11 @@ public class GridCell {
      */
     public boolean checkForDestruction(GridCell[][] grid) {
         if (this.health <= 0) {
-            
-            destroyObject(player, grid);
 
             this.healthBar.healthBarBackground.setVisible(false);
             this.healthBar.healthBarForeground.setVisible(false);
+            
+            destroyObject(player, grid);
 
             return true;
         }

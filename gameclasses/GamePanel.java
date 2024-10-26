@@ -127,13 +127,11 @@ public class GamePanel extends JPanel implements Runnable {
 
                     if (!bullet.getCollider().checkForCollision(wave.getEnemies(), player)) {
                         bullet.updatePosition();
-                    } else {
-                        //System.out.println("Hit enemy!");
                     }
                 }
             }   
         } catch (Exception e) {
-            //Exception?
+            return;
         }
     }
 
@@ -141,17 +139,22 @@ public class GamePanel extends JPanel implements Runnable {
      * Paints the gamepanel. So it draws the playing field and player.
      */
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        map.drawGrid(g);
-        player.paintPlayer(g);
+
+        try {
+            super.paintComponent(g);
+            map.drawGrid(g);
+            player.paintPlayer(g);
         
-        if (wave.active) {
-            wave.paintEnemies(g);
-            // towerAttack.showTowerRanges(g);
+            if (wave.active) {
+                wave.paintEnemies(g);
+            }
+
+            towerAttack.showTowerRanges(g);
+            updateMenu(Optional.empty());
+            townHall.paintTownHall(g); 
+        } catch (Exception e) {
+            return;
         }
-        towerAttack.showTowerRanges(g);
-        updateMenu(Optional.empty());
-        townHall.paintTownHall(g);
     }
 
 

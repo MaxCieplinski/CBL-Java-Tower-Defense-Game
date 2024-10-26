@@ -90,6 +90,10 @@ public class Enemy extends Entity {
         if (this.healthBar != null) {
             this.healthBar.updateHealthBar(getHealth(), getMaxHealth());
         }
+
+        if (checkForDeath()) {
+            giveGold(player);
+        }
     }
 
     /**
@@ -97,8 +101,6 @@ public class Enemy extends Entity {
      */
     public boolean checkForDeath() {
         if (this != null && getHealth() <= 0) {
-            giveGold(player);
-
             this.healthBar.healthBarBackground.setVisible(false);
             this.healthBar.healthBarForeground.setVisible(false);
 

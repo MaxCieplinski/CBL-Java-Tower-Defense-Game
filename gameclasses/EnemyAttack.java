@@ -1,6 +1,6 @@
 package gameclasses;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Code which handles the enemy attacking the towers or walls.
@@ -30,18 +30,22 @@ public class EnemyAttack implements Runnable{
     @Override
     public void run() {
 
-        if ((this.grid != null) && (this.enemies != null)) {
+        try {
 
-            for (Enemy e : enemies) {
+            if ((this.grid != null) && (this.enemies != null)) {
 
-                if (e != null) {
+                for (Enemy e : enemies) {
+    
                     if (e.getCollider().checkForCollision(grid)) {
                         e.getCollider().destroyBuildings(grid, e);
                     }
                 }
+    
             }
-
+        } catch (ConcurrentModificationException e) {
+            return;
         }
+        
 
         try {
             // to sleep 0.75 second
