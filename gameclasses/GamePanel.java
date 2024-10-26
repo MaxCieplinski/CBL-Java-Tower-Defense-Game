@@ -47,6 +47,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
     }
 
+    public void setTownHallHealPrice(int price) {
+        this.menuPanel.setTownHallHealPrice(price);
+    }
+
     /**
      * Starts the game.
      */

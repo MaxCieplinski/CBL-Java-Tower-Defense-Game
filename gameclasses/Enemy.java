@@ -21,7 +21,7 @@ public class Enemy extends Entity {
     private int health = GameSettings.ENEMY_HEALTH;
     private int maxHealth = GameSettings.ENEMY_HEALTH;
     private double speed = GameSettings.ENEMY_SPEED;
-    private int reward = GameSettings.ENEMY_REWARD;
+    private int reward;
     Color color = GameSettings.ENEMY_COLOR;
 
     /**
@@ -32,12 +32,13 @@ public class Enemy extends Entity {
      */
     public Enemy(GamePanel gamePanel, Player player,
                  double xPosition, double yPosition, ArrayList<Entity> entities,
-                 double width, double height) {
+                 double width, double height, int reward) {
                     
         super(xPosition, yPosition, entities, width, height);
 
         this.gamePanel = gamePanel;
         this.player = player;
+        this.reward = reward;
 
         this.healthBar = new HealthBar(this.gamePanel,
                                      (int) width - this.healthBarXOffset, 5);

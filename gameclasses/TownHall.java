@@ -44,7 +44,6 @@ public class TownHall implements Runnable {
 
     @Override
     public void run() {
-
         if (this.wave.getEnemies() != null && !this.wave.getEnemies().isEmpty()) {
 
             for (Enemy enemy : this.wave.getEnemies()) {
@@ -95,6 +94,4 @@ public class TownHall implements Runnable {
         g.setColor(Color.black);
         g.fillRect(posX - size, posY - size, size, size);
     }
-
-
 }

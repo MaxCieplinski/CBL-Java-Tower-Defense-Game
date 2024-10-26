@@ -88,7 +88,6 @@ public class Wave implements Runnable {
      * Starts the wave.
      */
     public void startWave() {
-
         //So that the player can start shooting
         player.waveStarted = true;
 
@@ -132,19 +131,22 @@ public class Wave implements Runnable {
             if (i == this.numbOfEnemies) {
                 //Adding boss if good
                 if (waveNumber % 5 == 0) {
-                    enemies.add(new EnemyBoss(this.gamePanel, this.player, xPos, yPos, 
+                    for (i = 0; i < waveNumber / 5; i++) {
+                        enemies.add(new EnemyBoss(this.gamePanel, this.player, xPos, yPos, 
                                 entities, GameSettings.ENEMY_BOSS_WIDTH, 
                                 GameSettings.ENEMY_BOSS_HEIGHT));
+                    }
                 } else {
                     continue;
                 }
             }
 
             enemies.add(new Enemy(this.gamePanel, this.player,
-                xPos, yPos, entities, GameSettings.ENEMY_WIDTH, GameSettings.ENEMY_HEIGHT));
+                xPos, yPos, entities, GameSettings.ENEMY_WIDTH, GameSettings.ENEMY_HEIGHT, GameSettings.getEnemyReward(waveNumber)));
         }
 
         active = true;
+        this.gamePanel.setTownHallHealPrice(GameSettings.getTownHallHealthPrice(waveNumber));
     }
 
     /**
@@ -200,7 +202,6 @@ public class Wave implements Runnable {
      * Updates wave state.
      */
     public void updateWaveState() {
-
         for (int i = enemies.size() - 1; i >= 0; i--) {
 
             if (enemies.get(i).checkForDeath()) {

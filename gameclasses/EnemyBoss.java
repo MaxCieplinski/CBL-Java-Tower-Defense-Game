@@ -29,7 +29,7 @@ public class EnemyBoss extends Enemy {
                      double width, double height) {
 
         // Call the constructor of the Enemy class
-        super(gamePanel, player, xPosition, yPosition, entities, width, height);
+        super(gamePanel, player, xPosition, yPosition, entities, width, height, GameSettings.ENEMY_BOSS_HEALTH);
         super.damage = GameSettings.ENEMY_BOSS_DAMAGE;
         super.buildingDamage = GameSettings.ENEMY_BOSS_BUILDING_DAMAGE;
     }
