@@ -109,9 +109,31 @@ public class Map {
         // Possibly change this to JPanel for greater customization
         JPopupMenu optionsMenu = new JPopupMenu();
 
+        ArrayList<GridCell> playerGridCells = new ArrayList<>();
+        double playerXPosition = player.getXPosition();
+        double playerYPosition = player.getYPosition();
+        double playerSize = player.getWidth(); //Since player is a square
+
+        int startCol = (int) (playerXPosition / cellSize);
+        int endCol = (int) ((playerXPosition + playerSize) / cellSize);
+        int startRow = (int) (playerYPosition / cellSize);
+        int endRow = (int) ((playerYPosition + playerSize) / cellSize);
+
+        startCol = Math.max(0, startCol);
+        endCol = Math.min(x - 1, endCol);
+        startRow = Math.max(0, startRow);
+        endRow = Math.min(y - 1, endRow);
+
+        for (int col = startCol; col <= endCol; col++) {
+            for (int row = startRow; row <= endRow; row++) {
+                GridCell cell = grid[col][row];
+                playerGridCells.add(cell);
+            }
+        }
+
         //So that the player cannot build when the wave is started.
         if (!player.waveStarted) {
-            if (!gridCell.occupied) {
+            if (!gridCell.occupied && !playerGridCells.contains(gridCell)) {
                 if (gridCell.empty) {
                     // Add tower or wall
                     JMenuItem towerOption = new JMenuItem("Tower - " + GameSettings.TOWER_PRICE);

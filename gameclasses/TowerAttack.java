@@ -21,7 +21,7 @@ public class TowerAttack implements Runnable {
     }
 
     /**
-     * Starts the tower attack thread.
+     * Starts the tower attack thread.d
      */
     public void startTowerThread() {
         towerAttackThread = new Thread(this);
