@@ -23,7 +23,6 @@ public class TownHall implements Runnable {
     /**
      * Constructs the townhall object.
      * @param gamePanel the panel the game is run on.
-     * @param health health of the town hall.
      * @param x the x-coordinate of the town hall.
      * @param y the y-coordinate of the town hall.
      * @param size the size of the town hall.
@@ -80,6 +79,7 @@ public class TownHall implements Runnable {
     public void takeDamage(int damage) {
         health = Math.max(0, health - damage);
         this.healthBar.updateHealthBar(health, maxHealth);
+        
 
         if (health == 0) {
             //GAME OVER

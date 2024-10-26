@@ -3,6 +3,7 @@ package gameclasses;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.Timer;
+
 /**
  * Player class.
  */
@@ -26,6 +29,9 @@ public class Player extends Entity {
 
     private ArrayList<Bullet> bullets;
     private ArrayList<Entity> entities;
+
+    private Timer shootTimer;
+    private static final int SHOOT_DELAY = 150;
 
     public boolean waveStarted = false;
 
@@ -45,23 +51,33 @@ public class Player extends Entity {
 
         this.panel.setFocusable(true);
         this.panel.requestFocusInWindow();
+
+        shootTimer = new Timer(SHOOT_DELAY, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shootBullet();
+            }
+        });
         
         this.panel.addMouseListener(new MouseListener() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
                 if (waveStarted) {
                     shootBullet(e);
+                    shootTimer.start();
                     panel.requestFocusInWindow();
                 }
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
             public void mouseReleased(MouseEvent e) {
+                shootTimer.stop();
+                
             }
 
             @Override
@@ -160,6 +176,24 @@ public class Player extends Entity {
 
         int mouseX = mouseEvent.getX();
         int mouseY = mouseEvent.getY();
+                    
+        double angleRadians = Math.atan2(mouseY - super.getYPosition(), 
+                                        mouseX - super.getXPosition());
+        double directionX = Math.cos(angleRadians);
+        double directionY = Math.sin(angleRadians);
+
+        Bullet bullet = new Bullet(this.panel, (int) super.getXPosition(), 
+                                (int) super.getYPosition(), 8, 10, 
+                                directionX, directionY, bullets, entities);
+
+        bullets.add(bullet);
+    }
+
+    
+    private void shootBullet() {
+
+        int mouseX = (int) panel.getMousePosition().getX();
+        int mouseY = (int) panel.getMousePosition().getY();
                     
         double angleRadians = Math.atan2(mouseY - super.getYPosition(), 
                                         mouseX - super.getXPosition());

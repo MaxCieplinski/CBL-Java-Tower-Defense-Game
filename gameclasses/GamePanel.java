@@ -31,6 +31,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     private TownHall townHall = new TownHall(this, 700, 400, 75, wave);
 
+    private EnemyAttack enemyAttack = new EnemyAttack(map.getMap(), wave.getEnemies());
+
     /**
      * Constructs a gamepanel object.
      */
@@ -59,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
             map.initializeGrid();
             wave.startWaveThread();
             towerAttack.startTowerThread();
+            enemyAttack.startEnemyThread();
         });
 
         double drawInterval = 1000000000 / fps;
@@ -106,6 +109,7 @@ public class GamePanel extends JPanel implements Runnable {
             wave.moveEnemies();
 
             towerAttack.updateLists(map.towers, wave.getEnemies());
+            enemyAttack.updateLists(map.getMap(), wave.getEnemies());
         }
 
         if (!wave.active && !wave.waveInProgress) {
@@ -177,6 +181,7 @@ public class GamePanel extends JPanel implements Runnable {
         //Stop wave and tower attack threads
         wave.stopWaveThread();
         towerAttack.stopTowerThread();
+        enemyAttack.stopEnemyThread();
     
         //Display an end game message.
         JOptionPane.showMessageDialog(this, "Game Over! Thanks for playing!\n"

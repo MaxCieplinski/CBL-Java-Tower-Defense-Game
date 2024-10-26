@@ -54,14 +54,15 @@ public class Wave implements Runnable {
     @Override
     public void run() {
         waveInProgress = true;
-        int wave_cooldown;
+        int waveCooldown;
+        
         if (waveNumber == 0) {
-            wave_cooldown = GameSettings.TIME_BEFORE_WAVE_START;
+            waveCooldown = GameSettings.TIME_BEFORE_WAVE_START;
         } else {
-            wave_cooldown = GameSettings.BREAK_TIME_BETWEEN_WAVES;
+            waveCooldown = GameSettings.BREAK_TIME_BETWEEN_WAVES;
         }
 
-        for (int i = wave_cooldown; i > 0; i--) {
+        for (int i = waveCooldown; i > 0; i--) {
             waveStatus = "Starting in " + Integer.toString(i);
             this.gamePanel.updateMenu(Optional.of(waveStatus));
 

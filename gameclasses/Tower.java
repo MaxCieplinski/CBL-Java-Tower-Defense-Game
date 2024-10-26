@@ -18,8 +18,15 @@ public class Tower extends GridCell {
      */
     public Tower(Player player, int row, int column, int size, JPanel panel) {
         super(row, column, player, size, panel);
+        super.health = GameSettings.TOWER_HEALTH;
+        super.maxHealth = GameSettings.TOWER_HEALTH;
+
         super.occupied = true;
         super.empty = false;
+        super.healthBar = new HealthBar(panel, 25, 2);
+
+        //Compensate for cellSize = 25.
+        this.healthBar.setHealthBarPosition(row, column - 5);
     }
 
     /**

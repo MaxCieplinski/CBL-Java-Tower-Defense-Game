@@ -1,7 +1,7 @@
 package gameclasses;
 
 import java.awt.Color;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 /**
  * Healthbar class that contains all the code for health bars in the game.
@@ -13,7 +13,7 @@ public class HealthBar {
     private int width;
     private int height;
 
-    private GamePanel gamePanel;
+    private JPanel gamePanel;
 
     /**
      * Creates a healthbar.
@@ -21,7 +21,7 @@ public class HealthBar {
      * @param width the width of the healthbar.
      * @param height the height of the healthbar.
      */
-    public HealthBar(GamePanel gamePanel, int width, int height) {
+    public HealthBar(JPanel gamePanel, int width, int height) {
         this.gamePanel = gamePanel;
         this.width = width;
         this.height = height;

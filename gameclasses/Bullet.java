@@ -34,7 +34,6 @@ public class Bullet extends Entity {
      * @param directionY the direction in terms of y the bullet is going to.
      * @param bullets arraylist of all bullets in the game.
      * @param entities arraylist of all entities in the game.
-     * @param damage the damage of the bullet.
      */
     public Bullet(JPanel gamePanel, int startX, int startY, int speed, int size, double directionX, 
                 double directionY, ArrayList<Bullet> bullets, ArrayList<Entity> entities) {

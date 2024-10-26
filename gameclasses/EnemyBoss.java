@@ -3,11 +3,14 @@ package gameclasses;
 import java.awt.Color;
 import java.util.ArrayList;
 
+/**
+ * Contains all code for a special type of enemy that spawns every 5 waves. 
+ */
 public class EnemyBoss extends Enemy {
+
     private int health = GameSettings.ENEMY_BOSS_HEALTH;
     private int maxHealth = GameSettings.ENEMY_BOSS_HEALTH;
     private double speed = GameSettings.ENEMY_BOSS_SPEED;
-    private int damage = GameSettings.ENEMY_BOSS_DAMAGE;
     private int gold = GameSettings.ENEMY_BOSS_REWARD;
     private Color color = GameSettings.ENEMY_BOSS_COLOR;
 
@@ -27,6 +30,8 @@ public class EnemyBoss extends Enemy {
 
         // Call the constructor of the Enemy class
         super(gamePanel, player, xPosition, yPosition, entities, width, height);
+        super.damage = GameSettings.ENEMY_BOSS_DAMAGE;
+        super.buildingDamage = GameSettings.ENEMY_BOSS_BUILDING_DAMAGE;
     }
 
     @Override

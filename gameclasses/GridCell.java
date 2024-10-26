@@ -10,9 +10,6 @@ import javax.swing.*;
  * The playing field is made from a lot of these gridcells.
  */
 public class GridCell {
-    final int towerPrice = GameSettings.TOWER_PRICE;
-    final int wallPrice = GameSettings.WALL_PRICE;
-
     private Object cellObject;
 
     private Player player;
@@ -28,7 +25,12 @@ public class GridCell {
     public boolean occupied = false;
     public boolean empty = true; // Example: Whether the cell is occupied by an object
 
+    public int health;
+    public int maxHealth;
+
     public Color color = Color.GRAY;
+    
+    public HealthBar healthBar;
 
     /**
      * Creates a grid cell object.
@@ -57,16 +59,16 @@ public class GridCell {
             if (!this.occupied) {
                 if (this.empty) {
                     // Add tower or wall
-                    JMenuItem towerOption = new JMenuItem("Tower - " + towerPrice);
+                    JMenuItem towerOption = new JMenuItem("Tower - " + GameSettings.TOWER_PRICE);
                     towerOption.addActionListener(e -> {
-                        buyTower(player, towerPrice, grid);
+                        buyTower(player, GameSettings.TOWER_PRICE, grid);
                     });
 
                     optionsMenu.add(towerOption);
 
-                    JMenuItem wallOption = new JMenuItem("Wall - " + 100);
+                    JMenuItem wallOption = new JMenuItem("Wall - " + GameSettings.WALL_PRICE);
                     wallOption.addActionListener(e -> {
-                        buyWall(player, wallPrice, grid);
+                        buyWall(player, GameSettings.WALL_PRICE, grid);
                     });
 
                     optionsMenu.add(wallOption);
@@ -151,7 +153,7 @@ public class GridCell {
 
             //Compensating for cellsize = 25;
             grid[this.getX() / cellSize][this.getY() / cellSize] = wall;
-            grid[this.getX() / cellSize][this.getY() / cellSize].color = Color.green;
+            grid[this.getX() / cellSize][this.getY() / cellSize].color = Color.orange;
 
             grid[this.getX() / cellSize][this.getY() / cellSize].cellObject = wall;
         }
@@ -163,5 +165,23 @@ public class GridCell {
 
     public void getTowers(ArrayList<Tower> towers) {
         this.towers = towers;
+    }
+
+    /**
+     * Checks for building destruction.
+     * @return true when health is 0 or below 0 and false otherwise.
+     */
+    public boolean checkForDestruction(GridCell[][] grid) {
+        if (this.health <= 0) {
+            
+            destroyObject(player, grid);
+
+            this.healthBar.healthBarBackground.setVisible(false);
+            this.healthBar.healthBarForeground.setVisible(false);
+
+            return true;
+        }
+
+        return false;
     }
 }

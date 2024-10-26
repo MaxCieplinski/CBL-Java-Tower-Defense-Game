@@ -10,6 +10,7 @@ public class Collider {
 
     private static final double OFFSET = 0.05;
     private Entity currEntity;
+    private ArrayList<GridCell> collisionCells;
 
     /**
      * Creates a collider object.
@@ -20,17 +21,19 @@ public class Collider {
     }
 
     /**
-     * Checks for collision between player collider and buildings.
+     * Checks for collision between current entity collider and buildings.
      * @param cells all gridcells, a.k.a. the playing field.
-     * @return true if there is an occupied gridcell that collides with the player, otherwise false.
+     * @return true if there is an occupied gridcell that collides with the entity, otherwise false.
      */
     public boolean checkForCollision(GridCell[][] cells) {
         GridCell[][] cells2 = Arrays.copyOf(cells, cells.length);
+        collisionCells = new ArrayList<>();
 
         for (GridCell[] bArray : cells2) {
             for (GridCell b : bArray) {
 
                 if (this.collidesWith(b) && !b.empty) {
+                    collisionCells.add(b);
                     return true;
                 }
             }
@@ -61,12 +64,12 @@ public class Collider {
     }
 
     /**
-     * Checks if the player collides with a grid cell.
+     * Checks if the current entity collides with a grid cell.
      * @param b the gridcell for which the condition is checked.
-     * @return true if the player collides with the gridcell, otherwise false.
+     * @return true if the current entity collides with the gridcell, otherwise false.
      */
     private boolean collidesWith(GridCell b) {
-        //Offset so player doesn't enter inside the wall during animation.
+        //Offset so the entity doesn't enter inside the wall during animation.
         return currEntity.getXPosition() - OFFSET < b.getX() + b.getSize()
             && currEntity.getXPosition() + currEntity.getWidth() + OFFSET > b.getX()
             && currEntity.getYPosition() - OFFSET < b.getY() + b.getSize()
@@ -85,6 +88,23 @@ public class Collider {
             && currEntity.getXPosition() + currEntity.getWidth() > e.getXPosition()
             && currEntity.getYPosition() < e.getYPosition() + e.getHeight()
             && currEntity.getYPosition() + currEntity.getHeight() > e.getYPosition();     
+    }
+
+    /**
+     * Makes walls or tower takes damage upon enemy collision.
+     */
+    public void destroyBuildings(GridCell[][] grid, Enemy e) {
+
+        for (GridCell b : collisionCells) {
+            if (b.occupied) {
+                b.health -= e.buildingDamage;
+                b.checkForDestruction(grid);
+                System.out.println(b.health);
+                b.healthBar.updateHealthBar(b.health, b.maxHealth);
+            }
+        }
+
+        collisionCells.clear();
     }
 
 

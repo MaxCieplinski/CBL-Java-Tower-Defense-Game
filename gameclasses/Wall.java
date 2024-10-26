@@ -7,7 +7,6 @@ import javax.swing.*;
  */
 public class Wall extends GridCell {
 
-
     /**
      * Construct a wall.
      * @param x x-coordinate of the tile where the wall is.
@@ -17,7 +16,14 @@ public class Wall extends GridCell {
      */
     public Wall(int x, int y, Player player, JPanel panel) {
         super(x, y, player, 25, panel);
+        super.health = GameSettings.WALL_HEALTH;
+        super.maxHealth = GameSettings.WALL_HEALTH;
+
         super.occupied = true;
         super.empty = false;
+        super.healthBar = new HealthBar(panel, 25, 2);
+
+        //Compensate for cellSize = 25.
+        this.healthBar.setHealthBarPosition(x, y - 5);
     }
 }

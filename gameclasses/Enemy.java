@@ -14,6 +14,7 @@ public class Enemy extends Entity {
 
     public HealthBar healthBar;
     public int damage = GameSettings.ENEMY_DAMAGE;
+    public int buildingDamage = GameSettings.ENEMY_BUILDING_DAMAGE;
 
     private GamePanel gamePanel;
     private Player player;
