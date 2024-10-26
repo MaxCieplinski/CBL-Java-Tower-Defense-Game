@@ -33,14 +33,15 @@ public class EnemyAttack implements Runnable{
         try {
 
             if ((this.grid != null) && (this.enemies != null)) {
+                try {
+                    for (Enemy e : enemies) {
+                        if (e.getCollider().checkForCollision(grid)) {
+                            e.getCollider().destroyBuildings(grid, e);
+                        }
+                    }   
+                } catch (Exception e) {
 
-                for (Enemy e : enemies) {
-    
-                    if (e.getCollider().checkForCollision(grid)) {
-                        e.getCollider().destroyBuildings(grid, e);
-                    }
                 }
-    
             }
         } catch (ConcurrentModificationException e) {
             return;

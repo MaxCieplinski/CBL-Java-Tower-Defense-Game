@@ -6,7 +6,7 @@ import java.awt.Color;
  * Contains constant values for the game.
  */
 public class GameSettings {
-    public static final int INITIAL_GOLD = 0;
+    public static final int INITIAL_GOLD = 10000;
     public static final int TOWN_HALL_HEALTH = 500;
     public static final int PLAYER_DAMAGE = 15;
     public static final int TIME_BEFORE_WAVE_START = 10;
