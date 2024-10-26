@@ -23,8 +23,6 @@ public class Map {
     
     private Player player;
 
-    public ArrayList<Tower> towers = new ArrayList<>();
-
     /**
      * Constructs an object of type map.
      * @param cellSize size of each grid.
@@ -97,11 +95,62 @@ public class Map {
         int column = mouseX / this.cellSize; // Calculate column based on x coordinate
         int row = mouseY / this.cellSize;    // Calculate row based on y coordinate
 
-        this.grid[column][row].getTowers(towers);
-        this.grid[column][row].displayOptions(this.grid);
+        //this.grid[column][row].displayOptions(this.grid);
+        this.displayOptions(this.grid[column][row]);
+
     }
 
     public GridCell[][] getMap() {
         return this.grid;
     }
+
+    public void displayOptions(GridCell gridCell) {
+        
+        // Possibly change this to JPanel for greater customization
+        JPopupMenu optionsMenu = new JPopupMenu();
+
+        //So that the player cannot build when the wave is started.
+        if (!player.waveStarted) {
+            if (!gridCell.occupied) {
+                if (gridCell.empty) {
+                    // Add tower or wall
+                    JMenuItem towerOption = new JMenuItem("Tower - " + GameSettings.TOWER_PRICE);
+                    towerOption.addActionListener(e -> {
+                        gridCell.buyTower(player, GameSettings.TOWER_PRICE, grid,
+                                        GameSettings.towers);
+                    });
+
+                    optionsMenu.add(towerOption);
+
+                    JMenuItem wallOption = new JMenuItem("Wall - " + GameSettings.WALL_PRICE);
+                    wallOption.addActionListener(e -> {
+                        gridCell.buyWall(player, GameSettings.WALL_PRICE, grid);
+                    });
+
+                    optionsMenu.add(wallOption);
+                } else {
+                    // Upgrade options
+                }
+            } else {
+                JMenuItem destroyOption = new JMenuItem("Destroy - free");
+                destroyOption.addActionListener(e -> {
+                    gridCell.destroyObject(player, grid);
+                });
+
+                optionsMenu.add(destroyOption);
+            }
+        }
+
+        // Calculate the position where the menu should appear (above the clicked cell)
+        int popupX = gridCell.getX();
+        int popupY = gridCell.getY() - optionsMenu.getPreferredSize().height;
+
+        // Show the popup menu at the calculated position
+        optionsMenu.show(this.panel, popupX, popupY);
+    }
+
+
+    
+
+
 }

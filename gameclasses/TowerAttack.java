@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class TowerAttack implements Runnable {
     
     private Thread towerAttackThread;
-    private ArrayList<Tower> towers;
     private ArrayList<Enemy> enemies;
 
     /**
@@ -17,8 +16,7 @@ public class TowerAttack implements Runnable {
      * @param towers arraylist of all towers in the game.
      * @param enemies arraylist of all enemies in the game.
      */
-    public TowerAttack(ArrayList<Tower> towers, ArrayList<Enemy> enemies) {
-        this.towers = towers;
+    public TowerAttack(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
     }
 
@@ -33,17 +31,13 @@ public class TowerAttack implements Runnable {
     @Override
     public void run() {
 
-        if ((this.towers != null) && (this.enemies != null)) {    
+        if ((GameSettings.towers != null) && (this.enemies != null)) {    
             try {
-                synchronized (towers) {
-                    for (Tower tower : towers) {
-                        synchronized (enemies) {
-                            for (Enemy enemy : enemies) {
-                                tower.handleEnemy(enemy);
-                            }   
-                        }
-                    }   
-                }    
+                for (Tower tower : GameSettings.towers) {
+                    for (Enemy enemy : enemies) {
+                        tower.handleEnemy(enemy);
+                    }
+                }
             } catch (Exception e) {
             
             }
@@ -67,8 +61,7 @@ public class TowerAttack implements Runnable {
      * @param towers arraylist containing all towers.
      * @param enemies arraylist containing all enemies.
      */
-    public void updateLists(ArrayList<Tower> towers, ArrayList<Enemy> enemies) {
-        this.towers = towers;
+    public void updateLists(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
     }
 
@@ -77,7 +70,7 @@ public class TowerAttack implements Runnable {
      * @param g the main graphics of the game.
      */
     public void showTowerRanges(Graphics g) {
-        for (Tower t : towers) {
+        for (Tower t : GameSettings.towers) {
             t.showRange(g);
         }
     }
@@ -86,7 +79,6 @@ public class TowerAttack implements Runnable {
      * Stops the tower attack thread, called after game ends.
      */
     public void stopTowerThread() {
-        this.towers = null;
         this.enemies = null;
     }
 }

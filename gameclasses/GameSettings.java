@@ -1,6 +1,7 @@
 package gameclasses;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 /**
  * Contains constant values for the game.
@@ -19,7 +20,7 @@ public class GameSettings {
     public static final int ENEMY_BOSS_WIDTH = 90;
     public static final int ENEMY_BOSS_HEIGHT = 90;
     public static final Color ENEMY_BOSS_COLOR = Color.CYAN;
-    public static final int ENEMY_BOSS_BUILDING_DAMAGE = 200;
+    public static final int ENEMY_BOSS_BUILDING_DAMAGE = 400;
 
     public static final int ENEMY_DAMAGE = 10;
     public static final int ENEMY_HEALTH = 50;
@@ -42,4 +43,6 @@ public class GameSettings {
     public static int getEnemyCount(int waveNumber) {
         return INITIAL_ENEMY_COUNT + (int) (Math.pow(waveNumber + 1, 2));
     }
+
+    public static ArrayList<Tower> towers = new ArrayList<>();
 }

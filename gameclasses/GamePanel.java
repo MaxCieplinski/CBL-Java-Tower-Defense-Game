@@ -27,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     private Wave wave = new Wave(player, this, map, GameSettings.INITIAL_ENEMY_COUNT, entities);
 
-    private TowerAttack towerAttack = new TowerAttack(map.towers, wave.getEnemies());
+    private TowerAttack towerAttack = new TowerAttack(wave.getEnemies());
 
     private TownHall townHall = new TownHall(this, 700, 400, 75, wave);
 
@@ -108,7 +108,7 @@ public class GamePanel extends JPanel implements Runnable {
             wave.updateWaveState();  // Check wave progress and end if necessary
             wave.moveEnemies();
 
-            towerAttack.updateLists(map.towers, wave.getEnemies());
+            towerAttack.updateLists(wave.getEnemies());
             enemyAttack.updateLists(map.getMap(), wave.getEnemies());
         }
 

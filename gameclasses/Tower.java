@@ -25,6 +25,8 @@ public class Tower extends GridCell {
         super.empty = false;
         super.healthBar = new HealthBar(panel, 25, 2);
 
+        super.towerRangeOn = true;
+
         //Compensate for cellSize = 25.
         this.healthBar.setHealthBarPosition(row, column - 5);
     }
@@ -64,28 +66,29 @@ public class Tower extends GridCell {
      * @param g the graphics of the game.
      */
     public void showRange(Graphics g) {
-        
-        //Cast Graphics to Graphics2D to be able to use setComposite.
-        Graphics2D g2d = (Graphics2D) g;
+        if (super.towerRangeOn) {
+            //Cast Graphics to Graphics2D to be able to use setComposite.
+            Graphics2D g2d = (Graphics2D) g;
 
-        // Set transparency: 0.1f means 10% transparency
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f));
+            // Set transparency: 0.2f means 20% transparency
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
 
-        g2d.setColor(Color.lightGray);
+            g2d.setColor(Color.lightGray);
 
-        // Calculate the center of the tower
-        int centerX = super.getX() + super.getSize() / 2;
-        int centerY = super.getY() + super.getSize() / 2;
+            // Calculate the center of the tower
+            int centerX = super.getX() + super.getSize() / 2;
+            int centerY = super.getY() + super.getSize() / 2;
 
-        // Calculate the top-left corner of the oval
-        int topLeftX = (int) (centerX - radius);
-        int topLeftY = (int) (centerY - radius);
+            // Calculate the top-left corner of the oval
+            int topLeftX = (int) (centerX - radius);
+            int topLeftY = (int) (centerY - radius);
 
-        // Draw the semi-transparent oval, centered on the tower
-        g2d.fillOval(topLeftX, topLeftY, (int) (2 * radius), (int) (2 * radius));
+            // Draw the semi-transparent oval, centered on the tower
+            g2d.fillOval(topLeftX, topLeftY, (int) (2 * radius), (int) (2 * radius));
 
-        //Reset transparency for future drawing purposes.
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+            //Reset transparency for future drawing purposes.
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+        } 
     }
 
 
