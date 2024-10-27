@@ -1,8 +1,10 @@
 package gameclasses;
 
+import com.sun.tools.javac.Main;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
@@ -217,9 +219,15 @@ public class GamePanel extends JPanel implements Runnable {
         enemyAttack.stopEnemyThread();
     
         //Display an end game message.
-        JOptionPane.showMessageDialog(this, "Game Over! Thanks for playing!\n"
+        int result = JOptionPane.showConfirmDialog(this, "Game Over! Thanks for playing!\n"
                                     + "Waves survived: " + wave.waveNumber 
-                                    + "\nEnemies destroyed: " + wave.enemiesDestroyedStat);
-        System.exit(0);
+                                    + "\nEnemies destroyed: " + wave.enemiesDestroyedStat
+                                    + "\nWould you like to play again?", "Game Over", JOptionPane.YES_NO_OPTION);
+
+        if (result == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        } else {
+            System.exit(0); // Exit the application
+        }
     }
 }
