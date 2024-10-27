@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Code which handles the enemy attacking the towers or walls.
  */
-public class EnemyAttack implements Runnable{
+public class EnemyAttack implements Runnable {
 
     private Thread enemyAttackThread;
     private GridCell[][] grid;
