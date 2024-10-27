@@ -125,10 +125,11 @@ public class Wave implements Runnable {
         this.gamePanel.setTownHallHealPrice(GameSettings.getTownHallHealthPrice(waveNumber));
     }
 
-    /*
-     * Return an integer array with random x and y position based on screen size
-     * Index 0 is random x position
-     * Index 1 is random y position
+    /**
+     * Return an integer array with random x and y position based on screen size.
+     * Index 0 is random x position.
+     * Index 1 is random y position.
+     * @return array of int which contains the randomized enemy position.
      */
     public int[] getRandomSidePosition() {
         Random rand = new Random();

@@ -26,7 +26,7 @@ public class MenuPanel extends JPanel {
         setLayout(null);
         townHallAddHealthButton.setBounds(1150, 100, 200, 40);
         // Button click handled in constructor of gamepanel
-        add(townHallAddHealthButton);
+        this.add(townHallAddHealthButton);
     }
 
     @Override

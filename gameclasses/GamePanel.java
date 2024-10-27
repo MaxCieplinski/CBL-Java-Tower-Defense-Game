@@ -1,10 +1,8 @@
 package gameclasses;
 
-import com.sun.tools.javac.Main;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;

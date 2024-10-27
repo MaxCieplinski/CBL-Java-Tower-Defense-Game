@@ -6,6 +6,7 @@ import javax.swing.*;
  * Wall class, a special type of gridcell, which contains a wall.
  */
 public class Wall extends GridCell {
+    
     /**
      * Construct a wall.
      * @param x x-coordinate of the tile where the wall is.
