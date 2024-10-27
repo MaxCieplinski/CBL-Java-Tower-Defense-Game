@@ -158,16 +158,14 @@ public class Map {
 
                     optionsMenu.add(wallOption);
                 } else {
-                    // Upgrade options
+                    JMenuItem destroyOption = new JMenuItem("Destroy - free");
+                    destroyOption.addActionListener(e -> {
+                        gridCell.destroyObject(player, grid);
+                    });
+        
+                    optionsMenu.add(destroyOption);
                 }
-            } else {
-                JMenuItem destroyOption = new JMenuItem("Destroy - free");
-                destroyOption.addActionListener(e -> {
-                    gridCell.destroyObject(player, grid);
-                });
-
-                optionsMenu.add(destroyOption);
-            }
+            } 
         }
 
         // Calculate the position where the menu should appear (above the clicked cell)
