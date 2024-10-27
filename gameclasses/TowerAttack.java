@@ -29,10 +29,14 @@ public class TowerAttack implements Runnable {
     @Override
     public void run() {
         if ((GameSettings.towers != null) && (this.enemies != null)) {    
-            for (Tower tower : GameSettings.towers) {
-                for (Enemy enemy : enemies) {
-                    tower.handleEnemy(enemy);
+            try {
+                for (Tower tower : GameSettings.towers) {
+                    for (Enemy enemy : enemies) {
+                        tower.handleEnemy(enemy);
+                    }
                 }
+            } catch (Exception e) {
+            
             }
         }
 

@@ -26,7 +26,7 @@ public class Enemy extends Entity {
     private double speed = GameSettings.ENEMY_SPEED;
     private int reward;
     Color color = GameSettings.ENEMY_COLOR;
-    private Image sprite;
+    public Image sprite;
 
     /**
      * Creates a new object of type Enemy.

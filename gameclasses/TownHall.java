@@ -7,6 +7,7 @@ import java.awt.*;
  * Game ends when town hall health is 0.
  */
 public class TownHall implements Runnable {
+
     private Thread townHallThread;
     private HealthBar healthBar;
     private GamePanel gamePanel;
@@ -27,7 +28,6 @@ public class TownHall implements Runnable {
      * @param y the y-coordinate of the town hall.
      * @param size the size of the town hall.
      * @param wave the wave object that handles waves.
-     * @param player the player of the game
      */
     public TownHall(GamePanel gamePanel, int x, int y, int size, Wave wave, Player player) {
         this.gamePanel = gamePanel;
@@ -75,12 +75,13 @@ public class TownHall implements Runnable {
 
     /**
      * Removes health from the town hall.
-     * @param damage damage of the attacking enemies (integer).
+     * @param damage damage of the attacking enemies.
      */
     public void takeDamage(int damage) {
         health = Math.max(0, health - damage);
         this.healthBar.updateHealthBar(health, maxHealth);
         
+
         if (health == 0) {
             //GAME OVER
             gamePanel.endGame();
@@ -88,8 +89,7 @@ public class TownHall implements Runnable {
     }
 
     /**
-     * Heals the town hall if applicable
-     * Use of GameSettings.java for easy lookup
+     * Heals the town hall.
      */
     public void heal() {
         int townHallHealPrice = GameSettings.getTownHallHealthPrice(this.wave.waveNumber);

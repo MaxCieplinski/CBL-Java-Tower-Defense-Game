@@ -33,6 +33,7 @@ public class EnemyBoss extends Enemy {
              GameSettings.ENEMY_BOSS_REWARD);
         super.damage = GameSettings.ENEMY_BOSS_DAMAGE;
         super.buildingDamage = GameSettings.ENEMY_BOSS_BUILDING_DAMAGE;
+        super.sprite = null;
     }
 
     @Override
