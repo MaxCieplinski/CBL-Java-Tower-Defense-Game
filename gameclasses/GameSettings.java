@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
  * Contains constant values for the game.
  */
 public class GameSettings {
-    public static final int INITIAL_GOLD = 1150;
+    public static final int INITIAL_GOLD = 100;
     public static final int TOWN_HALL_HEALTH = 500;
     public static final int TOWN_HALL_HEAL_PRICE = 100;
     public static final int TOWN_HALL_HEAL_PERCENTAGE = 10;
