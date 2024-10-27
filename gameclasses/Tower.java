@@ -11,13 +11,12 @@ public class Tower extends GridCell {
 
     private double radius = GameSettings.TOWER_RANGE;
     private int damage = GameSettings.TOWER_DAMAGE;
-
     
     /**
      * Creates a new object of type Tower.
      */
     public Tower(Player player, int row, int column, int size, JPanel panel) {
-        super(row, column, player, size, panel);
+        super(row, column, player, size, panel, GameSettings.getTowerSprite());
         super.health = GameSettings.TOWER_HEALTH;
         super.maxHealth = GameSettings.TOWER_HEALTH;
 

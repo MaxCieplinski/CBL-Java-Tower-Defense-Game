@@ -30,18 +30,20 @@ public class GridCell {
     public HealthBar healthBar;
 
     private ArrayList<Tower> towers;
+    public Image sprite;
 
     /**
      * Creates a grid cell object.
      * @param x x position.
      * @param y y position.
      */
-    public GridCell(int x, int y, Player player, int cellSize, JPanel panel) {
+    public GridCell(int x, int y, Player player, int cellSize, JPanel panel, Image sprite) {
         this.x = x;
         this.y = y;
         this.panel = panel;
         this.player = player;
         this.cellSize = cellSize;
+        this.sprite = sprite;
     }
 
     /**
@@ -117,7 +119,6 @@ public class GridCell {
 
             //Compensating for cellsize = 25;
             grid[this.getX() / cellSize][this.getY() / cellSize] = tower;
-            grid[this.getX() / cellSize][this.getY() / cellSize].color = Color.MAGENTA;
         }
     }
 
@@ -142,7 +143,7 @@ public class GridCell {
         this.healthBar.healthBarForeground.setVisible(false);
         
         grid[this.getX() / cellSize][this.getY() / cellSize] = 
-            new GridCell(this.getX(), this.getY(), player, this.cellSize, this.panel);
+            new GridCell(this.getX(), this.getY(), player, this.cellSize, this.panel, GameSettings.getDefaultCellSprite());
     }
 
     /**

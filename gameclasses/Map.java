@@ -56,7 +56,7 @@ public class Map {
             for (int row = 0; row < y; row++) {
                 // Create a new GridCell at each position (row, col) based on cell size
                 grid[col][row] = new GridCell(col * cellSize, row * cellSize, 
-                            this.player, cellSize, panel);
+                            this.player, cellSize, panel, GameSettings.getDefaultCellSprite());
             }
         }
     }
@@ -79,6 +79,10 @@ public class Map {
                 g.setColor(Color.BLACK);
                 g.drawRect(cell.getX(), cell.getY(),
                             cellSize, cellSize);
+                
+                if (cell.sprite != null) {
+                    g.drawImage(cell.sprite, cell.getX(), cell.getY(), cellSize, cellSize, null);
+                }
             }
         }
     }
@@ -170,9 +174,4 @@ public class Map {
         // Show the popup menu at the calculated position
         optionsMenu.show(this.panel, popupX, popupY);
     }
-
-
-    
-
-
 }

@@ -69,12 +69,14 @@ public class Collider {
      * @return true if the current entity collides with the gridcell, otherwise false.
      */
     private boolean collidesWith(GridCell b) {
-        //Offset so the entity doesn't enter inside the wall during animation.
-        return currEntity.getXPosition() - OFFSET < b.getX() + b.getSize()
+        if (b != null) {
+            return currEntity.getXPosition() - OFFSET < b.getX() + b.getSize()
             && currEntity.getXPosition() + currEntity.getWidth() + OFFSET > b.getX()
             && currEntity.getYPosition() - OFFSET < b.getY() + b.getSize()
             && currEntity.getYPosition() + currEntity.getHeight() + OFFSET > b.getY();
-
+        }
+        
+        return false;
     }
 
     /**

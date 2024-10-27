@@ -1,13 +1,17 @@
 package gameclasses;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 
 /**
  * Contains constant values for the game.
  */
 public class GameSettings {
-    public static final int INITIAL_GOLD = 50;
+    public static final int INITIAL_GOLD = 1150;
     public static final int TOWN_HALL_HEALTH = 500;
     public static final int TOWN_HALL_HEAL_PRICE = 100;
     public static final int TOWN_HALL_HEAL_PERCENTAGE = 10;
@@ -15,7 +19,7 @@ public class GameSettings {
     public static final int PLAYER_BOMB_DAMAGE = 40;
     public static final int PLAYER_BOMB_RADIUS = 100;
     public static final int PLAYER_BOMB_PRICE = 100;
-    public static final int TIME_BEFORE_WAVE_START = 2;
+    public static final int TIME_BEFORE_WAVE_START = 10;
     public static final int BREAK_TIME_BETWEEN_WAVES = 20; //default 8
 
     public static final int ENEMY_BOSS_DAMAGE = 35;
@@ -72,6 +76,33 @@ public class GameSettings {
         }
 
         return TOWN_HALL_HEAL_PRICE;
+    }
+
+    public static Image getTowerSprite() {
+        try {
+            Image sprite = ImageIO.read(new File("./sprites/TowerSprite.png"));
+            return sprite;
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    public static Image getWallSprite() {
+        try {
+            Image sprite = ImageIO.read(new File("./sprites/WallSprite.png"));
+            return sprite;
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    public static Image getDefaultCellSprite() {
+        try {
+            Image sprite = ImageIO.read(new File("./sprites/DefaulCellSprite.png"));
+            return sprite;
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     public static ArrayList<Tower> towers = new ArrayList<>();

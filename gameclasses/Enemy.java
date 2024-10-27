@@ -1,7 +1,10 @@
 package gameclasses;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 
 
 /**
@@ -23,6 +26,7 @@ public class Enemy extends Entity {
     private double speed = GameSettings.ENEMY_SPEED;
     private int reward;
     Color color = GameSettings.ENEMY_COLOR;
+    private Image sprite;
 
     /**
      * Creates a new object of type Enemy.
@@ -44,6 +48,12 @@ public class Enemy extends Entity {
                                      (int) width - this.healthBarXOffset, 5);
         this.healthBar.setHealthBarPosition((int) this.getXPosition() + (this.healthBarXOffset / 2),
                                             (int) this.getYPosition() - this.healthBarYOffset);
+
+        try {
+            sprite = ImageIO.read(new File("./sprites/EnemySprite.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public double getSpeed() {
@@ -159,10 +169,11 @@ public class Enemy extends Entity {
      * @param g the graphics of the game.
      */
     public void paintEnemy(Graphics g) {
-
         g.setColor(getColor());
         g.fillRect((int) super.getXPosition(), (int) super.getYPosition(),
                     (int) super.getWidth(), (int) super.getHeight());
+    
+        g.drawImage(sprite, (int) super.getXPosition(), (int) super.getYPosition(),GameSettings.ENEMY_WIDTH, GameSettings.ENEMY_HEIGHT, null); 
     }
 
     /**

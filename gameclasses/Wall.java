@@ -15,7 +15,7 @@ public class Wall extends GridCell {
      * @param panel the panel on which the wall will be drawn.
      */
     public Wall(int x, int y, Player player, JPanel panel) {
-        super(x, y, player, 25, panel);
+        super(x, y, player, 25, panel, GameSettings.getWallSprite());
         super.health = GameSettings.WALL_HEALTH;
         super.maxHealth = GameSettings.WALL_HEALTH;
 
