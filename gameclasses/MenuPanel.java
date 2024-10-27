@@ -1,8 +1,6 @@
 package gameclasses;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -13,7 +11,7 @@ public class MenuPanel extends JPanel {
 
     private int gold = 1000;
     private String waveStatus;
-    JButton townHallAddHealthButton = new JButton("Heal 10% Health - " + GameSettings.TOWN_HALL_HEAL_PRICE);
+    JButton townHallAddHealthButton = new JButton("Heal " + GameSettings.TOWN_HALL_HEAL_PERCENTAGE + "% Health - " + GameSettings.TOWN_HALL_HEAL_PRICE);
 
     /**
      * Constructor for a menu panel object.
@@ -25,16 +23,9 @@ public class MenuPanel extends JPanel {
         this.setDoubleBuffered(true);
 
         setLayout(null);
-        townHallAddHealthButton.setBounds(1150, 100, 200, 40);  // Position and size of button
-        add(townHallAddHealthButton);  // Add button to the panel
-
-        // Add action listener to handle button click
-        townHallAddHealthButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Button clicked");
-            }
-        });
+        townHallAddHealthButton.setBounds(1150, 100, 200, 40);
+        // Button click handled in constructor of gamepanel
+        add(townHallAddHealthButton);
     }
 
     @Override

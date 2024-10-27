@@ -96,57 +96,66 @@ public class Wave implements Runnable {
         if (waveNumber != 1) {
             this.numbOfEnemies = GameSettings.getEnemyCount(waveNumber);
         }
-
+        System.out.println(this.numbOfEnemies);
         for (int i = 0; i < this.numbOfEnemies + 1; i++) {
-            Random rand = new Random();
-            int side = rand.nextInt(4);
-            int xPos = 0;
-            int yPos = 0;
+            int[] randomPosition = getRandomSidePosition();
+            int xPos = randomPosition[0];
+            int yPos = randomPosition[1];
 
-            switch (side) {
-                case 0:
-                    //UP
-                    xPos = rand.nextInt(this.gamePanel.getWidth());
-                    yPos = 0;
-                    break;
-                case 1:
-                    //DOWN
-                    xPos = rand.nextInt(this.gamePanel.getWidth());
-                    yPos = this.gamePanel.getHeight();
-                    break;
-                case 2:
-                    //LEFT
-                    xPos = 0;
-                    yPos = rand.nextInt(this.gamePanel.getHeight());
-                    break;
-                case 3:
-                    //RIGHT
-                    xPos = this.gamePanel.getWidth();
-                    yPos = rand.nextInt(this.gamePanel.getHeight());
-                    break;
-                default:
-                    break;
-            }
+            enemies.add(new Enemy(this.gamePanel, this.player,
+                xPos, yPos, entities, GameSettings.ENEMY_WIDTH, GameSettings.ENEMY_HEIGHT, GameSettings.getEnemyReward(waveNumber)));
 
             if (i == this.numbOfEnemies) {
                 //Adding boss if good
                 if (waveNumber % 5 == 0) {
-                    for (i = 0; i < waveNumber / 5; i++) {
+                    for (int j = 0; j < waveNumber / 5; j++) {
+                        randomPosition = getRandomSidePosition();
+                        xPos = randomPosition[0];
+                        yPos = randomPosition[1];
                         enemies.add(new EnemyBoss(this.gamePanel, this.player, xPos, yPos, 
                                 entities, GameSettings.ENEMY_BOSS_WIDTH, 
                                 GameSettings.ENEMY_BOSS_HEIGHT));
                     }
-                } else {
-                    continue;
-                }
+                }                
             }
-
-            enemies.add(new Enemy(this.gamePanel, this.player,
-                xPos, yPos, entities, GameSettings.ENEMY_WIDTH, GameSettings.ENEMY_HEIGHT, GameSettings.getEnemyReward(waveNumber)));
         }
 
         active = true;
         this.gamePanel.setTownHallHealPrice(GameSettings.getTownHallHealthPrice(waveNumber));
+    }
+
+    public int[] getRandomSidePosition() {
+        Random rand = new Random();
+        int side = rand.nextInt(4);
+        int xPos = 0;
+        int yPos = 0;
+
+        switch (side) {
+            case 0:
+                //UP
+                xPos = rand.nextInt(this.gamePanel.getWidth());
+                yPos = 0;
+                break;
+            case 1:
+                //DOWN
+                xPos = rand.nextInt(this.gamePanel.getWidth());
+                yPos = this.gamePanel.getHeight();
+                break;
+            case 2:
+                //LEFT
+                xPos = 0;
+                yPos = rand.nextInt(this.gamePanel.getHeight());
+                break;
+            case 3:
+                //RIGHT
+                xPos = this.gamePanel.getWidth();
+                yPos = rand.nextInt(this.gamePanel.getHeight());
+                break;
+            default:
+                break;
+        }
+
+        return new int[]{xPos, yPos};
     }
 
     /**

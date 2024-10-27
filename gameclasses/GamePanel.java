@@ -1,6 +1,8 @@
 package gameclasses;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
@@ -29,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     private TowerAttack towerAttack = new TowerAttack(wave.getEnemies());
 
-    private TownHall townHall = new TownHall(this, 700, 400, 75, wave);
+    private TownHall townHall = new TownHall(this, 700, 400, 75, wave, player);
 
     private EnemyAttack enemyAttack = new EnemyAttack(map.getMap(), wave.getEnemies());
 
@@ -45,6 +47,14 @@ public class GamePanel extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(1400, 800));
         this.setBackground(Color.white);
         this.setDoubleBuffered(true);
+
+        // Add action listener to handle button click
+        menuPanel.townHallAddHealthButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                townHall.heal();
+            }
+        });
     }
 
     public void setTownHallHealPrice(int price) {

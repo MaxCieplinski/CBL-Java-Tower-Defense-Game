@@ -1,4 +1,5 @@
 import gameclasses.GamePanel;
+import gameclasses.GameSettings;
 import gameclasses.MenuPanel;
 import java.awt.BorderLayout;
 import javax.swing.*;

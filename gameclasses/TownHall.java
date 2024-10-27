@@ -12,6 +12,7 @@ public class TownHall implements Runnable {
     private HealthBar healthBar;
     private GamePanel gamePanel;
     private Wave wave;
+    private Player player;
 
     private int health = GameSettings.TOWN_HALL_HEALTH;
     private int maxHealth = GameSettings.TOWN_HALL_HEALTH;
@@ -28,12 +29,13 @@ public class TownHall implements Runnable {
      * @param size the size of the town hall.
      * @param wave the wave object that handles waves.
      */
-    public TownHall(GamePanel gamePanel, int x, int y, int size, Wave wave) {
+    public TownHall(GamePanel gamePanel, int x, int y, int size, Wave wave, Player player) {
         this.gamePanel = gamePanel;
         this.posX = x;
         this.posY = y;
         this.size = size;
         this.wave = wave;
+        this.player = player;
 
         this.healthBar = new HealthBar(gamePanel, size, 5);
         this.healthBar.setHealthBarPosition(x - size, y - size - 10);
@@ -83,6 +85,16 @@ public class TownHall implements Runnable {
         if (health == 0) {
             //GAME OVER
             gamePanel.endGame();
+        }
+    }
+
+    public void heal() {
+        int townHallHealPrice = GameSettings.getTownHallHealthPrice(this.wave.waveNumber);
+        
+        if (player.getGold() >= townHallHealPrice) {
+            this.health = (int) Math.min(this.health + (this.health * GameSettings.TOWN_HALL_HEAL_PERCENTAGE * 0.01), this.maxHealth);
+            this.healthBar.updateHealthBar(health, maxHealth);
+            player.subtractGold(townHallHealPrice);
         }
     }
 
