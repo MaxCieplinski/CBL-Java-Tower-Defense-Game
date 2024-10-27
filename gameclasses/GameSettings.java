@@ -53,6 +53,10 @@ public class GameSettings {
         return INITIAL_ENEMY_COUNT + (int) (Math.pow(waveNumber + 1, 2));
     }
 
+    /**
+     * Method that returns the enemy reward, reduces enemy reward in later waves.
+     * @return the enemy reward.
+     */
     public static int getEnemyReward(int waveNumber) {
         if (waveNumber <= 3) {
             return ENEMY_REWARD;
@@ -61,6 +65,10 @@ public class GameSettings {
         }
     }
 
+    /**
+     * Method that returns the price of healing town hall, the price is higher in later waves.
+     * @return the price it takes for the town hall to get +10% health.
+     */
     public static int getTownHallHealthPrice(int waveNumber) {
         if (waveNumber > 5) {
             if (waveNumber < 3) {
@@ -77,6 +85,10 @@ public class GameSettings {
         return TOWN_HALL_HEAL_PRICE;
     }
 
+    /**
+     * Method that tries to return the tower sprite image.
+     * @return the tower sprite image.
+     */
     public static Image getTowerSprite() {
         try {
             Image sprite = ImageIO.read(new File("./sprites/TowerSprite.png"));
@@ -86,6 +98,10 @@ public class GameSettings {
         }
     }
 
+    /**
+     * Method that tries to return the wall sprite image.
+     * @return the wall sprite image.
+     */
     public static Image getWallSprite() {
         try {
             Image sprite = ImageIO.read(new File("./sprites/WallSprite.png"));
@@ -93,17 +109,6 @@ public class GameSettings {
         } catch (IOException e) {
             return null;
         }
-    }
-
-    public static Image getDefaultCellSprite() {
-        return null;
-        // try {
-        //     Image sprite = ImageIO.read(new File("./sprites/DefaulCellSprite.png"));
-        //     System.out.println(sprite);
-        //     return sprite;
-        // } catch (IOException e) {
-        //     return null;
-        // }
     }
 
     public static ArrayList<Tower> towers = new ArrayList<>();

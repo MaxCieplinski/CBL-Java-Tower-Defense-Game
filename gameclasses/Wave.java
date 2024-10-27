@@ -96,14 +96,15 @@ public class Wave implements Runnable {
         if (waveNumber != 1) {
             this.numbOfEnemies = GameSettings.getEnemyCount(waveNumber);
         }
-        System.out.println(this.numbOfEnemies);
+        
         for (int i = 0; i < this.numbOfEnemies + 1; i++) {
             int[] randomPosition = getRandomSidePosition();
             int xPos = randomPosition[0];
             int yPos = randomPosition[1];
 
-            enemies.add(new Enemy(this.gamePanel, this.player,
-                xPos, yPos, entities, GameSettings.ENEMY_WIDTH, GameSettings.ENEMY_HEIGHT, GameSettings.getEnemyReward(waveNumber)));
+            enemies.add(new Enemy(this.gamePanel, this.player, xPos, yPos, entities, 
+                                  GameSettings.ENEMY_WIDTH, GameSettings.ENEMY_HEIGHT, 
+                                  GameSettings.getEnemyReward(waveNumber)));
 
             if (i == this.numbOfEnemies) {
                 //Adding boss if good
@@ -124,6 +125,11 @@ public class Wave implements Runnable {
         this.gamePanel.setTownHallHealPrice(GameSettings.getTownHallHealthPrice(waveNumber));
     }
 
+    /*
+     * Return an integer array with random x and y position based on screen size
+     * Index 0 is random x position
+     * Index 1 is random y position
+     */
     public int[] getRandomSidePosition() {
         Random rand = new Random();
         int side = rand.nextInt(4);
@@ -209,6 +215,7 @@ public class Wave implements Runnable {
 
     /**
      * Updates wave state.
+     * Mainly used for menu panel wave countdown.
      */
     public void updateWaveState() {
         for (int i = enemies.size() - 1; i >= 0; i--) {

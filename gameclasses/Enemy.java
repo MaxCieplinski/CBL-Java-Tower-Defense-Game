@@ -98,6 +98,7 @@ public class Enemy extends Entity {
      */
     public void takeDamage(int damage) {
         setHealth(getHealth() - damage);
+        
         if (this.healthBar != null) {
             this.healthBar.updateHealthBar(getHealth(), getMaxHealth());
         }
@@ -114,7 +115,6 @@ public class Enemy extends Entity {
         if (this != null && getHealth() <= 0) {
             this.healthBar.healthBarBackground.setVisible(false);
             this.healthBar.healthBarForeground.setVisible(false);
-
             return true;
         }
         
@@ -173,7 +173,8 @@ public class Enemy extends Entity {
         g.fillRect((int) super.getXPosition(), (int) super.getYPosition(),
                     (int) super.getWidth(), (int) super.getHeight());
     
-        g.drawImage(sprite, (int) super.getXPosition(), (int) super.getYPosition(),GameSettings.ENEMY_WIDTH, GameSettings.ENEMY_HEIGHT, null); 
+        g.drawImage(sprite, (int) super.getXPosition(), (int) super.getYPosition(), 
+                    GameSettings.ENEMY_WIDTH, GameSettings.ENEMY_HEIGHT, null); 
     }
 
     /**

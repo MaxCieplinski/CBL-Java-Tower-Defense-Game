@@ -7,7 +7,6 @@ import java.util.ArrayList;
  * Handles everything to do with towers attacking, including the thread.
  */
 public class TowerAttack implements Runnable {
-    
     private Thread towerAttackThread;
     private ArrayList<Enemy> enemies;
 
@@ -20,7 +19,7 @@ public class TowerAttack implements Runnable {
     }
 
     /**
-     * Starts the tower attack thread.d
+     * Starts the tower attack thread.
      */
     public void startTowerThread() {
         towerAttackThread = new Thread(this);
@@ -29,7 +28,6 @@ public class TowerAttack implements Runnable {
 
     @Override
     public void run() {
-
         if ((GameSettings.towers != null) && (this.enemies != null)) {    
             try {
                 for (Tower tower : GameSettings.towers) {
@@ -46,9 +44,7 @@ public class TowerAttack implements Runnable {
             // to sleep 0.75 second
             Thread.sleep(750);
         } catch (InterruptedException e) {
-            // recommended because catching InterruptedException clears interrupt flag
             towerAttackThread.interrupt();
-            // you probably want to quit if the thread is interrupted
             return;
         }
         

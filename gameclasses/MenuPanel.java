@@ -8,10 +8,11 @@ import javax.swing.JPanel;
  * Menu panel class, which is on the top of the screen and holds labels to keep track of the game.
  */
 public class MenuPanel extends JPanel {
-
-    private int gold = 1000;
+    private int gold = GameSettings.INITIAL_GOLD;
     private String waveStatus;
-    JButton townHallAddHealthButton = new JButton("Heal " + GameSettings.TOWN_HALL_HEAL_PERCENTAGE + "% Health - " + GameSettings.TOWN_HALL_HEAL_PRICE);
+    
+    JButton townHallAddHealthButton = new JButton("Heal " + GameSettings.TOWN_HALL_HEAL_PERCENTAGE 
+                                            + "% Health - " + GameSettings.TOWN_HALL_HEAL_PRICE);
 
     /**
      * Constructor for a menu panel object.
@@ -54,14 +55,27 @@ public class MenuPanel extends JPanel {
                      500, 190);
     }
 
+    /**
+     * Getter method to set player gold on menu panel.
+     * @param gold the amount of gold player has.
+     */
     public void setGold(int gold) {
         this.gold = gold;
     }
 
+    /**
+     * Setter method to set current wave status on menu panel.
+     * Used for example for wave start countdown.
+     * @param waveStatus String of current wave status.
+     */
     public void setWave(String waveStatus) {
         this.waveStatus = waveStatus;
     }
 
+    /**
+     * Setter method to set current town hall heal price on menu panel.
+     * @param townHallHealPrice the current amount of gold for a town hall heal based on wave.
+     */
     public void setTownHallHealPrice(int townHallHealPrice) {
         townHallAddHealthButton.setText("Heal 10% Health - " + Integer.toString(townHallHealPrice));
     }

@@ -6,13 +6,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.*;
 
-
 /**
  * Class that contains an object of type map, which consists of a two-dimensional gridcell array.
  * Each gridcell has an x,y and cellSize.
  */
 public class Map {
-
     private int cellSize;
     private int y;
     private int x;
@@ -47,7 +45,6 @@ public class Map {
      * Initializes the gridcells.
      */
     public void initializeGrid() {
-        System.out.println("Initializing grid...");
         y = this.panel.getHeight() / cellSize;
         x = this.panel.getWidth() / cellSize;
         grid = new GridCell[x][y];
@@ -56,7 +53,7 @@ public class Map {
             for (int row = 0; row < y; row++) {
                 // Create a new GridCell at each position (row, col) based on cell size
                 grid[col][row] = new GridCell(col * cellSize, row * cellSize, 
-                            this.player, cellSize, panel, GameSettings.getDefaultCellSprite());
+                            this.player, cellSize, panel, null);
             }
         }
     }
@@ -88,8 +85,8 @@ public class Map {
     }
 
     /**
-     * Changes color of current cell pressed.
-     * @param e event when cell is pressed.
+     * Displays cell option upon click.
+     * @param e Mouse event of input. 
      */
     private void cellPressed(MouseEvent e) {
         int mouseX = e.getX();
@@ -101,22 +98,22 @@ public class Map {
 
         //this.grid[column][row].displayOptions(this.grid);
         this.displayOptions(this.grid[column][row]);
-
     }
 
+    /**
+     * Getter method to get current map (grid).
+     * @return 2D map of GridCell object type.
+     */
     public GridCell[][] getMap() {
         return this.grid;
     }
 
     /**
      * Displays gridcell buy options.
-     * @param gridCell the gridcell for which the options are displayed.
+     * @param gridCell The gridcell for which the options are displayed.
      */
     public void displayOptions(GridCell gridCell) {
-        
-        // Possibly change this to JPanel for greater customization
         JPopupMenu optionsMenu = new JPopupMenu();
-
         ArrayList<GridCell> playerGridCells = new ArrayList<>();
         double playerXPosition = player.getXPosition();
         double playerYPosition = player.getYPosition();

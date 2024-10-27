@@ -31,7 +31,6 @@ public class Collider {
 
         for (GridCell[] bArray : cells2) {
             for (GridCell b : bArray) {
-
                 if (this.collidesWith(b) && !b.empty) {
                     collisionCells.add(b);
                     return true;
@@ -52,7 +51,6 @@ public class Collider {
         ArrayList<Enemy> enemies2 = new ArrayList<>(enemies);
 
         for (Enemy e : enemies2) {
-
             if ((this.collidesWith(e)) && (this != player.getCollider())) {
                 ((Bullet) currEntity).handleHit(e);
                 ((Bullet) currEntity).destroy();
@@ -71,9 +69,9 @@ public class Collider {
     private boolean collidesWith(GridCell b) {
         if (b != null) {
             return currEntity.getXPosition() - OFFSET < b.getX() + b.getSize()
-            && currEntity.getXPosition() + currEntity.getWidth() + OFFSET > b.getX()
-            && currEntity.getYPosition() - OFFSET < b.getY() + b.getSize()
-            && currEntity.getYPosition() + currEntity.getHeight() + OFFSET > b.getY();
+                && currEntity.getXPosition() + currEntity.getWidth() + OFFSET > b.getX()
+                && currEntity.getYPosition() - OFFSET < b.getY() + b.getSize()
+                && currEntity.getYPosition() + currEntity.getHeight() + OFFSET > b.getY();
         }
         
         return false;
@@ -85,7 +83,6 @@ public class Collider {
      * @return true if the entity collides with the enemy, otherwise false.
      */
     private boolean collidesWith(Enemy e) {
-
         return currEntity.getXPosition() < e.getXPosition() + e.getWidth()
             && currEntity.getXPosition() + currEntity.getWidth() > e.getXPosition()
             && currEntity.getYPosition() < e.getYPosition() + e.getHeight()
@@ -96,12 +93,10 @@ public class Collider {
      * Makes walls or tower takes damage upon enemy collision.
      */
     public void destroyBuildings(GridCell[][] grid, Enemy e) {
-
         for (GridCell b : collisionCells) {
             if (b.occupied) {
                 b.health -= e.buildingDamage;
                 b.checkForDestruction(grid);
-                System.out.println(b.health);
                 b.healthBar.updateHealthBar(b.health, b.maxHealth);
             }
         }

@@ -60,11 +60,17 @@ public class Bomb {
         }
     }
 
+    /**
+     * Stops drawing.
+     */
     public void stopDrawing() {
         isDrawing = false;
         drawTimer.stop();
     }
 
+    /**
+     * Paints the bomb circle.
+     */
     public void paint(Graphics g) {
         if (isDrawing) {
             Graphics2D g2d = (Graphics2D) g;

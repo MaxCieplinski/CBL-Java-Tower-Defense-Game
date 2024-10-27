@@ -28,7 +28,6 @@ public class Entity {
      * @param width width of entity.
      * @param height height of entity.
      */
-
     public Entity(double posX, double posY, ArrayList<Entity> entities,
                  double width, double height) {
         this.x = posX;
@@ -51,7 +50,6 @@ public class Entity {
      * @param xPosition the x coordinate of new Entity position.
      * @param yPosition the y coordinate of new Entity position.
      */
-
     public void setPosition(double xPosition, double yPosition) {
         oldX = this.x;
         oldY = this.y;
@@ -64,7 +62,6 @@ public class Entity {
      * Method to get the x coordinate.
      * @return The x coordinate of Entity position.
      */
-
     public double getXPosition() {
         return x;
     }
@@ -73,7 +70,6 @@ public class Entity {
      * Method to get the y coordinate.
      * @return The y coordinate of Entity position.
      */
-
     public double getYPosition() {
         return y;
     }

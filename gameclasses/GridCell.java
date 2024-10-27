@@ -4,7 +4,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-
 /**
  * Class that contains code for a single gridcell. 
  * The playing field is made from a lot of these gridcells.
@@ -31,9 +30,15 @@ public class GridCell {
     public Image sprite;
 
     /**
+     * Constructor method for GridCell class.
      * Creates a grid cell object.
      * @param x x position.
      * @param y y position.
+     * @param player the player object - main player of the game.
+     * @param cellSize the size of a cell.
+     * @param panel the panel the game is rendered on.
+     * @param sprite Sprite of Image type of whatever is on current gridcell, 
+     *               null for default sprite.
      */
     public GridCell(int x, int y, Player player, int cellSize, JPanel panel, Image sprite) {
         this.x = x;
@@ -44,10 +49,18 @@ public class GridCell {
         this.sprite = sprite;
     }
 
+    /**
+     * Getter method to get grid cell x position.
+     * @return x position of grid cell.
+     */
     public int getX() {
         return this.x;
     }
 
+    /**
+     * Getter method to get grid cell y position.
+     * @return y position of grid cell.
+     */
     public int getY() {
         return this.y;
     }
@@ -55,12 +68,11 @@ public class GridCell {
 
     /**
      * Code that handles buying a tower.
-     * @param player the player of the game.
-     * @param price the price of the tower.
-     * @param grid the playing field, a two-dimensional array of gridcell.
+     * @param player The player of the game.
+     * @param price The price of the tower.
+     * @param grid 2d array of GridCell type, the map/grid.
      */
     public void buyTower(Player player, int price, GridCell[][] grid) {
-
         if (player.getGold() >= price) {
             player.subtractGold(price);
             Tower tower = new Tower(player, this.x, this.y, cellSize, this.panel);
@@ -73,13 +85,12 @@ public class GridCell {
 
     /**
      * Destroys wall or tower.
-     * @param player the player of the game.
-     * @param grid the map, consisting of gridcells.
+     * @param player The player of the game.
+     * @param grid 2d array of GridCell type, the map/grid.
      */
     public void destroyObject(Player player, GridCell[][] grid) {
         try {
             if (this instanceof Tower) {
-
                 //Remove tower showing range circle.
                 this.towerRangeOn = false;
                 GameSettings.towers.remove(this);
@@ -92,20 +103,17 @@ public class GridCell {
         this.healthBar.healthBarForeground.setVisible(false);
         
         grid[this.getX() / cellSize][this.getY() / cellSize] = 
-            new GridCell(this.getX(), this.getY(), player, this.cellSize, this.panel,
-             GameSettings.getDefaultCellSprite());
+            new GridCell(this.getX(), this.getY(), player, this.cellSize, this.panel, null);
     }
 
     /**
      * Code that handles buying a wall.
-     * @param player the player of the game.
-     * @param price the price of the wall.
-     * @param grid the playing field, a two-dimensional array of gridcell.
+     * @param player The player of the game.
+     * @param price The price of the wall.
+     * @param grid 2d array of GridCell type, the map/grid.
      */
     public void buyWall(Player player, int price, GridCell[][] grid) {
-
         if (player.getGold() >= price) {
-
             player.subtractGold(price);
             Wall wall = new Wall(this.x, this.y, player, panel);
 
@@ -115,19 +123,21 @@ public class GridCell {
         }
     }
 
+    /**
+     * Getter method to get cell size.
+     * @return the cell size.
+     */
     public int getSize() {
         return this.cellSize;
     }
-
-
+    
     /**
      * Checks for building destruction.
+     * @param grid 2d array of GridCell type, the map/grid.
      * @return true when health is 0 or below 0 and false otherwise.
      */
     public boolean checkForDestruction(GridCell[][] grid) {
-        
         if (this.health <= 0) {
-
             destroyObject(player, grid);
 
             return true;

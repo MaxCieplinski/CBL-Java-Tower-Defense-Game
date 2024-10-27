@@ -38,6 +38,14 @@ public class Player extends Entity {
 
     /**
      * Initialize player with basic starting values.
+     * @param x the x position of the player.
+     * @param y the y position of the player.
+     * @param speed the speed of the player.
+     * @param panel the panel the game is rendered on (not to be confused with menu panel).
+     * @param entities an arraylist containing all the entities.
+     * @param width the width of the player.
+     * @param height the height of the player.
+     * @param bullets an arraylist containing all the bullets.
      */
     public Player(double x, double y, int speed, GamePanel panel, 
                 ArrayList<Entity> entities, double width, 
@@ -106,7 +114,6 @@ public class Player extends Entity {
     * Sets up the key bindings.
     */
     private void setupKeyBindings() {
-
         // Define input maps for the panel
         InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = panel.getActionMap();
@@ -197,8 +204,11 @@ public class Player extends Entity {
         });
     }
 
+    /**
+     * Method to shoot bullets.
+     * @param mouseEvent mouseEvenet of input handling.
+     */
     private void shootBullet(MouseEvent mouseEvent) {
-
         int mouseX = mouseEvent.getX();
         int mouseY = mouseEvent.getY();
                     
@@ -214,9 +224,11 @@ public class Player extends Entity {
         bullets.add(bullet);
     }
 
-    
+    /**
+     * Same method as shootBullet but takes no parameters.
+     * Used for overloading.
+     */
     private void shootBullet() {
-
         int mouseX = (int) panel.getMousePosition().getX();
         int mouseY = (int) panel.getMousePosition().getY();
                     
@@ -236,7 +248,6 @@ public class Player extends Entity {
      * Updates player position based on boolean values of: up, down, left, right.
      */
     public void updatePlayerPosition() {
-
         double posY = super.getYPosition();
         double posX = super.getXPosition();
 
@@ -272,11 +283,9 @@ public class Player extends Entity {
      * @param g graphics of the player.
      */
     public void paintPlayer(Graphics g) {
-
         g.setColor(Color.blue);
         g.fillRect((int) super.getXPosition(), (int) super.getYPosition(),
                     (int) super.getWidth(), (int) super.getHeight());
-
     }
 
     /**
@@ -302,5 +311,4 @@ public class Player extends Entity {
     public void subtractGold(int gold) {
         this.gold -= gold;
     }
-
 }

@@ -16,7 +16,7 @@ public class HealthBar {
     private JPanel gamePanel;
 
     /**
-     * Creates a healthbar.
+     * Constructor method for healthbar.
      * @param gamePanel the panel the game is run on.
      * @param width the width of the healthbar.
      * @param height the height of the healthbar.
@@ -44,8 +44,9 @@ public class HealthBar {
     }
 
     /**
-     * Updates the healthbar.
-     * @param health the health that needs to be displayed.
+     * Updates the healthbar size.
+     * @param health The health that needs to be displayed.
+     * @param maxHealth The max health.
      */
     public void updateHealthBar(int health, int maxHealth) {
         double percentage = (double) health / maxHealth;
@@ -56,8 +57,8 @@ public class HealthBar {
 
     /**
      * Sets the healthbar size.
-     * @param width the width of the healthbar.
-     * @param height the height of the healthbar.
+     * @param width The width of the healthbar.
+     * @param height The height of the healthbar.
      */
     public void setHealthBarSize(int width, int height) {
         this.healthBarBackground.setSize(width, height);

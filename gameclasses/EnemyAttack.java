@@ -29,25 +29,14 @@ public class EnemyAttack implements Runnable{
 
     @Override
     public void run() {
-
-        try {
-
-            if ((this.grid != null) && (this.enemies != null)) {
-                try {
-                    for (Enemy e : enemies) {
-                        if (e.getCollider().checkForCollision(grid)) {
-                            e.getCollider().destroyBuildings(grid, e);
-                        }
-                    }   
-                } catch (Exception e) {
-
+        if ((this.grid != null) && (this.enemies != null)) {
+            for (Enemy e : enemies) {
+                if (e.getCollider().checkForCollision(grid)) {
+                    e.getCollider().destroyBuildings(grid, e);
                 }
-            }
-        } catch (ConcurrentModificationException e) {
-            return;
+            }   
         }
         
-
         try {
             // to sleep 0.75 second
             Thread.sleep(750);

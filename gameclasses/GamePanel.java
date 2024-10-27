@@ -42,7 +42,6 @@ public class GamePanel extends JPanel implements Runnable {
      * Constructs a gamepanel object.
      */
     public GamePanel(MenuPanel menuPanel) {
-
         this.menuPanel = menuPanel;
 
         //Set panel settings.
@@ -90,7 +89,6 @@ public class GamePanel extends JPanel implements Runnable {
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0;
-        int drawCount = 0;
 
         while (gameThread != null) {
             currentTime = System.nanoTime();
@@ -102,12 +100,9 @@ public class GamePanel extends JPanel implements Runnable {
                 update();
                 repaint();
                 delta--;
-                drawCount++;
             }
 
             if (timer > 1000000000) {
-                //System.out.println("FPS: " + drawCount);
-                drawCount = 0;
                 timer = 0;
             }
         }
@@ -158,32 +153,29 @@ public class GamePanel extends JPanel implements Runnable {
         } catch (Exception e) {
             return;
         }
+
     }
 
     /**
      * Paints the gamepanel. So it draws the playing field and player.
      */
     public void paintComponent(Graphics g) {
-        try {
-            super.paintComponent(g);
-            map.drawGrid(g);
-            player.paintPlayer(g);
-
-            cleanUpBombs();
-            for (Bomb bomb : bombs) {
-                bomb.paint(g);
-            }
+        super.paintComponent(g);
+        map.drawGrid(g);
+        player.paintPlayer(g);
+        cleanUpBombs();
         
-            if (wave.active) {
-                wave.paintEnemies(g);
-            }
-
-            towerAttack.showTowerRanges(g);
-            updateMenu(Optional.empty());
-            townHall.paintTownHall(g); 
-        } catch (Exception e) {
-            return;
+        for (Bomb bomb : bombs) {
+            bomb.paint(g);
         }
+        
+        if (wave.active) {
+            wave.paintEnemies(g);
+        }
+
+        towerAttack.showTowerRanges(g);
+        updateMenu(Optional.empty());
+        townHall.paintTownHall(g); 
     }
 
     public void cleanUpBombs() {
@@ -219,15 +211,10 @@ public class GamePanel extends JPanel implements Runnable {
         enemyAttack.stopEnemyThread();
     
         //Display an end game message.
-        int result = JOptionPane.showConfirmDialog(this, "Game Over! Thanks for playing!\n"
+        JOptionPane.showMessageDialog(this, "Game Over! Thanks for playing!\n"
                                     + "Waves survived: " + wave.waveNumber 
-                                    + "\nEnemies destroyed: " + wave.enemiesDestroyedStat
-                                    + "\nWould you like to play again?", "Game Over", JOptionPane.YES_NO_OPTION);
+                                    + "\nEnemies destroyed: " + wave.enemiesDestroyedStat);
 
-        if (result == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        } else {
-            System.exit(0); // Exit the application
-        }
+        System.exit(0);
     }
 }
