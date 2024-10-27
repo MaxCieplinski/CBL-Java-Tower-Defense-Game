@@ -94,7 +94,8 @@ public class TownHall implements Runnable {
     public void heal() {
         int townHallHealPrice = GameSettings.getTownHallHealthPrice(this.wave.waveNumber);
         
-        if (player.getGold() >= townHallHealPrice) {
+        if ((player.getGold() >= townHallHealPrice) 
+            && (this.health != GameSettings.TOWN_HALL_HEALTH)) {
 
             this.health = (int) Math.min(this.health 
                         + (this.health * GameSettings.TOWN_HALL_HEAL_PERCENTAGE * 0.01),

@@ -4,6 +4,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
+/**
+ * Class that handles the bomb program. A bomb can be used by pressing shift + click.
+ */
 public class Bomb {
     private int damage = GameSettings.PLAYER_BOMB_DAMAGE;
     private int radius = GameSettings.PLAYER_BOMB_RADIUS;
@@ -14,6 +17,12 @@ public class Bomb {
     private float alpha = 0.8f;
     private float alphaDecrement = 0.2f;
 
+    /**
+     * Creates a bomb object.
+     * @param x x-coordinate of the bomb.
+     * @param y y-coordinate of the bomb.
+     * @param enemies arraylist contating all enemies in the game.
+     */
     public Bomb(int x, int y, ArrayList<Enemy> enemies) {
         this.bombX = x;
         this.bombY = y;
