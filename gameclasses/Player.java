@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
@@ -19,13 +19,14 @@ import javax.swing.Timer;
  * Player class.
  */
 public class Player extends Entity {
-    private JPanel panel;
+    private GamePanel panel;
     private int speed;
     private int gold = GameSettings.INITIAL_GOLD;
     private boolean up;
     private boolean down;
     private boolean left;
     private boolean right;
+    private boolean shiftPressed = false;
 
     private ArrayList<Bullet> bullets;
     private ArrayList<Entity> entities;
@@ -38,7 +39,7 @@ public class Player extends Entity {
     /**
      * Initialize player with basic starting values.
      */
-    public Player(double x, double y, int speed, JPanel panel, 
+    public Player(double x, double y, int speed, GamePanel panel, 
                 ArrayList<Entity> entities, double width, 
                 double height, ArrayList<Bullet> bullets) {
 
@@ -48,7 +49,7 @@ public class Player extends Entity {
         this.speed = speed;
         this.bullets = bullets;
         this.entities = entities;
-
+        
         this.panel.setFocusable(true);
         this.panel.requestFocusInWindow();
 
@@ -60,7 +61,6 @@ public class Player extends Entity {
         });
         
         this.panel.addMouseListener(new MouseListener() {
-
             @Override
             public void mouseClicked(MouseEvent e) {
             }
@@ -68,9 +68,17 @@ public class Player extends Entity {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (waveStarted) {
-                    shootBullet(e);
-                    shootTimer.start();
-                    panel.requestFocusInWindow();
+                    if (shiftPressed) {
+                        if (getGold() >= GameSettings.PLAYER_BOMB_PRICE) {
+                            panel.addBomb(new Bomb(e.getX(), e.getY(), panel.getEnemies()));
+                            panel.repaint();
+                            subtractGold(GameSettings.PLAYER_BOMB_PRICE);
+                        }
+                    } else {
+                        shootBullet(e);
+                        shootTimer.start();
+                        panel.requestFocusInWindow();
+                    }
                 }
             }
 
@@ -168,6 +176,23 @@ public class Player extends Entity {
             @Override
             public void actionPerformed(ActionEvent e) {
                 right = false;
+            }
+        });
+
+        // Shift
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SHIFT, 1, false), "ShiftPressed");
+        actionMap.put("ShiftPressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shiftPressed = true;
+            }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SHIFT, 0, true), "ShiftReleased");
+        actionMap.put("ShiftReleased", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shiftPressed = false;
             }
         });
     }

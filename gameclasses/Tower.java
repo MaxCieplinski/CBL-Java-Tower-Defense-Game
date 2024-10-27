@@ -48,7 +48,6 @@ public class Tower extends GridCell {
      * @return true if enemy is in range, false if enemy is not in range.
      */
     public boolean enemyInRange(Enemy enemy) {
-
         double deltaXSquared = Math.pow(super.getX() - enemy.getXPosition(), 2);
         double deltaYSquared = Math.pow(super.getY() - enemy.getYPosition(), 2);
 

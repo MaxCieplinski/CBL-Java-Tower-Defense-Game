@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable {
     //Initializing arraylists.
     private ArrayList<Entity> entities = new ArrayList<>();
     private ArrayList<Bullet> playerBullets = new ArrayList<>();
+    private ArrayList<Bomb> bombs = new ArrayList<>();
 
     //Initializing game classes.
     private Player player = new Player(0, 0, 4, this, entities, 20, 20, playerBullets);
@@ -55,6 +56,10 @@ public class GamePanel extends JPanel implements Runnable {
                 townHall.heal();
             }
         });
+    }
+
+    public void addBomb(Bomb b) {
+        bombs.add(b);
     }
 
     public void setTownHallHealPrice(int price) {
@@ -106,6 +111,10 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    public ArrayList<Enemy> getEnemies() {
+        return wave.getEnemies();
+    }
+
     /**
      * Update method, which is called every time after a set interval.
      */
@@ -153,11 +162,15 @@ public class GamePanel extends JPanel implements Runnable {
      * Paints the gamepanel. So it draws the playing field and player.
      */
     public void paintComponent(Graphics g) {
-
         try {
             super.paintComponent(g);
             map.drawGrid(g);
             player.paintPlayer(g);
+
+            cleanUpBombs();
+            for (Bomb bomb : bombs) {
+                bomb.paint(g);
+            }
         
             if (wave.active) {
                 wave.paintEnemies(g);
@@ -171,6 +184,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    public void cleanUpBombs() {
+        bombs.removeIf(bomb -> !bomb.isVisible());
+    }
 
     /**
      * Updates the menu.
