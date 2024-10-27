@@ -38,6 +38,7 @@ Answer 2
 ## Authors
 
 - [Max Cieplinski](https://www.github.com/MaxCieplinski)
+- [Alex Deatc](https://www.github.com/AlexDtc)
 
 ## Tech Stack
 
