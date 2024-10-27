@@ -2,6 +2,7 @@ package gameclasses;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Collider object used for the Player class. This class handles conditions for collisions.
@@ -93,6 +94,7 @@ public class Collider {
      * Makes walls or tower takes damage upon enemy collision.
      */
     public void destroyBuildings(GridCell[][] grid, Enemy e) {
+        List<GridCell> collisionCellsCopy = new ArrayList<>(collisionCells);
         for (GridCell b : collisionCells) {
             if (b.occupied) {
                 b.health -= e.buildingDamage;
@@ -103,6 +105,4 @@ public class Collider {
 
         collisionCells.clear();
     }
-
-
 }
