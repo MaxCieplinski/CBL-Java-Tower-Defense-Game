@@ -51,7 +51,8 @@ public class MenuPanel extends JPanel {
         g.drawString("- You can only shoot during the wave", 500, 100);
         g.drawString("- Each killed enemy rewards you gold", 500, 130);
         g.drawString("- If the town hall gets destroyed you lose!", 500, 160);
-        g.drawString("- You can use a bomb by pressing shift + click. A bomb costs " + GameSettings.PLAYER_BOMB_PRICE + " gold.",
+        g.drawString("- You can use a bomb by pressing shift + click. A bomb costs " 
+                    + GameSettings.PLAYER_BOMB_PRICE + " gold.",
                      500, 190);
     }
 
