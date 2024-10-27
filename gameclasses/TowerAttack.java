@@ -2,6 +2,7 @@ package gameclasses;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles everything to do with towers attacking, including the thread.
@@ -28,9 +29,12 @@ public class TowerAttack implements Runnable {
 
     @Override
     public void run() {
-        if ((GameSettings.towers != null) && (this.enemies != null)) {    
-            for (Tower tower : GameSettings.towers) {
-                for (Enemy enemy : enemies) {
+        if ((GameSettings.towers != null) && (this.enemies != null)) { 
+            List<Tower> towersCopy = new ArrayList<>(GameSettings.towers);
+            List<Enemy> enemiesCopy = new ArrayList<>(enemies);
+
+            for (Tower tower : towersCopy) {
+                for (Enemy enemy : enemiesCopy) {
                     tower.handleEnemy(enemy);
                 }
             }

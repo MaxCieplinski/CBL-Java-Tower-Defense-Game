@@ -16,9 +16,9 @@ public class GameSettings {
     public static final int TOWN_HALL_HEAL_PRICE = 100;
     public static final int TOWN_HALL_HEAL_PERCENTAGE = 10;
     public static final int PLAYER_DAMAGE = 15;
-    public static final int PLAYER_BOMB_DAMAGE = 40;
-    public static final int PLAYER_BOMB_RADIUS = 100;
-    public static final int PLAYER_BOMB_PRICE = 100;
+    public static final int PLAYER_BOMB_DAMAGE = 20;
+    public static final int PLAYER_BOMB_RADIUS = 75;
+    public static final int PLAYER_BOMB_PRICE = 300;
     public static final int TIME_BEFORE_WAVE_START = 10;
     public static final int BREAK_TIME_BETWEEN_WAVES = 20; //default 8
 
