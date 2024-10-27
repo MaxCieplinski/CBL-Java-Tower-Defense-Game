@@ -97,12 +97,14 @@ public class GameSettings {
     }
 
     public static Image getDefaultCellSprite() {
-        try {
-            Image sprite = ImageIO.read(new File("./sprites/DefaulCellSprite.png"));
-            return sprite;
-        } catch (IOException e) {
-            return null;
-        }
+        return null;
+        // try {
+        //     Image sprite = ImageIO.read(new File("./sprites/DefaulCellSprite.png"));
+        //     System.out.println(sprite);
+        //     return sprite;
+        // } catch (IOException e) {
+        //     return null;
+        // }
     }
 
     public static ArrayList<Tower> towers = new ArrayList<>();

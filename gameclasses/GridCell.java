@@ -25,7 +25,7 @@ public class GridCell {
     public int health;
     public int maxHealth;
 
-    public Color color = Color.GRAY;
+    public Color color = Color.decode("#408c3b");
     
     public HealthBar healthBar;
 

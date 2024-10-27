@@ -67,7 +67,7 @@ public class Map {
      */
     public void drawGrid(Graphics g) {
         // Set grid color (optional)
-        g.setColor(Color.LIGHT_GRAY);
+        g.setColor(Color.green);
 
         // Iterate through each cell in the grid and draw it
         for (int col = 0; col < x; col++) {
