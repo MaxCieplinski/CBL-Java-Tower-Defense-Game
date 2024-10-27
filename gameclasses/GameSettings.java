@@ -50,7 +50,6 @@ public class GameSettings {
     public static final int WALL_HEALTH = 100;
 
     public static int getEnemyCount(int waveNumber) {
-        //return (int) Math.round(0.85 * (INITIAL_ENEMY_COUNT + (int) (Math.pow(waveNumber + 1, 2))));
         return INITIAL_ENEMY_COUNT + (int) (Math.pow(waveNumber + 1, 2));
     }
 

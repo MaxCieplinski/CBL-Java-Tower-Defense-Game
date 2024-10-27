@@ -28,8 +28,6 @@ public class GridCell {
     public Color color = Color.decode("#408c3b");
     
     public HealthBar healthBar;
-
-    private ArrayList<Tower> towers;
     public Image sprite;
 
     /**
@@ -46,54 +44,6 @@ public class GridCell {
         this.sprite = sprite;
     }
 
-    /**
-     * Displays buy options when a grid is pressed.
-     * @param grid the playing field, a two-dimensional gridcell array.
-     */
-    // public void displayOptions(GridCell[][] grid) {
-        
-    //     // Possibly change this to JPanel for greater customization
-    //     JPopupMenu optionsMenu = new JPopupMenu();
-
-    //     //So that the player cannot build when the wave is started.
-    //     if (!player.waveStarted) {
-    //         if (!this.occupied) {
-    //             if (this.empty) {
-    //                 // Add tower or wall
-    //                 JMenuItem towerOption = new JMenuItem("Tower - " + GameSettings.TOWER_PRICE);
-    //                 towerOption.addActionListener(e -> {
-    //                     buyTower(player, GameSettings.TOWER_PRICE, grid);
-    //                 });
-
-    //                 optionsMenu.add(towerOption);
-
-    //                 JMenuItem wallOption = new JMenuItem("Wall - " + GameSettings.WALL_PRICE);
-    //                 wallOption.addActionListener(e -> {
-    //                     buyWall(player, GameSettings.WALL_PRICE, grid);
-    //                 });
-
-    //                 optionsMenu.add(wallOption);
-    //             } else {
-    //                 // Upgrade options
-    //             }
-    //         } else {
-    //             JMenuItem destroyOption = new JMenuItem("Destroy - free");
-    //             destroyOption.addActionListener(e -> {
-    //                 destroyObject(player, grid);
-    //             });
-
-    //             optionsMenu.add(destroyOption);
-    //         }
-    //     }
-
-    //     // Calculate the position where the menu should appear (above the clicked cell)
-    //     int popupX = this.x;
-    //     int popupY = this.y - optionsMenu.getPreferredSize().height;
-
-    //     // Show the popup menu at the calculated position
-    //     optionsMenu.show(this.panel, popupX, popupY);
-    // }
-
     public int getX() {
         return this.x;
     }
@@ -109,13 +59,12 @@ public class GridCell {
      * @param price the price of the tower.
      * @param grid the playing field, a two-dimensional array of gridcell.
      */
-    public void buyTower(Player player, int price, GridCell[][] grid, ArrayList<Tower> towers) {
-        this.towers = towers;
+    public void buyTower(Player player, int price, GridCell[][] grid) {
 
         if (player.getGold() >= price) {
             player.subtractGold(price);
             Tower tower = new Tower(player, this.x, this.y, cellSize, this.panel);
-            towers.add(tower);
+            GameSettings.towers.add(tower);
 
             //Compensating for cellsize = 25;
             grid[this.getX() / cellSize][this.getY() / cellSize] = tower;
@@ -143,7 +92,8 @@ public class GridCell {
         this.healthBar.healthBarForeground.setVisible(false);
         
         grid[this.getX() / cellSize][this.getY() / cellSize] = 
-            new GridCell(this.getX(), this.getY(), player, this.cellSize, this.panel, GameSettings.getDefaultCellSprite());
+            new GridCell(this.getX(), this.getY(), player, this.cellSize, this.panel,
+             GameSettings.getDefaultCellSprite());
     }
 
     /**
@@ -153,7 +103,9 @@ public class GridCell {
      * @param grid the playing field, a two-dimensional array of gridcell.
      */
     public void buyWall(Player player, int price, GridCell[][] grid) {
+
         if (player.getGold() >= price) {
+
             player.subtractGold(price);
             Wall wall = new Wall(this.x, this.y, player, panel);
 
@@ -173,6 +125,7 @@ public class GridCell {
      * @return true when health is 0 or below 0 and false otherwise.
      */
     public boolean checkForDestruction(GridCell[][] grid) {
+        
         if (this.health <= 0) {
 
             destroyObject(player, grid);

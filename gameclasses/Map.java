@@ -108,6 +108,10 @@ public class Map {
         return this.grid;
     }
 
+    /**
+     * Displays gridcell buy options.
+     * @param gridCell the gridcell for which the options are displayed.
+     */
     public void displayOptions(GridCell gridCell) {
         
         // Possibly change this to JPanel for greater customization
@@ -142,8 +146,7 @@ public class Map {
                     // Add tower or wall
                     JMenuItem towerOption = new JMenuItem("Tower - " + GameSettings.TOWER_PRICE);
                     towerOption.addActionListener(e -> {
-                        gridCell.buyTower(player, GameSettings.TOWER_PRICE, grid,
-                                        GameSettings.towers);
+                        gridCell.buyTower(player, GameSettings.TOWER_PRICE, grid);
                     });
 
                     optionsMenu.add(towerOption);

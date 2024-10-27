@@ -13,7 +13,6 @@ public class TowerAttack implements Runnable {
 
     /**
      * Creates an object of Class TowerAttack.
-     * @param towers arraylist of all towers in the game.
      * @param enemies arraylist of all enemies in the game.
      */
     public TowerAttack(ArrayList<Enemy> enemies) {
@@ -58,7 +57,6 @@ public class TowerAttack implements Runnable {
 
     /**
      * Updates important main arraylists for the thread.
-     * @param towers arraylist containing all towers.
      * @param enemies arraylist containing all enemies.
      */
     public void updateLists(ArrayList<Enemy> enemies) {

@@ -8,8 +8,8 @@ public class Bomb {
     private int damage = GameSettings.PLAYER_BOMB_DAMAGE;
     private int radius = GameSettings.PLAYER_BOMB_RADIUS;
     private boolean isDrawing = false;
-    private int bombX, bombY;
-    private ArrayList<Enemy> enemies;
+    private int bombX;
+    private int bombY;
     private Timer drawTimer;
     private float alpha = 0.8f;
     private float alphaDecrement = 0.2f;
@@ -18,7 +18,6 @@ public class Bomb {
         this.bombX = x;
         this.bombY = y;
         this.isDrawing = true;
-        this.enemies = enemies;
 
         for (Enemy enemy : enemies) {
             if (enemyInRange(enemy)) {
