@@ -95,7 +95,7 @@ public class Collider {
      */
     public void destroyBuildings(GridCell[][] grid, Enemy e) {
         List<GridCell> collisionCellsCopy = new ArrayList<>(collisionCells);
-        for (GridCell b : collisionCells) {
+        for (GridCell b : collisionCellsCopy) {
             if (b.occupied) {
                 b.health -= e.buildingDamage;
                 b.checkForDestruction(grid);
