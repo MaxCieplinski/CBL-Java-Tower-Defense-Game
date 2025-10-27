@@ -50,7 +50,7 @@ public class Enemy extends Entity {
                                             (int) this.getYPosition() - this.healthBarYOffset);
 
         try {
-            sprite = ImageIO.read(new File("./sprites/EnemySprite.png"));
+            sprite = ImageIO.read(new File("sprites/EnemySprite.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

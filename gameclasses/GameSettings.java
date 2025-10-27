@@ -91,7 +91,7 @@ public class GameSettings {
      */
     public static Image getTowerSprite() {
         try {
-            Image sprite = ImageIO.read(new File("./sprites/TowerSprite.png"));
+            Image sprite = ImageIO.read(new File("sprites/TowerSprite.png"));
             return sprite;
         } catch (IOException e) {
             return null;
@@ -104,7 +104,7 @@ public class GameSettings {
      */
     public static Image getWallSprite() {
         try {
-            Image sprite = ImageIO.read(new File("./sprites/WallSprite.png"));
+            Image sprite = ImageIO.read(new File("sprites/WallSprite.png"));
             return sprite;
         } catch (IOException e) {
             return null;
